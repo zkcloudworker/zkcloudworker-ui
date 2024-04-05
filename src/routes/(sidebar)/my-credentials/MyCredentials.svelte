@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Heading } from "flowbite-svelte";
- 
 </script>
 
 <div class="p-4">

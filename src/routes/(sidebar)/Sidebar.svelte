@@ -9,16 +9,6 @@
   import { 
     Dropdown, DropdownItem, Button
   } from 'flowbite-svelte';
-  import {
-    ArrowRightFromBracketSolid,
-    BoltLightningSolid,
-    UserLargeSolid,
-	  WifiSolid, 
-    BookmarkSolid,
-    InboxSolid,
-    ShapesSolid,
-	  HouseSolid
-  } from "svelte-awesome-icons";
   import Icon from "$lib/components/Icon.svelte";
 	import {
     ChevronDownSolid,
@@ -120,7 +110,7 @@
           <span class="text-sm inline-flex justify-center items-center p-3 ms-3 w-3 h-3 text-sm font-medium text-primary-600 bg-primary-200 rounded-full dark:bg-primary-900 dark:text-primary-200"> 3 </span>
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="Activity" {spanClass}>
+      <SidebarItem label="Activity" {spanClass} href="/activity">
         <svelte:fragment slot="icon">
           <Icon name="Activity" size="5" />
           <!-- <BoltLightningSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
@@ -131,15 +121,15 @@
       </SidebarItem>
     </SidebarGroup>
     <SidebarGroup border>
-      <!-- <SidebarItem label="Profile" {spanClass}>
+      <SidebarItem label="Support" {spanClass} href="/support">
         <svelte:fragment slot="icon">
-          <UserLargeSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+          <Icon name="Support" size="5" />
         </svelte:fragment>
-      </SidebarItem> -->
+      </SidebarItem>
+
       <SidebarItem label="Sign out" {spanClass}>
         <svelte:fragment slot="icon">
           <Icon name="Disconnect" size="5" />
-          <!-- <ArrowRightFromBracketSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
     </SidebarGroup>

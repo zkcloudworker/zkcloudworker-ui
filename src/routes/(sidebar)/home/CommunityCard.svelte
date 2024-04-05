@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
-  import {  PersonSnowboardingSolid,  PeopleGroupSolid } from "svelte-awesome-icons";
   import InvitationCard from './InvitationCard.svelte';
 
   export let title = '', description = '', state = '', count = "0";

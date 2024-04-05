@@ -1,7 +1,5 @@
 <script lang="ts">
   import { Card, Dropdown, DropdownItem, Avatar, Button, Img } from 'flowbite-svelte';
-  import {  PersonSnowboardingSolid,  PeopleGroupSolid } from "svelte-awesome-icons";
-  import InvitationCard from './InvitationCard.svelte';
 </script>
 
 <Card class="text-center mt-8 border-0" size="fluid" padding="xl">

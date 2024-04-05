@@ -12,9 +12,6 @@
 		Navbar,
 		Search
 	} from 'flowbite-svelte';
-  import {
-    BarsStaggeredSolid
-  } from "svelte-awesome-icons";
 	import '../../app.pcss';
 	import Users from '../data/users.json';
 	import Notifications from '$lib/dashboard/NotificationList.svelte';

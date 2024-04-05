@@ -2,7 +2,6 @@
 	import type { PageData } from './$types';
   import { Heading, P } from "flowbite-svelte";
   import { Card, Dropdown, DropdownItem, Avatar, Button } from 'flowbite-svelte';
-  import {  PersonSnowboardingSolid,  PeopleGroupSolid, CmplidBrand } from "svelte-awesome-icons";
   import InvitationCard from './InvitationCard.svelte';
   import CommunityCard from './CommunityCard.svelte';
   import ActivityPanel from './ActivityPanel.svelte';
