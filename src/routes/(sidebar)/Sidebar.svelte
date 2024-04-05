@@ -1,0 +1,155 @@
+<script lang="ts">
+	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/stores';
+
+	import { 
+    Sidebar,	SidebarDropdownWrapper,	SidebarGroup,	SidebarItem, SidebarWrapper,
+    Avatar
+	} from 'flowbite-svelte';
+  import { 
+    Dropdown, DropdownItem, Button
+  } from 'flowbite-svelte';
+  import {
+    ArrowRightFromBracketSolid,
+    BoltLightningSolid,
+    UserLargeSolid,
+	  WifiSolid, 
+    BookmarkSolid,
+    InboxSolid,
+    ShapesSolid,
+	  HouseSolid
+  } from "svelte-awesome-icons";
+  import Icon from "$lib/components/Icon.svelte";
+	import {
+    ChevronDownSolid,
+	} from 'flowbite-svelte-icons';
+  
+	export let drawerHidden: boolean = false;
+  
+	const closeDrawer = () => {
+    drawerHidden = true;
+	};
+  
+	let iconClass =
+  'flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white';
+	let itemClass =
+  'flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700';
+	let groupClass = 'pt-3 space-y-3';
+  let spanClass = 'text-sm text-black dark:text-gray-100 flex-1 ms-3 whitespace-nowrap';
+  
+	$: mainSidebarUrl = $page.url.pathname;
+	let activeMainSidebar: string;
+  
+	afterNavigate((navigation) => {
+    // this fixes https://github.com/themesberg/flowbite-svelte/issues/364
+		document.getElementById('svelte')?.scrollTo({ top: 0 });
+		closeDrawer();
+
+		activeMainSidebar = navigation.to?.url.pathname ?? '';
+	});
+</script>
+
+<Sidebar
+  class={drawerHidden ? 'hidden' : ''}
+  activeUrl={mainSidebarUrl}
+  activeClass="flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700"
+  asideClass="fixed inset-0 z-30 flex-none h-full w-full lg:w-64 lg:h-auto border-e border-gray-200 dark:border-gray-600 lg:overflow-y-visible pt-8 lg:pt-24 lg:block"
+  >
+  <SidebarWrapper class="pt-14 pb-12 lg:pt-0">
+    <SidebarGroup class="pt-2">
+      <SidebarItem label="Network" {spanClass}>
+        <svelte:fragment slot="icon">
+            <Icon name="Network" size="5" />
+            <!-- <WifiSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+        <svelte:fragment slot="subtext">
+          <Button class="inline-flex justify-center items-center px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-green-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
+            Mainnet
+            <ChevronDownSolid class="w-3 h-3 ms-2 text-dark dark:text-white" />
+          </Button>
+          <Dropdown>
+            <DropdownItem>Mainnet</DropdownItem>
+            <DropdownItem>Berkeley</DropdownItem>
+          </Dropdown>
+        </svelte:fragment>  
+      </SidebarItem>
+    </SidebarGroup>
+
+    <SidebarGroup border class="pt-6 mt-4">
+
+      <SidebarItem label="Profile" {spanClass} class="lg:hidden">
+        <svelte:fragment slot="icon">
+          <Icon name="Profile" size="5" />
+        </svelte:fragment>
+        <svelte:fragment slot="subtext">
+          <Avatar size="sm" 
+            src={'/images/profile-909.png'}
+            tabindex="0"/>
+        </svelte:fragment>  
+      </SidebarItem>
+
+      <SidebarItem label="Home" {spanClass} {itemClass} href="/home">
+        <svelte:fragment slot="icon">
+          <Icon name="Home" size="5" />
+          <!-- <HouseSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+      </SidebarItem>
+      <SidebarItem label="My Credentials" {spanClass} {itemClass} href="/my-credentials">
+        <svelte:fragment slot="icon">
+          <Icon name="MyCredentials" size="5" />
+        </svelte:fragment>
+      </SidebarItem>
+      <SidebarItem label="My Claims" {spanClass} {itemClass} href="/my-claims">
+        <svelte:fragment slot="icon">
+          <Icon name="MyClaims" size="5" />
+          <!-- <BookmarkSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+      </SidebarItem>
+      <SidebarItem label="My Communities" {spanClass} {itemClass} href="/my-communities">
+        <svelte:fragment slot="icon">
+          <Icon name="MyCommunities" size="5" />
+          <!-- <ShapesSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+      </SidebarItem>
+      <SidebarItem label="My Tasks" {spanClass} {itemClass} href="/my-tasks">
+        <svelte:fragment slot="icon">
+          <Icon name="Tasks" size="5" />
+          <!-- <InboxSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+        <svelte:fragment slot="subtext">
+          <span class="text-sm inline-flex justify-center items-center p-3 ms-3 w-3 h-3 text-sm font-medium text-primary-600 bg-primary-200 rounded-full dark:bg-primary-900 dark:text-primary-200"> 3 </span>
+        </svelte:fragment>
+      </SidebarItem>
+      <SidebarItem label="Activity" {spanClass}>
+        <svelte:fragment slot="icon">
+          <Icon name="Activity" size="5" />
+          <!-- <BoltLightningSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+        <svelte:fragment slot="subtext">
+          <span class="inline-flex justify-center items-center px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">4 pending</span>
+        </svelte:fragment>
+      </SidebarItem>
+    </SidebarGroup>
+    <SidebarGroup border>
+      <!-- <SidebarItem label="Profile" {spanClass}>
+        <svelte:fragment slot="icon">
+          <UserLargeSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+        </svelte:fragment>
+      </SidebarItem> -->
+      <SidebarItem label="Sign out" {spanClass}>
+        <svelte:fragment slot="icon">
+          <Icon name="Disconnect" size="5" />
+          <!-- <ArrowRightFromBracketSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
+        </svelte:fragment>
+      </SidebarItem>
+    </SidebarGroup>
+  </SidebarWrapper>
+</Sidebar>
+
+<div
+	hidden={drawerHidden}
+	class="fixed inset-0 z-20 bg-gray-900/50 dark:bg-gray-900/60"
+	on:click={closeDrawer}
+	on:keydown={closeDrawer}
+	role="presentation"
+/>
