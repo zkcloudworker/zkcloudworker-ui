@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Heading } from 'flowbite-svelte-icons';
+	import { Heading } from 'flowbite-svelte';
 	//export let href: string = '#';
   let twClasses = "" 
 </script>

@@ -12,5 +12,6 @@
   <img 
     src={`/icons/${name}.svg`} 
     class={`h-${width} w-${width}`}
+    alt={`${name} Icon`}
   />
 </span>
