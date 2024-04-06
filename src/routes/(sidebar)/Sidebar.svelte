@@ -9,10 +9,8 @@
   import { 
     Dropdown, DropdownItem, Button
   } from 'flowbite-svelte';
+  import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/Icon.svelte";
-	import {
-    ChevronDownSolid,
-	} from 'flowbite-svelte-icons';
   
 	export let drawerHidden: boolean = false;
   
@@ -55,7 +53,7 @@
         <svelte:fragment slot="subtext">
           <Button class="inline-flex justify-center items-center px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-green-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
             Mainnet
-            <ChevronDownSolid class="w-3 h-3 ms-2 text-dark dark:text-white" />
+            <ChevronDownOutline class="w-3 h-3 ms-2 text-dark dark:text-white" />
           </Button>
           <Dropdown>
             <DropdownItem>Mainnet</DropdownItem>
