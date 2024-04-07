@@ -2,17 +2,13 @@
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import { 
-    Sidebar,	SidebarDropdownWrapper,	SidebarGroup,	SidebarItem, SidebarWrapper,
-    Avatar
-	} from 'flowbite-svelte';
-  import { 
-    Dropdown, DropdownItem, Button
-  } from 'flowbite-svelte';
+	import { Sidebar,	SidebarGroup,	SidebarItem, SidebarWrapper } from 'flowbite-svelte';
+  import { Avatar, Select } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/Icon.svelte";
   
 	export let drawerHidden: boolean = false;
+  export let network: string = 'main';
   
 	const closeDrawer = () => {
     drawerHidden = true;
@@ -45,22 +41,23 @@
   >
   <SidebarWrapper class="pt-14 pb-12 lg:pt-0">
     <SidebarGroup class="pt-2">
+
       <SidebarItem label="Network" {spanClass}>
         <svelte:fragment slot="icon">
             <Icon name="Network" size="5" />
-            <!-- <WifiSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
         <svelte:fragment slot="subtext">
-          <Button class="inline-flex justify-center items-center px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-green-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
-            Mainnet
-            <ChevronDownOutline class="w-3 h-3 ms-2 text-dark dark:text-white" />
-          </Button>
-          <Dropdown>
-            <DropdownItem>Mainnet</DropdownItem>
-            <DropdownItem>Berkeley</DropdownItem>
-          </Dropdown>
+          <Select 
+            class="max-w-24 px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-green-200 rounded-full border-green-200 dark:bg-gray-700 dark:text-gray-300"
+            placeholder="" 
+            bind:value={network}
+            >
+            <option selected value="main">Mainnet</option>
+            <option value="test">Testnet</option>
+          </Select>
         </svelte:fragment>  
       </SidebarItem>
+
     </SidebarGroup>
 
     <SidebarGroup border class="pt-6 mt-4">
