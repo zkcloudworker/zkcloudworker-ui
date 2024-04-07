@@ -12,8 +12,10 @@ if ('serviceWorker' in navigator) {
 if (activeSession) {
   API.init(activeSession);  
   // user = await getCurrentUser();
-  const apiStatus = await API.status({ metrics: true });
-  console.log("API status=", apiStatus);
+  setTimeout(async () => {
+    const apiStatus = await API.status({ metrics: true });
+    console.log("API status=", apiStatus);
+  }, 100)
 } 
 else {
   API.init(getDefaultSession());  

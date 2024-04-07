@@ -1,15 +1,37 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-		"moduleResolution": "bundler"
+    /// Copy zkApp config ///
+    "target": "esnext", //"es2020",
+    "module": "es2022",
+    "lib": ["dom", "esnext"],
+    "strict": true,
+    "strictPropertyInitialization": false, // to enable generic constructors, e.g. on CircuitValue
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "declaration": true,
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true
+    /// end of config ///
+
+    /// The deafult config ///
+		// "allowJs": true,
+		// "checkJs": true,
+		// "esModuleInterop": true,
+		// "forceConsistentCasingInFileNames": true,
+		// "resolveJsonModule": true,
+		// "skipLibCheck": true,
+		// "sourceMap": true,
+		// "strict": true,
+		// "moduleResolution": "bundler"
+
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
