@@ -1,5 +1,5 @@
 import { type Session, getDefaultSession } from "$lib/store/sessions";
-import { IsError } from "./errors";
+import { APIError } from "./api-errors";
 
 export { API, type APIResponse };
 
@@ -10,7 +10,7 @@ export { API, type APIResponse };
  */
 interface APIResponse {
   data: any | null;
-  error?: IsError
+  error?: APIError
 };
 
 
@@ -36,7 +36,7 @@ class API {
    * @returns API - the API singleton
    */
   static init(session: Session) {
-    if (! session) IsError
+    if (! session) APIError
       .BAD_REQUEST("API.connect() needs a Session object, not Null")
       .raise();
     Object.assign(this, session || getDefaultSession());
@@ -76,7 +76,7 @@ class API {
     
       if (!response.ok) return {
         data: null,
-        error: new IsError(response.status, response.statusText)
+        error: new APIError(response.status, response.statusText)
       }
 
       return {
@@ -85,7 +85,7 @@ class API {
     } catch (err: any) {
       return {
         data: null,
-        error: IsError.NETWORK_ERROR(err.message, err.cause),
+        error: APIError.NETWORK_ERROR(err.message, err.cause),
       };
     }
   }
@@ -114,16 +114,20 @@ class API {
     
       if (!response.ok) return {
         data: null,
-        error: new IsError(response.status, response.statusText)
+        error: new APIError(response.status, response.statusText)
       }
 
+      // remember: the API returns also an { data, error } obj
+      // that needs to be reformated, and it MAY include an error response too 
+      const parsed = await response.json()
       return {
-        data: await response.json()
+        data: parsed.data,
+        error: parsed.error
       }
     } catch (err: any) {
       return {
         data: null,
-        error: IsError.NETWORK_ERROR(err.message, err.cause),
+        error: APIError.NETWORK_ERROR(err.message, err.cause),
       };
     };
   }
@@ -131,7 +135,7 @@ class API {
 //   /**
 //    * Mutate data
 //    * @param params object
-//    * @returns any | IsError
+//    * @returns any | APIError
 //    * */
 //   async mutate(method: string, params: any): Promise<AnyResponse> {
 //     try {

@@ -2,7 +2,7 @@
  * Normalize the API responses.
  * @MAZ - 2024-04-06
  */
-export { IsError };
+export { APIError };
 
 /**
  * Return a formated HTTP error or raise a formated exception.
@@ -20,15 +20,15 @@ export { IsError };
  *    // return a formated response
  *    return {
  *      data: null,
- *      error: IsError.BAD_REQUEST("Message ...", except.cause);
+ *      error: APIError.BAD_REQUEST("Message ...", except.cause);
  *    }
  * 
  *    // or reraise the Exception
- *    IsError.BAD_REQUEST.raise("Message ...", except.cause);
+ *    APIError.BAD_REQUEST.raise("Message ...", except.cause);
  *  }
  * ~~~~
  */
-class IsError {
+class APIError {
   static UNKNOWN = error(600);
   static NETWORK_ERROR = error(601);
   // **What are you talking about?**
@@ -56,10 +56,10 @@ class IsError {
 
   constructor(code: number, message?: string, reason?: string) {
     // Check if the instance is being created without 'new'
-    if (!(this instanceof IsError)) {
-        return new IsError(code, message, reason);
+    if (!(this instanceof APIError)) {
+        return new APIError(code, message, reason);
     }
-    this.code = code || IsError.UNKNOWN().code;
+    this.code = code || APIError.UNKNOWN().code;
     this.message = message || "Unknown error !";
     this.cause = reason || "No discernible cause."; 
   }
@@ -71,6 +71,6 @@ class IsError {
 
 function error(code: number) {
   return (message?: string, reason?: string) => {
-    return new IsError(code, message, reason);
+    return new APIError(code, message, reason);
   }  
 }
