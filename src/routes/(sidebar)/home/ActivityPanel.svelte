@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Heading, P, Badge  } from 'flowbite-svelte';
-  export let activities = [];
+  export let activities: any[] = [];
 </script>
 
 <div class="block w-full border-1 rounded px-4">

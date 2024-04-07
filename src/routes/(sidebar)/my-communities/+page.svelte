@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { CACHE } from "$lib/api/caches";
-  import { getAllCommunities, getMyCommunities } from '$lib/api/queries';
   import { onMount } from 'svelte';
-  import { Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
-  import MyCommunities from "./MyCommunities.svelte";
+  import { CACHE } from "$lib/api/caches";
+  import { getMyCommunities } from '$lib/api/queries';
+  import { Breadcrumb, BreadcrumbItem, P } from 'flowbite-svelte';
 	import MetaTag from '../../utils/MetaTag.svelte';
-	import type { Community } from '$lib/store/communities';
+	import MyCommunities from "./MyCommunities.svelte";
 
 	const path: string = '/home';
   const description: string = 'Admin Dashboard example using Flowbite Svelte';
@@ -14,7 +13,6 @@
 
   const STORE_KEY = 'my_communities';
   let communities: any[];
-
 
   onMount(() => {
     // communities = getAllCommunities({ notJoined: true });
@@ -29,10 +27,11 @@
 <MetaTag {path} {description} {title} {subtitle} />
 
 <main class="p-8">
+  <!-- only on mobile -->
   <Breadcrumb class="mb-5 lg:hidden">
     <BreadcrumbItem home href="/home">Home</BreadcrumbItem>
     <BreadcrumbItem>My Communities</BreadcrumbItem>
   </Breadcrumb>
 
-  <MyCommunities data={communities}/>
+  <MyCommunities {communities} />
 </main>

@@ -2,7 +2,9 @@
 	import type { PageData } from './$types';
   import ActivityPanel from './ActivityPanel.svelte';
   import ForYou from "./ForYou.svelte";
-  import { communities, activities } from './data';
+  export let 
+    communities: any[] = [],
+    activities: any[] = [];
 </script>
 
 <div class="p-4">

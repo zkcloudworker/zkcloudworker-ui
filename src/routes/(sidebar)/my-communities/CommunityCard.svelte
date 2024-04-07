@@ -1,6 +1,9 @@
 <script lang="ts">
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
-  export let uid = '', title = '', description = '', state = '', count = "0";
+  export let 
+    uid = '', title = '', description = '', 
+    state = '', count = "0", 
+    joined = false;
 </script>
 
 <Card class="" padding="none" size="fluid">
@@ -20,7 +23,9 @@
         <Avatar src="/images/profile-1.png" stacked  size="sm"/>
         <Avatar stacked size="sm" class="bg-gray-700 text-white hover:bg-gray-600 text-xs">+{count}</Avatar>        
       </div>      
-      <Button color="primary" size="sm">Join</Button>
+      {#if !joined}
+        <Button color="primary" size="sm">Join</Button>
+      {/if}
     </div>
   </div>
 </Card>  
