@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { getAllCommunities } from '$lib/api/queries';
+  import { CACHE } from "$lib/api/caches";
+  import { getAllCommunities, getMyCommunities } from '$lib/api/queries';
   import { onMount } from 'svelte';
   import { Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
   import MyCommunities from "./MyCommunities.svelte";
@@ -11,10 +12,17 @@
   const title: string = 'Flowbite Svelte Admin Dashboard - Dashboard';
   const subtitle: string = 'Admin Dashboard';
 
-  let communities: Promise<Community[]>;
+  const STORE_KEY = 'my_communities';
+  let communities: any[];
+
 
   onMount(() => {
-    communities = getAllCommunities({ notJoined: true });
+    // communities = getAllCommunities({ notJoined: true });
+    communities = CACHE.get(STORE_KEY) || [];
+    getMyCommunities().then((data: any[]) => {
+      communities = data;
+      CACHE.set(STORE_KEY, data);
+    })
   })
 </script>
 
@@ -26,5 +34,5 @@
     <BreadcrumbItem>My Communities</BreadcrumbItem>
   </Breadcrumb>
 
-  <MyCommunities promised={communities}/>
+  <MyCommunities data={communities}/>
 </main>

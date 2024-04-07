@@ -2,7 +2,8 @@ import { API } from "./api-client";
 import type { Community } from "$lib/store/communities";
 
 export { 
-  getAllCommunities
+  getAllCommunities,
+  getMyCommunities
 }
 
 async function getAllCommunities(params: {
@@ -10,5 +11,12 @@ async function getAllCommunities(params: {
 }): Promise<Community[]> {
   const rs = await API.query("get_all_communities", params);
   if (rs.error) return [];
-  return rs.data.data as Community[];
+  return rs.data.data;
 }
+
+async function getMyCommunities(): Promise<Community[]> {
+  const rs = await API.query("get_my_communities", {});
+  if (rs.error) return [];
+  return rs.data.data;
+}
+

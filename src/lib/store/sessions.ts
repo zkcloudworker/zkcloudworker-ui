@@ -18,7 +18,7 @@ interface Session {
   authorization: string;
 };
 
-const STORAGE_KEY = "current-session";
+const STORE_KEY = "current-session";
 
 const DEFAULT_SESSION: Session = {
   host: "api.socialcap.api", // "localhost"
@@ -29,7 +29,7 @@ const DEFAULT_SESSION: Session = {
 
 
 function getCurrentSession(): Session | null {
-  const data = localStorage.getItem(STORAGE_KEY);
+  const data = localStorage.getItem(STORE_KEY);
   // we simulate it for now ...
   // data = mockup;
   // return data && JSON.parse(data) || null; 
@@ -43,12 +43,12 @@ function getDefaultSession(): Session {
 function setActiveSession(session: Session) {
   if (! session)
     throw Error("session/setActiveSession: Invalid session");
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+  localStorage.setItem(STORE_KEY, JSON.stringify(session));
   return session;
 };
 
 function removeActiveSession() {
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(STORE_KEY);
   return;
 };
 
