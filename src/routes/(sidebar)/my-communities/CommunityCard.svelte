@@ -5,10 +5,20 @@
     uid = '', title = '', description = '', image = '',
     state = '', count = "0", 
     joined = false;
+
+  const bgImage = '/images/gradient-background-1.jpeg';
 </script>
 
 <Card class="" padding="none" size="fluid">
-  <img src="/images/gradient-background-1.jpeg" class="" style="width:100%;max-height:128px;"/>
+  <!-- <div class="bg-[url(')] bg-cover p-4">
+  </div> -->
+  <div class="relative">
+    <img src={bgImage} class="h-32 w-full"/>
+    <span class="inline-block mt-4 ms-4 absolute top-0 left-0">
+      <Avatar src={image || bgImage} class="h-24 w-24 round drop-shadow-lg"/>
+    </span>
+  </div>
+
   <div class="flex flex-col px-6 pb-4">
     <a href={`/community/${uid}`}>
       <h6 class="mt-4 mb-2 text-xl font-bold text-gray-900 dark:text-white">{title}</h6>

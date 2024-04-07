@@ -16,7 +16,7 @@
     <br/>
     <span class={`text-base ${twClasses}`}>
       If you think this is an application error, please report it 
-      to our Team using the <A href="/support">Support channels</A>
+      to our Team using the <A class="font-bold" href="/support">Support channels</A>
     </span>
     <br/>
     <span class={`text-sm`}>
