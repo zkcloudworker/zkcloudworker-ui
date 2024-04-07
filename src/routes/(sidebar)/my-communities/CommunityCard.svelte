@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
+
   export let 
-    uid = '', title = '', description = '', 
+    uid = '', title = '', description = '', image = '',
     state = '', count = "0", 
     joined = false;
 </script>

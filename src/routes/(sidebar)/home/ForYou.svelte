@@ -1,11 +1,25 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Heading, P } from "flowbite-svelte";
-  import H1 from "$lib/components/H1.svelte";
+  import { CACHE, type APIResponse } from "$lib/api";  
+  import { getAllCommunities } from "$lib/api/queries";
+  import { P } from "flowbite-svelte";
+  import { H1 } from "$lib/components";
   import InvitationCard from "./InvitationCard.svelte";
   import CommunitiesList from "../my-communities/CommunitiesList.svelte"
+	import ErrorOnFetch from "$lib/components/ErrorOnFetch.svelte";
 
-  export let communities: any[] = [];
+  const STORE_KEY = 'all_communities';
+  let communities: APIResponse;
+
+  onMount(() => {
+    // communities = getAllCommunities({ notJoined: true });
+    communities = CACHE.get(STORE_KEY) || [];
+    getAllCommunities({ notJoined: true })
+      .then((response: APIResponse) => {
+        communities = response;
+        CACHE.set(STORE_KEY, response);
+      })
+  })
 </script>
 
 <div>
@@ -15,8 +29,15 @@
   </P>
   <InvitationCard />
   <br>
-  <CommunitiesList 
-    data={communities} 
-    joined={false} 
-  />
+  {#if !communities?.error}
+    <CommunitiesList 
+      data={communities?.data || []} 
+      joined={false} 
+    />
+  {:else}
+    <ErrorOnFetch 
+      description="All the communities"
+      error={communities.error} 
+    />
+  {/if}
 </div>

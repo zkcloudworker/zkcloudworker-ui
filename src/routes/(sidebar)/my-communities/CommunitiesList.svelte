@@ -18,6 +18,7 @@
               state={t.state}
               title={t.name}      
               description={t.description}
+              image={t.image}
               count={"10"}
               joined={joined}
             />

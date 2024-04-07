@@ -1,9 +1,23 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { CACHE, type APIResponse } from "$lib/api";
+  import { getMyCommunities } from '$lib/api/queries';
   import { P } from "flowbite-svelte";
-  import H1 from "$lib/components/H1.svelte";
+  import { H1, ErrorOnFetch } from "$lib/components";
 	import CommunitiesList from "./CommunitiesList.svelte";
 
-  export let communities: any[] = [];
+  const STORE_KEY = 'my_communities';
+  export let communities: APIResponse | null = null;
+
+  onMount(() => {
+    // communities = getAllCommunities({ notJoined: true });
+    communities = CACHE.get(STORE_KEY) || null;
+    getMyCommunities({})
+      .then((response: APIResponse) => {
+        communities = response;
+        CACHE.set(STORE_KEY, response);
+      })
+  })
 </script>
 
 <div class="p-4">
@@ -12,8 +26,15 @@
     I have joined these ones ...
   </P>
   <P class="pb-8"></P>
-  <CommunitiesList 
-    data={communities}
-    joined={true} 
-  />
+  {#if !communities?.error}
+    <CommunitiesList 
+      data={communities?.data || []} 
+      joined={true} 
+    />
+  {:else}
+    <ErrorOnFetch 
+      description="My communities"
+      error={communities.error} 
+    />
+  {/if}
 </div>  
