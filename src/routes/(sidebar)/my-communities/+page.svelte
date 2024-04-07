@@ -26,7 +26,7 @@
 
 <MetaTag {path} {description} {title} {subtitle} />
 
-<main class="p-8">
+<main class="p-4">
   <!-- only on mobile -->
   <Breadcrumb class="mb-5 lg:hidden">
     <BreadcrumbItem home href="/home">Home</BreadcrumbItem>
