@@ -9,10 +9,10 @@
 	import ErrorOnFetch from "$lib/components/ErrorOnFetch.svelte";
 
   const STORE_KEY = 'all_communities';
-  let communities: APIResponse;
+  let communities: APIResponse | null = null;
 
   onMount(() => {
-    // communities = getAllCommunities({ notJoined: true });
+    console.log("onMount ForYou communities=", communities);
     communities = CACHE.get(STORE_KEY) || [];
     getAllCommunities({ notJoined: true })
       .then((response: APIResponse) => {

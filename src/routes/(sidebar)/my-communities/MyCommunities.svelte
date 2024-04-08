@@ -10,7 +10,7 @@
   export let communities: APIResponse | null = null;
 
   onMount(() => {
-    // communities = getAllCommunities({ notJoined: true });
+    console.log("onMount myCommunities communities=", communities);
     communities = CACHE.get(STORE_KEY) || null;
     getMyCommunities({})
       .then((response: APIResponse) => {
