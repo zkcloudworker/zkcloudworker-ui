@@ -15,9 +15,9 @@ export {
 async function getAllCommunities(params: {
   columns?: string[], 
   notJoined?: boolean
-}): Promise<any[]> {
+}): Promise<Community[]> {
   const rs = await API.query("get_all_communities", params);
-  if (rs.error) return [];
+  if (rs.error) return []; // TODO handle error
   return rs.data;
 }
 
@@ -28,8 +28,8 @@ async function getAllCommunities(params: {
  */
 async function getMyCommunities(params: {
   columns?: string[], 
-}): Promise<any[]> {
+}): Promise<Community[]> {
   const rs = await API.query("get_my_communities", params);
-  if (rs.error) return [];
+  if (rs.error) return []; // Todo handle error
   return rs.data;
 }
