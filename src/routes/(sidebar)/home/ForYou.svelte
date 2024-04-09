@@ -1,21 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { getAllCommunities } from "$lib/api/queries";
   import { P } from "flowbite-svelte";
   import { H1 } from "$lib/components";
   import InvitationCard from "./InvitationCard.svelte";
   import CommunitiesList from "../my-communities/CommunitiesList.svelte"
 	import ErrorOnFetch from "$lib/components/ErrorOnFetch.svelte";
-  import { createQuery } from '@tanstack/svelte-query'
-
-  const STORE_KEY = 'all_communities';
-  const communities = createQuery({
-    queryKey: [STORE_KEY],
-    queryFn: () => getAllCommunities({ notJoined: true }),
-  })
-
-  onMount(() => {
-  })
+  import { useGetAllCommunities } from "$lib/hooks/communities";
+  
+  const communities = useGetAllCommunities();
 </script>
 
 <div>
