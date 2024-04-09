@@ -5,18 +5,15 @@
   import { P } from "flowbite-svelte";
   import { H1, ErrorOnFetch } from "$lib/components";
 	import CommunitiesList from "./CommunitiesList.svelte";
+  import { createQuery } from '@tanstack/svelte-query'
 
   const STORE_KEY = 'my_communities';
-  export let communities: APIResponse | null = null;
+  const communities = createQuery({
+    queryKey: [STORE_KEY],
+    queryFn: () => getMyCommunities({}),
+  })
 
   onMount(() => {
-    console.log("onMount myCommunities communities=", communities);
-    communities = CACHE.get(STORE_KEY) || null;
-    getMyCommunities({})
-      .then((response: APIResponse) => {
-        communities = response;
-        CACHE.set(STORE_KEY, response);
-      })
   })
 </script>
 
@@ -26,15 +23,19 @@
     I have joined these ones ...
   </P>
   <P class="pb-8"></P>
-  {#if !communities?.error}
-    <CommunitiesList 
-      data={communities?.data || []} 
-      joined={true} 
+  {#if $communities.isLoading}
+    <span>Loading...</span>
+  {:else if $communities.isError}
+    <ErrorOnFetch 
+      description="All the communities"
+      error={$communities.error} 
     />
   {:else}
-    <ErrorOnFetch 
-      description="My communities"
-      error={communities.error} 
-    />
+    <ul>
+      <CommunitiesList 
+        data={$communities.data} 
+        joined={false} 
+      />
+    </ul>
   {/if}
 </div>  

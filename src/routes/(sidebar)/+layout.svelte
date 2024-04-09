@@ -3,7 +3,12 @@
 	import Footer from './Footer.svelte';
 	import Navbar from './Navbar.svelte';
 	import Sidebar from './Sidebar.svelte';
+	import { QueryClientProvider, QueryClient } from '@tanstack/svelte-query'
+
 	let drawerHidden = false;
+	// Create a client
+	const queryClient = new QueryClient()
+ 
 </script>
 
 <header
@@ -13,8 +18,10 @@
 </header>
 <div class="overflow-hidden lg:flex">
 	<Sidebar bind:drawerHidden />
+	<QueryClientProvider client={queryClient}>
 	<div class="relative h-full w-full overflow-y-auto lg:ml-64">
 		<slot />
 		<Footer />
 	</div>
+	</QueryClientProvider>
 </div>

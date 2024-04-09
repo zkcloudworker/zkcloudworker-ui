@@ -5,7 +5,7 @@
   const twClasses: string = ""; 
   export { twClasses as class }; 
   export let description: string = '' 
-  export let error: APIError | null = null;
+  export let error: any | null = null;
 </script>
 
 <div class="py-4">
