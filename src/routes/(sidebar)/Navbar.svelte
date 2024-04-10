@@ -15,7 +15,6 @@
 	import Users from '../data/users.json';
 	import Notifications from '$lib/components/NotificationList.svelte';
   import SearchList from '$lib/components/SearchList.svelte';
-
 	export let fluid = true;
 	export let drawerHidden = false;
 	export let list = false;

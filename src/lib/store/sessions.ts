@@ -7,7 +7,7 @@ export {
   type Session,
   getCurrentSession, 
   getDefaultSession,
-  setActiveSession, 
+  saveActiveSession, 
   removeActiveSession 
 } ;
 
@@ -21,7 +21,7 @@ interface Session {
 const STORE_KEY = "current-session";
 
 const DEFAULT_SESSION: Session = {
-  host: "api.socialcap.api", // "localhost"
+  host: "api.socialcap.app", // "localhost"
   protocol: "https", // localhost uses "http"
   port: 443, // locahost uses 3080
   authorization: "",
@@ -32,15 +32,15 @@ function getCurrentSession(): Session | null {
   const data = localStorage.getItem(STORE_KEY);
   // we simulate it for now ...
   // data = mockup;
-  // return data && JSON.parse(data) || null; 
-  return JSON.parse(TMP_SESSION) || data && JSON.parse(data) || null; 
+  // return null; 
+  return data && JSON.parse(data) || null; 
 };
 
 function getDefaultSession(): Session {
   return DEFAULT_SESSION; 
 };
 
-function setActiveSession(session: Session) {
+function saveActiveSession(session: Session) {
   if (! session)
     throw Error("session/setActiveSession: Invalid session");
   localStorage.setItem(STORE_KEY, JSON.stringify(session));

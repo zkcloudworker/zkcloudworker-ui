@@ -1,13 +1,14 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
 	import type { PageData } from './$types';
 	import MetaTag from '../utils/MetaTag.svelte';
   import Home from "./home/Home.svelte";
-	export let data: PageData;
 
 	const path: string = '';
-  const description: string = 'Admin Dashboard example using Flowbite Svelte';
-  const title: string = 'Flowbite Svelte Admin Dashboard - Home';
-  const subtitle: string = 'Admin Dashboard';
+  const description: string = 'Socialcap App';
+  const title: string = 'Socialcap';
+  const subtitle: string = 'Home';
 </script>
 
 <MetaTag {path} {description} {title} {subtitle} />
