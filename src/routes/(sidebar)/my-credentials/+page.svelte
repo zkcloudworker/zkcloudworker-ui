@@ -1,6 +1,6 @@
 <script lang="ts">
   import MyCredentials from "./MyCredentials.svelte";
-	import MetaTag from '../../utils/MetaTag.svelte';
+  import { MetaTag } from "$lib/components";
 
 	const path: string = '/home';
   const description: string = 'Admin Dashboard example using Flowbite Svelte';

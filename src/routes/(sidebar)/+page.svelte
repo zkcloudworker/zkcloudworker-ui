@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
 	import type { PageData } from './$types';
-	import MetaTag from '../utils/MetaTag.svelte';
+  import { MetaTag } from "$lib/components";
   import Home from "./home/Home.svelte";
 
 	const path: string = '';

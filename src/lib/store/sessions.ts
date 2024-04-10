@@ -16,6 +16,7 @@ interface Session {
   port: number;
   protocol: 'https' | 'http';
   authorization: string;
+  key: string;
 };
 
 const STORE_KEY = "current-session";
@@ -25,6 +26,7 @@ const DEFAULT_SESSION: Session = {
   protocol: "https", // localhost uses "http"
   port: 443, // locahost uses 3080
   authorization: "",
+  key: ""
 };
 
 
@@ -47,9 +49,9 @@ function saveActiveSession(session: Session) {
   return session;
 };
 
-function removeActiveSession() {
+function removeActiveSession(): Session {
   localStorage.removeItem(STORE_KEY);
-  return;
+  return getDefaultSession();
 };
 
 
@@ -58,5 +60,6 @@ const TMP_SESSION = JSON.stringify({
     "host":"api.socialcap.app",
     "port":443,
     "protocol":"https",
+    "key": "no-key",
     "authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJlYzNjNmUyNTRkMGI0MmRlYmQ5MzlkOWE3YmQ3ZGRkZCIsInNlc3Npb25fa2V5IjoiZWRiMmM5YTU2NGMzNDQxZmIwM2VlZGE4Njc0NGUwNzIiLCJjcmVhdGVkX3V0YyI6IjIwMjQtMDMtMTlUMTI6NDE6MTcuOTQxWiIsImV4cGlyZXNfdXRjIjpudWxsLCJpYXQiOjE3MTA4NTIwNzd9.7lmOewsVBwWPACu4_BU6HM8NfElzRJz19V_SqCgHwzw"
 });

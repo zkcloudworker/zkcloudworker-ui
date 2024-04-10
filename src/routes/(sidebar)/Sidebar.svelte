@@ -34,7 +34,6 @@
 
   function logoutNow() {
     removeActiveSession();
-    goto("/login");
   }
 </script>
 
@@ -127,7 +126,7 @@
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="Sign out" {spanClass} on:click={() => logoutNow()}>
+      <SidebarItem label="Sign out" {spanClass} href="/login">
         <svelte:fragment slot="icon">
           <Icon name="Disconnect" size="5" />
         </svelte:fragment>

@@ -3,7 +3,7 @@
   import { getCurrentSession } from "$lib/store/sessions";
   // import { requestOTP, login } from "apis/mutations";
   import { Card, Button, Label, Input, Checkbox, A  } from "flowbite-svelte";
-	import MetaTag from '../../utils/MetaTag.svelte';
+  import { MetaTag } from "$lib/components";
 
   let session ;
 

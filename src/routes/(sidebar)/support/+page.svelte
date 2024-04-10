@@ -1,7 +1,6 @@
 <script lang="ts">
   import Support from "./Support.svelte";
-	import MetaTag from '../../utils/MetaTag.svelte';
-	//export let data;
+  import { MetaTag } from "$lib/components";
 
 	const path: string = '/home';
   const description: string = 'Admin Dashboard example using Flowbite Svelte';

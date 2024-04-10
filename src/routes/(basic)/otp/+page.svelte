@@ -1,12 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
-  import { getCurrentSession, getDefaultSession, saveActiveSession, type Session } from "$lib/store/sessions";
+  import { getCurrentSession, getDefaultSession } from "$lib/store/sessions";
+  import { saveActiveSession, type Session } from "$lib/store/sessions";
+  import { API } from "$lib/api";
   import { login } from "$lib/api/mutations";
   import { Card, Button, Label, Input, A, Alert  } from "flowbite-svelte";
   import { InfoCircleSolid } from "flowbite-svelte-icons";
-	import MetaTag from '../../utils/MetaTag.svelte';
-	import SubmitButton from "$lib/components/SubmitButton.svelte";
+	import { MetaTag, SubmitButton } from '$lib/components';
 
   export let data: any;
  
@@ -36,6 +37,7 @@
     session = getDefaultSession();
     session.authorization = rsp.data.authorization;
     saveActiveSession(session);
+    API.init(activeSession);  
 
     // success
     alert = 'DONE';
@@ -95,8 +97,9 @@
           <Label class="space-y-2 mt-6">
             <span class="text-sm font-semibold ps-1">Enter 6 digit code</span>
             <div class="flex items-center justify-between space-x-1">
+              <!-- on:input={(e) => validateOtp(e)} -->
               <Input 
-                on:input={(e) => validateOtp(e)}
+                bind:value={otp}
                 class="tracking-[1.4rem] text-2xl w-full ps-4 pe-0 overscroll-none"
                 maxlength="6"
                 name="otp" 

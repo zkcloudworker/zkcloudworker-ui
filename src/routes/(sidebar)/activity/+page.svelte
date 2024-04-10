@@ -1,6 +1,6 @@
 <script lang="ts">
   import Activity from "./Activity.svelte";
-	import MetaTag from '../../utils/MetaTag.svelte';
+  import { MetaTag } from "$lib/components";
 	export let data;
 
 	const path: string = '/home';
