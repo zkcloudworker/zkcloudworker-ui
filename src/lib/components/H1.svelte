@@ -6,6 +6,6 @@
 	export { twClasses as class };  
 </script>
 
-<Heading tag="h3" class={twClasses}>
+<Heading tag="h3" class={`text-black ${twClasses}`}>
   <slot/>
 </Heading>

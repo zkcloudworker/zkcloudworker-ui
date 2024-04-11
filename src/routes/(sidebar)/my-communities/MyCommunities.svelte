@@ -12,7 +12,7 @@
 <div class="p-4">
   <H1>My Communities</H1>
   <P class="text-gray-400" size="base">
-    I have joined these ones ...
+    Your joined communities
   </P>
   <P class="pb-8"></P>
   {#if $communities.isLoading}
