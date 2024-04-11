@@ -7,14 +7,15 @@
 		TableBodyRow,
 		TableHead,
 		TableHeadCell,
-		Button
+		Button,
+		Avatar
 	} from 'flowbite-svelte';
 	import Time from 'svelte-time';
 	export let data;
 </script>
 
 <Table>
-	<TableHead>
+	<TableHead class="text-md bg-white normal-case text-gray-500">
 		<TableHeadCell>
 			<span class="sr-only">Image</span>
 		</TableHeadCell>
@@ -30,16 +31,12 @@
 		{#each data as t}
 			<TableBodyRow>
 				<TableBodyCell>
-					<img
-						class="h-20 w-20 rounded-full object-cover"
-						src={t.image}
-						alt={'claim' + t.uid}
-					/></TableBodyCell
-				>
+					<img class="h-10 w-10 rounded-full" src={t.image} alt="Badge" />
+				</TableBodyCell>
 				<TableBodyCell
 					><div class="grid grid-cols-1 gap-4">
 						<p class="text-gray-500">{t.community}</p>
-						<p>{t.type}</p>
+						<p class="text-md">{t.type}</p>
 					</div></TableBodyCell
 				>
 				<TableBodyCell><Time timestamp={t.createdUTC} /></TableBodyCell>
