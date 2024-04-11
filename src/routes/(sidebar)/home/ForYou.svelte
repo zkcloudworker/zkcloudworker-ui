@@ -6,8 +6,12 @@
   import CommunitiesList from "../my-communities/CommunitiesList.svelte"
 	import ErrorOnFetch from "$lib/components/ErrorOnFetch.svelte";
   import { useGetAllCommunities } from "$lib/hooks/communities";
-  
-  const communities = useGetAllCommunities();
+
+  const communities =  useGetAllCommunities();
+
+  onMount(async () => {
+  })
+
 </script>
 
 <div>

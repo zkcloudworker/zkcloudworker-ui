@@ -4,7 +4,8 @@
 	import NotFound from '$lib/pages/NotFound.svelte';
 	import Maintenance from '$lib/pages/Maintenance.svelte';
 	import ServerError from '$lib/pages/ServerError.svelte';
-
+  import { MetaTag } from "$lib/components";
+  
 	const pages = {
 		400: Maintenance,
 		404: NotFound,
@@ -16,8 +17,6 @@
 		.map((x) => +x)
 		.reduce((p, c) => (p < status ? c : p));
 	const component = pages[index];
-
-	import MetaTag from './utils/MetaTag.svelte';
 
 	const path: string = `/errors/${index}`;
 	const description: string = `${index} - Flowbite Svelte Admin Dashboard`;

@@ -31,7 +31,7 @@
 	<DropdownItem>Profile</DropdownItem>
 	<DropdownItem>Activities</DropdownItem>
 	<DropdownDivider />
-	<DropdownItem>Sign out</DropdownItem>
+	<DropdownItem href="/login">Sign out</DropdownItem>
 </Dropdown>
 
 <!--

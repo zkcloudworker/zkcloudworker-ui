@@ -1,7 +1,9 @@
-<script>
-	import UserMenu from '$lib/components/UserMenu.svelte';
-	import {
-		DarkMode,
+<script lang="ts">
+  import { onMount } from "svelte";
+  import type { User } from "$lib/types";
+  import { getCurrentUser } from "$lib/store";
+  import {
+    DarkMode,
 		Dropdown,
 		DropdownItem,
 		NavBrand,
@@ -15,10 +17,17 @@
 	import Users from '../data/users.json';
 	import Notifications from '$lib/components/NotificationList.svelte';
   import SearchList from '$lib/components/SearchList.svelte';
+  import UserMenu from '$lib/components/UserMenu.svelte';
 
 	export let fluid = true;
 	export let drawerHidden = false;
 	export let list = false;
+
+  let profile: User | null = getCurrentUser();
+
+  onMount(() => {
+    profile = getCurrentUser();
+  })
 </script>
 
 <Navbar {fluid} class="text-black" color="default" let:NavContainer>
@@ -42,10 +51,11 @@
         </form>
         &nbsp;
         <Notifications />
-        <!-- <AppsMenu /> -->
-        <!-- <DarkMode /> -->
         &nbsp;
-        <UserMenu {...Users[4]} />
+        <UserMenu 
+          name={profile?.fullName  || "!Algo" } 
+          email={profile?.email}
+        />
       </div>
     </div>
     <div class="block lg:hidden">

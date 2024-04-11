@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { afterNavigate } from '$app/navigation';
+  import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
-
+  import { removeActiveSession } from '$lib/store/sessions';
 	import { Sidebar,	SidebarGroup,	SidebarItem, SidebarWrapper } from 'flowbite-svelte';
   import { Avatar, Select } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
@@ -31,6 +31,10 @@
 
 		activeMainSidebar = navigation.to?.url.pathname ?? '';
 	});
+
+  function logoutNow() {
+    removeActiveSession();
+  }
 </script>
 
 <Sidebar
@@ -122,7 +126,7 @@
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="Sign out" {spanClass}>
+      <SidebarItem label="Sign out" {spanClass} href="/login">
         <svelte:fragment slot="icon">
           <Icon name="Disconnect" size="5" />
         </svelte:fragment>

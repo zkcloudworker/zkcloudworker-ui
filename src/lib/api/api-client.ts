@@ -52,6 +52,7 @@ class API {
    */
   static authorize(jwt: string) {
     API.bearerJWT = `Bearer ${jwt}`;
+    API.authorization = `${jwt}`;
     return API;
   }
 
@@ -108,7 +109,7 @@ class API {
         headers: {
           "Accept": "application/json; charset=utf-8",
           "Content-Type": "application/json; charset=utf-8",
-          "Authorization": API.bearerJWT,
+          "Authorization": API.authorization ? API.bearerJWT : ""
         }
       });
     
@@ -132,51 +133,47 @@ class API {
     };
   }
 
-//   /**
-//    * Mutate data
-//    * @param params object
-//    * @returns any | APIError
-//    * */
-//   async mutate(method: string, params: any): Promise<AnyResponse> {
-//     try {
-//       const url = `${this.session.baseUrl}/mutation/${method}`;
-//       const payload = {
-//         params: params || {},
-//       };
-//       const headers = {
-//         headers: {
-//           Authorization: this.session.authorization,
-//         },
-//       };
-//       const response = await axios.post(url, payload, {
-//         ...headers,
-//       });
-// 
-//       // The request was received OK, but the response includes an error
-//       if (response.data.error) return {
-//         data: null, 
-//         error: response.data.error
-//       }
-// 
-//       // Response OK and no errors in response
-//       return {
-//         data: response.data.data,
-//         error: null,
-//       };
-//     } 
-//     catch (err: any) {
-//       if (err.response && err.response.data.error) {
-//         err.message = err.response.data.error.message;
-//         err.code = err.response.data.error.code;
-//       }
-//       return {
-//         data: null,
-//         error: {
-//           code: err.code || ErrorCode.TIMEOUT,
-//           message: err.message || err.toString(),
-//           source: "Network error or no internet connection",
-//         },
-//       };
-//     }
-//   }
+  /**
+   * Mutation request
+   * @param method string - the RPC mutation method to call 
+   * @param payload object - the payload as a JSON object
+   * @returns APIResponse - a promise that must be awaited
+   */
+  static async mutate(
+    method: string, 
+    payload: object
+  ): Promise<APIResponse> {
+    try {
+      const url = `${API.baseUrl}/mutation/${method}`;
+      console.log(url);
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json; charset=utf-8",
+          "Content-Type": "application/json",
+          "Authorization": API.authorization ? API.bearerJWT : ""
+        },
+        body: JSON.stringify({ params: payload })
+      });
+   
+      const parsed = await response.json();
+
+      if (!response.ok) return {
+        data: null,
+        error: new APIError(response.status, response.statusText, parsed.error.message)
+      }
+
+      // remember: the API returns also an { data, error } obj
+      // that needs to be reformated, and it MAY include an error response too 
+      return {
+        data: parsed.data,
+        error: parsed.error
+      }
+    } catch (err: any) {
+      return {
+        data: null,
+        error: APIError.NETWORK_ERROR(err.message, err.cause),
+      };
+    };
+  }
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Breadcrumb, BreadcrumbItem, P } from 'flowbite-svelte';
-	import MetaTag from '../../utils/MetaTag.svelte';
+  import { MetaTag } from "$lib/components";
 	import MyCommunities from "./MyCommunities.svelte";
 
 	const path: string = '/home';
