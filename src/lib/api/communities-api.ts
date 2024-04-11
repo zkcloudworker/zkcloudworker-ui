@@ -1,5 +1,5 @@
 import { API, type APIResponse } from "./api-client";
-import type { Community } from "$lib/store/communities";
+import type { Community } from "$lib/types/community";
 
 export { 
   getAllCommunities,
