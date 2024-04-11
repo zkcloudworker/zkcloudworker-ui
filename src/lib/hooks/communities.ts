@@ -1,7 +1,6 @@
-
 import { createQuery } from '@tanstack/svelte-query'
 import { getMyCommunities, getAllCommunities } from '$lib/api/queries';
-import type { Community } from '$lib/store/communities';
+import type { Community } from '$lib/types/community';
 
 export function useGetMyCommunities() {
     return createQuery<Community[], Error>({
