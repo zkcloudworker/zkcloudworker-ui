@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
   import { removeActiveSession } from '$lib/store/sessions';
 	import { Sidebar,	SidebarGroup,	SidebarItem, SidebarWrapper } from 'flowbite-svelte';
+  import { SidebarDropdownWrapper, SidebarDropdownItem } from "flowbite-svelte";
   import { Avatar, Select } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/Icon.svelte";
@@ -43,7 +44,7 @@
   activeClass="flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700"
   asideClass="fixed inset-0 z-30 flex-none h-full w-full lg:w-64 lg:h-auto border-e border-gray-200 dark:border-gray-600 lg:overflow-y-visible pt-8 lg:pt-24 lg:block"
   >
-  <SidebarWrapper class="pt-14 pb-12 lg:pt-0">
+  <SidebarWrapper class="pt-14 pb-12 lg:pt-0 bg-transparent">
     <SidebarGroup class="pt-2">
 
       <SidebarItem label="Network" {spanClass}>
@@ -119,6 +120,27 @@
         </svelte:fragment>
       </SidebarItem>
     </SidebarGroup>
+
+    <SidebarGroup border class="pt-6 mt-4">
+      <SidebarDropdownWrapper label="Active campaigns">
+        <svelte:fragment slot="icon">
+          <Icon name="MyCredentials" size="5" />
+        </svelte:fragment>
+        <SidebarDropdownItem label="Products" />
+        <SidebarDropdownItem label="Billing" />
+        <SidebarDropdownItem label="Invoice" />
+      </SidebarDropdownWrapper>
+
+      <SidebarDropdownWrapper label="Admin communities">
+        <svelte:fragment slot="icon">
+          <Icon name="MyCommunities" size="5" />
+        </svelte:fragment>
+        <SidebarDropdownItem label="Products" />
+        <SidebarDropdownItem label="Billing" />
+        <SidebarDropdownItem label="Invoice" />
+      </SidebarDropdownWrapper>
+    </SidebarGroup>  
+
     <SidebarGroup border>
       <SidebarItem label="Support" {spanClass} href="/support">
         <svelte:fragment slot="icon">
