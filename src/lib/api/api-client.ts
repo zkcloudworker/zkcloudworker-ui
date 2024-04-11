@@ -155,15 +155,16 @@ class API {
         },
         body: JSON.stringify({ params: payload })
       });
-    
+   
+      const parsed = await response.json();
+
       if (!response.ok) return {
         data: null,
-        error: new APIError(response.status, response.statusText)
+        error: new APIError(response.status, response.statusText, parsed.error.message)
       }
 
       // remember: the API returns also an { data, error } obj
       // that needs to be reformated, and it MAY include an error response too 
-      const parsed = await response.json()
       return {
         data: parsed.data,
         error: parsed.error

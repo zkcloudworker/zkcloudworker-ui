@@ -23,7 +23,7 @@ async function login(params: {
 
 async function signUp(params: {
   email: string,
-  fullName: string
+  full_name: string
 }): Promise<APIResponse> {
   const rs: APIResponse = await API.mutate("sign_up", params);
   return rs;

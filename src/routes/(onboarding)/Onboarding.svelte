@@ -19,10 +19,10 @@
   $: alertColor = ALERT_COLORS[status] || 'light';
 </script>
 
-<main class="h-screen flex flex-col justify-center items-center pb-48">
-  <div class="p-4 w-full max-w-lg">
+<main class="h-screen mx-2 flex flex-col justify-center items-center">
+  <div class="pb-4 flex justify-center w-full">
     {#if alert}
-      <Alert border color={alertColor} class="p-6">
+      <Alert border color={alertColor} class="p-6 w-full md:w-[36rem]">
         <InfoCircleSolid slot="icon" class="w-6 h-6" />
         <span class="text-md font-semibold text-gray-900">
           <slot name='alert'>
@@ -33,9 +33,9 @@
     {/if}
   </div>
 
-  <div class="px-0 md:px-4 flex justify-center w-screen">
-    <Card size="md" class="max-w-lg">
-      <form class="p-4">
+  <div class="px-0 md:px-0 flex justify-center w-full md:w-[36rem]">
+    <Card size="md">
+      <form class="py-4 px-2">
         <h3 class="m-0 p-0 text-2xl font-bold text-gray-900 dark:text-white">
           {title}
         </h3>
@@ -55,7 +55,15 @@
     </Card>
   </div>
 
-  <div class="">
+  <div class=" w-full md:w-[36rem]">
     <Footer />
   </div>
+
+  <p class="h-32">
+    &nbsp;
+    <!-- 
+    need to leave enough space in bottom 
+    so we allow a place for the top status area 
+    -->
+  </p>
 </main>

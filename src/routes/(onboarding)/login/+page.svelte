@@ -2,9 +2,8 @@
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import { getCurrentSession, removeActiveSession, saveActiveSession, type Session } from "$lib/store/sessions";
-  import { requestOTP } from "$lib/api/mutations";
-  import { Card, Button, Label, Input, Alert, A  } from "flowbite-svelte";
-  import { InfoCircleSolid } from "flowbite-svelte-icons";
+  import { requestOTP, signUp } from "$lib/api/mutations";
+  import { Button, Label, Input, A  } from "flowbite-svelte";
   import { SubmitButton } from "$lib/components";
   import { MetaTag } from "$lib/components";
   import Onboarding from "../Onboarding.svelte";
@@ -24,12 +23,11 @@
   $: status = alert ? STATUS_COLORS[alert] : 'WAIT';
 
   onMount(async () => {
-    session = getCurrentSession();
     session = removeActiveSession();
   })
 
   async function getOTP() {
-    working = "Sending your OTP ...";
+    working = "Sending the code";
     let rsp = await requestOTP({ 
       email: email 
     });
@@ -55,6 +53,10 @@
       goto(`/otp?sk=${rsp.data?.session_key}`); 
     }, 500)
   } 
+
+  function isValidEmail(email: string) {
+    return (email.length > 0 && email.includes('@'));
+  }
 </script>
 
 <MetaTag 
@@ -66,7 +68,7 @@
 
 <Onboarding
   title="Sign in" 
-  subtitle="Enter your email to log in"
+  subtitle="Enter your email. We will send you a code."
   alert={alert}
   status={status}
   >
@@ -75,7 +77,8 @@
       Problem sending OTP request, please try again
     {/if}
     {#if alert === 'NO_EMAIL'}
-      Could not find your email. Please <A class="text-lg" href="/signup">Sign up !</A>
+      Could not find your email. Correct it or  
+      <A class="" href="/signup">sign up !</A>
     {/if}
     {#if alert === 'DONE'}
       Done ! Input the OTP we send you 
@@ -109,7 +112,8 @@
     <SubmitButton
       on:click={() => getOTP()} 
       {working}
-      class="w-full mb-2 order-1 md:order-2 md:w-auto md:mb-0"
+      disabled={!isValidEmail(email)}
+      class="w-full mb-2 order-1 md:order-2 md:w-auto md:mb-0 md:ms-2"
       size="lg"
       > 
       Send me the code
