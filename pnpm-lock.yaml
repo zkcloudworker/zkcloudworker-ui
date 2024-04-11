@@ -97,6 +97,9 @@ devDependencies:
   svelte-meta-tags:
     specifier: ^3.1.1
     version: 3.1.1(svelte@4.2.12)(typescript@5.4.4)
+  svelte-time:
+    specifier: ^0.8.3
+    version: 0.8.3
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.3
@@ -3477,6 +3480,12 @@ packages:
       strip-indent: 3.0.0
       svelte: 4.2.12
       typescript: 5.4.4
+    dev: true
+
+  /svelte-time@0.8.3:
+    resolution: {integrity: sha512-8uBYoOgn7PwiTF/aNAx31yxbz7AAcD/JJF3SlgzsH/pZ/XSllmAgeCAYZ1j6G52QbNnUhwd8homQonDow616GA==}
+    dependencies:
+      dayjs: 1.11.10
     dev: true
 
   /svelte@4.2.12:
