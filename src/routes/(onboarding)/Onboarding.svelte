@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Card, Alert  } from "flowbite-svelte";
-  import { InfoCircleSolid } from "flowbite-svelte-icons";
+  import { InfoCircleSolid, CheckCircleSolid } from "flowbite-svelte-icons";
   import Footer from "./Footer.svelte";
   
   export let
