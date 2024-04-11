@@ -30,40 +30,26 @@
   `;
 </script>
 
-<div class="w-full md:w-[36rem] mt-5 leading-relaxed">
-  <p class=" p-3 text-center text-base font-semibold ">
-    Signing means you abide to our 
-    <A href="https://socialcap.app">
-      Terms and Conditions
-    </A>.
-  </p>
-  <p class="my-0 text-center text-sm text-gray-800">
-    © 2023-2024 <A href="https://socialcap.app/" class="font-bold hover:underline" target="_blank">
-      Socialcap Project
-    </A>. 
-    All rights reserved.
+<div class="w-full md:w-[36rem] mt-5 leading-relaxed text-gray-600">
+  <p class=" p-3 text-center text-base">
+    By signing, you accept our Terms and Conditions
   </p>
 </div>
 
-<!-- <Frame tag="footer"	class={frameClass}>
-	<ul class="mb-0 flex flex-wrap items-center space-y-1 sm:gap-4 md:mb-0 xl:gap-6">
-		{#each links as { name, href }}
-			<li>
-				<a
-					{href}
-					class="mr-4 text-sm font-normal text-blue-800 underline hover:underline dark:text-gray-400 sm:mr-6"
-				>
-					{name}
-				</a>
-			</li>
-		{/each}
-	</ul>
-	<div class="flex space-x-6 sm:justify-center">
-		{#each brands as [component, href]}
-			<a {href} class="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-				<svelte:component this={component} size="lg" />
-			</a>
-		{/each}
-	</div>
-</Frame> -->
+<div tag="footer"	class="fixed right-0 left-0 bottom-0 w-screen p-4">
+  <div class="m-auto w-auto md:max-w-md mt-5 leading-relaxed text-gray-600">
+    <p class="my-0 text-center text-sm">
+      © 2023-2024 - 
+      <A href="https://socialcap.app/" class="font-bold hover:underline" target="_blank">
+        Socialcap
+      </A>. 
+      All rights reserved.
+    </p>
+    <div class="mt-4 mx-1 md:mx-16 flex items-center justify-between text-sm">
+      <A class="underline inline-block">Support</A>
+      <A class="underline inline-block">Privacy Policies</A>
+      <A class="underline inline-block">Terms and Conditions</A>
+    </div>
+  </div>
+</div>
 
