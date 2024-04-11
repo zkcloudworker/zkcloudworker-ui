@@ -28,10 +28,12 @@
   })
 
   async function signUpNow() {
+    working = "Go ...";
     let rsp = await signUp({
       email: email,
       full_name: fullName
     })
+    working = "";
 
     if (rsp.error?.code === 404) {
       error = rsp.error;

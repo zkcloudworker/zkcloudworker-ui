@@ -27,7 +27,7 @@
   })
 
   async function getOTP() {
-    working = "Sending the code";
+    working = "Sending ...   ";
     let rsp = await requestOTP({ 
       email: email 
     });

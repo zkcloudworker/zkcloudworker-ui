@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button } from "flowbite-svelte";
+  import { Button, Spinner } from "flowbite-svelte";
   let twClasses = ""; 
 	export { twClasses as class };  
 
@@ -16,9 +16,11 @@
   color={color}
   class={`${twClasses}`} 
   disabled={disabled || working}>
-  {working || ""}
-  &nbsp;
-  {#if !working}
+  {#if working}
+    <Spinner class="me-3" size="4" color="red" />
+    <code>{working || ""}</code>
+    &nbsp;
+  {:else}
     <slot />    
   {/if}
 </Button>

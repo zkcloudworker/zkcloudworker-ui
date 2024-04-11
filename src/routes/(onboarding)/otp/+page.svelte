@@ -30,7 +30,7 @@
   })
 
   async function loginNow() {
-    working = "Signing in ... ";
+    working = "Go ...";
     let rsp = await login({ 
       session_key: data.sessionKey, 
       otp: otp 
@@ -53,7 +53,7 @@
     saveActiveUser(user);
 
     // success
-    alert = 'DONE';
+    // alert = 'DONE';
     setTimeout(() => { 
       goto('/home'); 
     }, 1000)
@@ -91,7 +91,7 @@
       The OTP code seems invalid, please try again !
     {/if}
     {#if alert === 'DONE'}
-      Done ! Going to Home ...
+      <!-- Done ! Going to Home ... -->
     {/if}
   </svelte:fragment>
 
