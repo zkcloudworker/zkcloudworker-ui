@@ -1,4 +1,4 @@
-export { Session };
+export type { Session };
 
 interface Session {
   host: string;

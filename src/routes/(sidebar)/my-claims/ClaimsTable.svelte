@@ -16,9 +16,6 @@
 
 <Table>
 	<TableHead class="text-md bg-white normal-case text-gray-500">
-		<TableHeadCell>
-			<span class="sr-only">Image</span>
-		</TableHeadCell>
 		<TableHeadCell>Credential</TableHeadCell>
 		<TableHeadCell>Created</TableHeadCell>
 		<TableHeadCell>Claimed</TableHeadCell>
@@ -31,14 +28,14 @@
 		{#each data as t}
 			<TableBodyRow>
 				<TableBodyCell>
-					<img class="h-10 w-10 rounded-full" src={t.image} alt="Badge" />
+					<div class="flex space-x-3 items-center">
+						<img class="h-10 w-10 rounded-full" src={t.image} alt="Badge" />
+						<div class="grid grid-cols-1 gap-3">
+							<p class="truncate text-gray-500">{t.community}</p>
+							<p class="text-md truncate">{t.type}</p>
+						</div>
+					</div>
 				</TableBodyCell>
-				<TableBodyCell
-					><div class="grid grid-cols-1 gap-4">
-						<p class="text-gray-500">{t.community}</p>
-						<p class="text-md">{t.type}</p>
-					</div></TableBodyCell
-				>
 				<TableBodyCell><Time timestamp={t.createdUTC} /></TableBodyCell>
 				<TableBodyCell
 					>{#if t.issuedUTC}
