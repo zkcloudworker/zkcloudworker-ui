@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { P } from "flowbite-svelte";
+  import { P, A, Tabs, TabItem } from "flowbite-svelte";
   import { H1 } from "$lib/components";
-  import InvitationCard from "./InvitationCard.svelte";
   import CommunitiesList from "../my-communities/CommunitiesList.svelte"
 	import ErrorOnFetch from "$lib/components/ErrorOnFetch.svelte";
   import { useGetAllCommunities } from "$lib/hooks/communities";
@@ -15,26 +14,36 @@
 </script>
 
 <div>
+  <br/>
   <H1>For you</H1>
-  <P class="text-gray-400" size="base">
-    Join new communities  
-  </P>
-  <InvitationCard />
-  <br>
 
-  {#if $communities.isLoading}
-    <span>Loading...</span>
-  {:else if $communities.isError}
-    <ErrorOnFetch 
-      description="All the communities"
-      error={$communities.error} 
-    />
-  {:else}
-    <ul>
-      <CommunitiesList 
-        data={$communities.data} 
-        joined={false} 
-      />
-    </ul>
-  {/if}
+  <Tabs style="underline">
+    <TabItem open class="">
+      <span slot="title" class="--font-bold">Claim & Earn</span>
+      <div>
+        Credential offerings go here ...
+      </div>
+    </TabItem>
+
+    <TabItem>
+      <span slot="title" class="--font-bold">Join communities</span>
+      <div>
+        {#if $communities.isLoading}
+        <span>Loading...</span>
+      {:else if $communities.isError}
+        <ErrorOnFetch 
+          description="All the communities"
+          error={$communities.error} 
+        />
+      {:else}
+        <ul>
+          <CommunitiesList 
+            data={$communities.data} 
+            joined={false} 
+          />
+        </ul>
+      {/if}
+      </div>
+    </TabItem>
+  </Tabs>
 </div>
