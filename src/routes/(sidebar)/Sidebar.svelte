@@ -1,4 +1,5 @@
 <script lang="ts">
+  import slugify from 'slugify';
   import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
   import { removeActiveSession } from '$lib/store/sessions';
@@ -133,7 +134,7 @@
           <Icon name="MyCredentials" size="5" />
         </svelte:fragment>
         {#each ($plans.data || []) as t}
-          <SidebarDropdownItem class="text-sm font-bold" label={`${t.name} (${t.stateDescr})`} href={`/plan/${t.uid}`} />
+          <SidebarDropdownItem class="text-sm font-bold" label={`${t.name} (${t.stateDescr})`} href={`/admin/plan/${t.uid}`} />
         {/each}
       </SidebarDropdownWrapper>
 
@@ -142,7 +143,10 @@
           <Icon name="MyCommunities" size="5" />
         </svelte:fragment>
         {#each ($communities.data || []) as t}
-          <SidebarDropdownItem class="text-sm font-bold" label={t.name} href={`/admin/${t.uid}`} />
+          <SidebarDropdownItem class="text-sm font-bold" 
+            label={t.name} 
+            href={`/admin/community/${slugify(t.name)}?uid=${t.uid}`} 
+          />
           <!--
 
             <div class="m-0 p-0 ms-2 flex items-center justify-start border-left">
