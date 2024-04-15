@@ -42,7 +42,7 @@
   class={drawerHidden ? 'hidden' : ''}
   activeUrl={mainSidebarUrl}
   activeClass="flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700"
-  asideClass="fixed inset-0 z-30 flex-none h-full w-full lg:w-64 lg:h-auto border-e border-gray-200 dark:border-gray-600 lg:overflow-y-visible pt-8 lg:pt-24 lg:block"
+  asideClass="fixed inset-0 z-30 flex-none h-full w-full overflow-auto lg:w-64 lg:h-auto border-e border-gray-200 dark:border-gray-600 lg:overflow-y-visible pt-8 lg:pt-24 lg:block"
   >
   <SidebarWrapper class="pt-14 pb-12 lg:pt-0 bg-white dark:bg-dark">
     <SidebarGroup class="pt-2">
