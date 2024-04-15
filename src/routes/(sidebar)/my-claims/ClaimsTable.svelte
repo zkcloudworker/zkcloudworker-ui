@@ -33,12 +33,12 @@
 				<TableBodyCell>
 					<img class="h-10 w-10 rounded-full" src={t.image} alt="Badge" />
 				</TableBodyCell>
-				<TableBodyCell
-					><div class="grid grid-cols-1 gap-4">
+				<TableBodyCell>
+					<div class="grid grid-cols-1 gap-4">
 						<p class="text-gray-500">{t.community}</p>
 						<p class="text-md">{t.type}</p>
-					</div></TableBodyCell
-				>
+					</div>
+					</TableBodyCell>
 				<TableBodyCell><Time timestamp={t.createdUTC} /></TableBodyCell>
 				<TableBodyCell
 					>{#if t.issuedUTC}
