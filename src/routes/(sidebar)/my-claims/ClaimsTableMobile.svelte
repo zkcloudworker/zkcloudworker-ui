@@ -16,40 +16,41 @@
 </script>
 
 <Table>
-	<TableHead class="bg-white text-sm normal-case text-gray-400">
-		<TableHeadCell>Credential</TableHeadCell>
-		<TableHeadCell>Created</TableHeadCell>
-		<TableHeadCell>Claimed</TableHeadCell>
-		<TableHeadCell>
-			<span class="sr-only">Edit</span>
-		</TableHeadCell>
-	</TableHead>
-	<TableBody class="divide-y">
+	<TableBody class="table-fixed">
 		{#each data as t}
 			<TableBodyRow>
 				<TableBodyCell>
-					<div class="flex items-center space-x-2">
-						<Avatar src={t.image} class="round h-10 w-10 drop-shadow-lg" />
-						<a href={`/claim/${data.uid}`}>
-							<div class="grid grid-cols-1 gap-1">
-								<p class="text-weight-400 truncate text-xs text-gray-500">{t.community}</p>
-								<p class="text-weight-600 text-md truncate">{t.type}</p>
+					<div class="flex items-center justify-between">
+						<div class="flex space-x-4">
+							<Avatar src={t.image} class="round h-10 w-10 drop-shadow-lg" />
+							<div class="space-y-4">
+								<div class="flex items-center space-x-2">
+									<div class="grid grid-cols-1 gap-1">
+										<p class="text-weight-400 truncate text-xs text-gray-500">{t.community}</p>
+										<p class="text-weight-600 text-md truncate">{t.type}</p>
+									</div>
+								</div>
+								<div class="flex items-center justify-between">
+									<div class="flex space-x-4">
+										<div class="grid grid-cols-1 gap-1">
+											<p class="text-md text-weight-600 text-gray-500">Created</p>
+											<p class="text-xs"><Time timestamp={t.createdUTC} /></p>
+										</div>
+										<div class="grid grid-cols-1 gap-1 text-center">
+											<p class="text-md text-weight-600 text-gray-500">Claimed</p>
+											<p class="text-xs">
+												{#if t.issuedUTC}<Time timestamp={t.issuedUTC} />
+												{:else}-{/if}
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
-						</a>
-					</div>
-				</TableBodyCell>
-				<TableBodyCell><Time timestamp={t.createdUTC} /></TableBodyCell>
-				<TableBodyCell
-					>{#if t.issuedUTC}
-						(<Time timestamp={t.issuedUTC} />)
-					{:else}
-						<p>-</p>
-					{/if}
-				</TableBodyCell>
-				<TableBodyCell>
-					<div class="flex items-center space-x-3">
-						<StateBadge data={t.state} />
-						<Button color="alternative" size="sm"><DotsVerticalOutline /></Button>
+						</div>
+						<div class="space-x-4">
+							<StateBadge class="p-x-16 p-y-1 text-sm" data={t.state} />
+							<Button color="none" size="sm"><DotsVerticalOutline /></Button>
+						</div>
 					</div>
 				</TableBodyCell>
 			</TableBodyRow>
