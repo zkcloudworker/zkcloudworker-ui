@@ -12,14 +12,14 @@
 	} from 'flowbite-svelte';
 	import Time from 'svelte-time';
 	export let data;
+	import { DotsVerticalOutline } from 'flowbite-svelte-icons';
 </script>
 
 <Table>
-	<TableHead class="text-md bg-white normal-case text-gray-500">
+	<TableHead class="bg-white text-sm normal-case text-gray-400">
 		<TableHeadCell>Credential</TableHeadCell>
 		<TableHeadCell>Created</TableHeadCell>
 		<TableHeadCell>Claimed</TableHeadCell>
-		<TableHeadCell>Status</TableHeadCell>
 		<TableHeadCell>
 			<span class="sr-only">Edit</span>
 		</TableHeadCell>
@@ -28,12 +28,14 @@
 		{#each data as t}
 			<TableBodyRow>
 				<TableBodyCell>
-					<div class="flex space-x-3 items-center">
-						<img class="h-10 w-10 rounded-full" src={t.image} alt="Badge" />
-						<div class="grid grid-cols-1 gap-3">
-							<p class="truncate text-gray-500">{t.community}</p>
-							<p class="text-md truncate">{t.type}</p>
-						</div>
+					<div class="flex items-center space-x-2">
+						<Avatar src={t.image} class="round h-10 w-10 drop-shadow-lg" />
+						<a href={`/claim/${data.uid}`}>
+							<div class="grid grid-cols-1 gap-1">
+								<p class="text-weight-400 truncate text-xs text-gray-500">{t.community}</p>
+								<p class="text-weight-600 text-md truncate">{t.type}</p>
+							</div>
+						</a>
 					</div>
 				</TableBodyCell>
 				<TableBodyCell><Time timestamp={t.createdUTC} /></TableBodyCell>
@@ -42,11 +44,13 @@
 						(<Time timestamp={t.issuedUTC} />)
 					{:else}
 						<p>-</p>
-					{/if}</TableBodyCell
-				>
-				<TableBodyCell><StateBadge data={t.state} /></TableBodyCell>
+					{/if}
+				</TableBodyCell>
 				<TableBodyCell>
-					<Button color="alternative" size="sm">Edit</Button>
+					<div class="flex items-center space-x-3">
+						<StateBadge data={t.state} />
+						<Button color="alternative" size="sm"><DotsVerticalOutline /></Button>
+					</div>
 				</TableBodyCell>
 			</TableBodyRow>
 		{/each}
