@@ -138,39 +138,31 @@
         {/each}
       </SidebarDropdownWrapper>
 
-      <SidebarDropdownWrapper label="Admin communities">
-        <svelte:fragment slot="icon">
-          <Icon name="MyCommunities" size="5" />
-        </svelte:fragment>
-        {#each ($communities.data || []) as t}
-          <SidebarDropdownItem class="text-sm font-bold" 
-            label={t.name} 
-            href={`/admin/community/${slugify(t.name)}?uid=${t.uid}`} 
-          />
-          <!--
-
-            <div class="m-0 p-0 ms-2 flex items-center justify-start border-left">
-              <p class="p-0 m-0 ps-4 p-3">
-                <Avatar src={t.image} class="h-6 w-6"/>
-              </p>
-              <A class="text-sm text-semibold" href={`/admin/${t.uid}`}>
-                {t.name}
-              </A>
-            </div>
-          -->
-        {/each}
-        <p class="ms-2">
+      {#if ($communities.data || []).length}
+        <SidebarDropdownWrapper label="Admin communities">
+          <svelte:fragment slot="icon">
+            <Icon name="MyCommunities" size="5" />
+          </svelte:fragment>
+          {#each ($communities.data || []) as t}
+            <SidebarDropdownItem class="text-sm font-bold" 
+              label={t.name}
+              href={`/admin/community/${t.uid}`} 
+            />
+          {/each}
+          <p class="ms-2">
+            <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
+              Create new community
+            </Button>
+          </p>
+        </SidebarDropdownWrapper>
+      {:else}
+        <!-- Should be shown when No communities are present -->
+        <p class="ms-2 pt-3">
           <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
             Create new community
           </Button>
         </p>
-      </SidebarDropdownWrapper>
-      <p class="ms-2 pt-3">
-        <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
-          Create new community
-        </Button>
-      </p>
-
+      {/if}
     </SidebarGroup>  
 
     <SidebarGroup border>

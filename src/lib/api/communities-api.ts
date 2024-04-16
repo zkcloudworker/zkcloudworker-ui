@@ -3,7 +3,16 @@ import type { Community } from "$lib/types/community";
 
 export { 
   getAllCommunities,
-  getMyCommunities
+  getMyCommunities,
+  getCommunity
+}
+
+async function getCommunity(params: {
+  uid: string, 
+}): Promise<Community> {
+  const rs = await API.query("get_community", params);
+  if (rs.error) throw Error(rs.error.message, rs.error.cause); // Todo handle error
+  return rs.data;
 }
 
 /**
