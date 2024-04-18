@@ -11,8 +11,8 @@
 
 <div class="p-4">
   <H1>My Communities</H1>
-  <P class="text-gray-400" size="base">
-    Your joined communities
+  <P class="text-gray-400" size="lg">
+    You are a member of {($communities.data || []).length} communities
   </P>
   <P class="pb-8"></P>
   {#if $communities.isLoading}
@@ -26,7 +26,7 @@
     <ul>
       <CommunitiesList 
         data={$communities.data} 
-        joined={false} 
+        joined={true} 
       />
     </ul>
   {/if}
