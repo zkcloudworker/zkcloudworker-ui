@@ -1,16 +1,23 @@
 <script lang="ts">
+  import slugify from 'slugify';
   import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
   import { removeActiveSession } from '$lib/store/sessions';
-	import { Sidebar,	SidebarGroup,	SidebarItem, SidebarWrapper } from 'flowbite-svelte';
+	import { Button, Sidebar,	SidebarGroup,	SidebarItem, SidebarWrapper } from 'flowbite-svelte';
   import { SidebarDropdownWrapper, SidebarDropdownItem } from "flowbite-svelte";
-  import { Avatar, Select } from 'flowbite-svelte';
+  import { Avatar, Select, A } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/Icon.svelte";
+  import type { Community, Plan } from "$lib/types";
+  import { useGetMyAdminedCommunities } from "$lib/hooks/communities";
+	import { useGetAdminedPlans } from '$lib/hooks/plans';
   
 	export let drawerHidden: boolean = false;
   export let network: string = 'main';
   
+  const communities = useGetMyAdminedCommunities();
+  const plans = useGetAdminedPlans();
+
 	const closeDrawer = () => {
     drawerHidden = true;
 	};
@@ -126,19 +133,29 @@
         <svelte:fragment slot="icon">
           <Icon name="MyCredentials" size="5" />
         </svelte:fragment>
-        <SidebarDropdownItem label="Products" />
-        <SidebarDropdownItem label="Billing" />
-        <SidebarDropdownItem label="Invoice" />
+        {#each ($plans.data || []) as t}
+          <SidebarDropdownItem class="text-xs font-bold" label={`${t.name} (${t.stateDescr})`} href={`/admin/plan/${t.uid}`} />
+        {/each}
       </SidebarDropdownWrapper>
 
-      <SidebarDropdownWrapper label="Admin communities">
-        <svelte:fragment slot="icon">
-          <Icon name="MyCommunities" size="5" />
-        </svelte:fragment>
-        <SidebarDropdownItem label="Products" />
-        <SidebarDropdownItem label="Billing" />
-        <SidebarDropdownItem label="Invoice" />
-      </SidebarDropdownWrapper>
+      {#if ($communities.data || []).length}
+        <SidebarDropdownWrapper label="Admin communities">
+          <svelte:fragment slot="icon">
+            <Icon name="MyCommunities" size="5" />
+          </svelte:fragment>
+          {#each ($communities.data || []) as t}
+            <SidebarDropdownItem class="text-xs font-bold" 
+              label={t.name}
+              href={`/admin/community/${t.uid}?${slugify(t.name)}`} 
+            />
+          {/each}
+        </SidebarDropdownWrapper>
+      {/if}
+      <p class="ms-2 pt-3">
+        <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
+          Create new community
+        </Button>
+      </p>
     </SidebarGroup>  
 
     <SidebarGroup border>

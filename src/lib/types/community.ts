@@ -7,10 +7,12 @@ interface Community {
   // ids and references 
   uid: string; 
   accountId: string;
+  adminUid: string,
   name: string; 
   description: string;
   state: CommunityState;
   image: string; // logo image
+  xadmins: string;
 
   // activity times
   createdUTC: string;
@@ -23,4 +25,5 @@ interface Community {
   // extras 
   countMembers: number;
   countCredentials: number;
+  countClaims: number;
 }

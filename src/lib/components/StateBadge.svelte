@@ -11,18 +11,18 @@
 
 {#if state.badgeType === "info"}
 <Badge rounded color="yellow" class={`text-yellow-800 ${clazz || ''}`}>
-   <p class="py-2 px-4"> {state.name}</p>
+   <p class="py-1 px-3 text-xs"> {state.name}</p>
 </Badge>
 {/if}
 
 {#if state.badgeType === "danger"}
 <Badge rounded color="red" class={`text-red-800 ${clazz || ''}`}>
-    <p class="py-2 px-4"> {state.name}</p>
+    <p class="py-1 px-3 text-xs"> {state.name}</p>
 </Badge>
 {/if}
 
 {#if state.badgeType === "success"}
 <Badge rounded color="green" class={`text-green-800 ${clazz || ''}`}>
-    <p class="py-2 px-4"> {state.name}</p>
+    <p class="py-1 px-3 text-xs"> {state.name}</p>
 </Badge>
 {/if}

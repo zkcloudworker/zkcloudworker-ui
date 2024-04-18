@@ -3,6 +3,7 @@
  * When signing out we need to clear it using removeActiveSession(). 
  */
 import type { Session } from "../types";
+import { getDefaultAPISessionFromEnv } from "./api";
 import { removeActiveUser } from "./profiles";
 
 export { 
@@ -13,33 +14,30 @@ export {
 } ;
 
 const STORE_KEY = "current-session";
-
-const DEFAULT_SESSION: Session = {
-  host: "api.socialcap.app", // "localhost"
-  protocol: "https", // localhost uses "http"
-  port: 443, // locahost uses 3080
-  authorization: "",
-  key: ""
-};
+let activeSession: Session | null = null;
 
 function getCurrentSession(): Session | null {
+  if (activeSession) return activeSession; // use cache
   const data = localStorage.getItem(STORE_KEY);
-  return data && JSON.parse(data) || null; 
+  activeSession = data && JSON.parse(data) || null; 
+  return activeSession;
 };
 
 function getDefaultSession(): Session {
-  return DEFAULT_SESSION; 
+  return getDefaultAPISessionFromEnv(); 
 };
 
 function saveActiveSession(session: Session) {
   if (! session)
-    throw Error("session/setActiveSession: Invalid session");
+    throw Error("store/sessions/setActiveSession: Invalid session");
   localStorage.setItem(STORE_KEY, JSON.stringify(session));
+  activeSession = session;
   return session;
 };
 
 function removeActiveSession(): Session {
   localStorage.removeItem(STORE_KEY);
+  activeSession = null;
   removeActiveUser();
   return getDefaultSession();
 };
