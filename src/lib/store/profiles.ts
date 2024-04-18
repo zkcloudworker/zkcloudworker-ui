@@ -11,19 +11,24 @@ export {
 } ;
 
 const STORE_KEY = "current-user";
+let activeUser: User | null = null; // cached
 
 function getCurrentUser(): User | null {
+  if (activeUser) return activeUser;
   const data = localStorage.getItem(STORE_KEY);
-  return data && JSON.parse(data) || null; 
+  activeUser = data && JSON.parse(data) || null; 
+  return activeUser;
 };
 
 function saveActiveUser(user: User) {
   if (! user)
     throw Error("profile/setActiveUser: Invalid user profile");
   localStorage.setItem(STORE_KEY, JSON.stringify(user));
+  activeUser = user;
   return user;
 };
 
 function removeActiveUser() {
   localStorage.removeItem(STORE_KEY);
+  activeUser = null;
 };

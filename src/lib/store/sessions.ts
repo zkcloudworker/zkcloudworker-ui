@@ -14,10 +14,13 @@ export {
 } ;
 
 const STORE_KEY = "current-session";
+let activeSession: Session | null = null;
 
 function getCurrentSession(): Session | null {
+  if (activeSession) return activeSession; // use cache
   const data = localStorage.getItem(STORE_KEY);
-  return data && JSON.parse(data) || null; 
+  activeSession = data && JSON.parse(data) || null; 
+  return activeSession;
 };
 
 function getDefaultSession(): Session {
@@ -28,11 +31,13 @@ function saveActiveSession(session: Session) {
   if (! session)
     throw Error("store/sessions/setActiveSession: Invalid session");
   localStorage.setItem(STORE_KEY, JSON.stringify(session));
+  activeSession = session;
   return session;
 };
 
 function removeActiveSession(): Session {
   localStorage.removeItem(STORE_KEY);
+  activeSession = null;
   removeActiveUser();
   return getDefaultSession();
 };
