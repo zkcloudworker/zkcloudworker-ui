@@ -1,5 +1,6 @@
 import { API, type APIResponse } from "./api-client";
-import type { Community } from "$lib/types/community";
+import type { Community, User } from "$lib/types";
+import { getCurrentUser } from "$lib/store";
 
 export { 
   getAllCommunities,
@@ -32,13 +33,27 @@ async function getAllCommunities(params: {
 
 /**
  * Get the list of communities that I have joined
+ * @params admined?: boolean - only admined by current user
  * @param columns?: string[] - selected columns to return from query
  * @returns APIResponse - on success array of Community 
  */
 async function getMyCommunities(params: {
+  admined?: boolean, 
   columns?: string[], 
 }): Promise<Community[]> {
-  const rs = await API.query("get_my_communities", params);
+  const rs = await API.query("get_my_communities", {});
   if (rs.error) return []; // Todo handle error
-  return rs.data;
+
+  // if not admined return all
+  if (!params.admined) return rs.data; 
+
+  // only the ones admined by this user
+  if (params.admined) {
+    const user = getCurrentUser();
+    if (!user) throw Error("Can not filter admined communities No active user !");
+    return (rs.data || []).filter((t: Community) => (
+      t.adminUid === user!.uid || t.xadmins.includes(user!.uid)
+    ));
+  }
+  return [];
 }

@@ -16,6 +16,13 @@ export function useGetMyCommunities() {
       })
 }
 
+export function useGetMyAdminedCommunities() {
+    return createQuery<Community[], Error>({
+        queryKey: ['get_my_admined_communities'],
+        queryFn: () => getMyCommunities({ admined: true }),
+      })
+}
+
 export function useGetAllCommunities() {
     return createQuery<Community[], Error>({
         queryKey: ['get_all_communities'],

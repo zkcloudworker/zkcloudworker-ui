@@ -9,13 +9,13 @@
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/Icon.svelte";
   import type { Community, Plan } from "$lib/types";
-  import { useGetMyCommunities } from "$lib/hooks/communities";
+  import { useGetMyAdminedCommunities } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';
   
 	export let drawerHidden: boolean = false;
   export let network: string = 'main';
   
-  const communities = useGetMyCommunities();
+  const communities = useGetMyAdminedCommunities();
   const plans = useGetAdminedPlans();
 
 	const closeDrawer = () => {
@@ -134,7 +134,7 @@
           <Icon name="MyCredentials" size="5" />
         </svelte:fragment>
         {#each ($plans.data || []) as t}
-          <SidebarDropdownItem class="text-sm font-bold" label={`${t.name} (${t.stateDescr})`} href={`/admin/plan/${t.uid}`} />
+          <SidebarDropdownItem class="text-xs font-bold" label={`${t.name} (${t.stateDescr})`} href={`/admin/plan/${t.uid}`} />
         {/each}
       </SidebarDropdownWrapper>
 
@@ -144,25 +144,18 @@
             <Icon name="MyCommunities" size="5" />
           </svelte:fragment>
           {#each ($communities.data || []) as t}
-            <SidebarDropdownItem class="text-sm font-bold" 
+            <SidebarDropdownItem class="text-xs font-bold" 
               label={t.name}
-              href={`/admin/community/${t.uid}`} 
+              href={`/admin/community/${t.uid}?${slugify(t.name)}`} 
             />
           {/each}
-          <p class="ms-2">
-            <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
-              Create new community
-            </Button>
-          </p>
         </SidebarDropdownWrapper>
-      {:else}
-        <!-- Should be shown when No communities are present -->
-        <p class="ms-2 pt-3">
-          <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
-            Create new community
-          </Button>
-        </p>
       {/if}
+      <p class="ms-2 pt-3">
+        <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
+          Create new community
+        </Button>
+      </p>
     </SidebarGroup>  
 
     <SidebarGroup border>
