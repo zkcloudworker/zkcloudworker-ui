@@ -1,7 +1,7 @@
 export type State = {
     name: string
     value: number,
-    badgeType?: "info" | "success" | "danger"
+    badgeType?: "info" | "success" | "danger" | "warning"
 }
 
 export const States: State[] = [
@@ -91,6 +91,14 @@ export const States: State[] = [
         badgeType: "info"
     }
 ]
+
+// Find a state givien its text
+export function findState(t: string): number {
+  for (let j=0; j < States.length; j++) 
+    if (States[j].name.toUpperCase() === t.toUpperCase()) 
+      return States[j].value;
+  return States[0].value;
+}
 
 export function toState(state: number) {
     return States.find(s => s.value === state)
