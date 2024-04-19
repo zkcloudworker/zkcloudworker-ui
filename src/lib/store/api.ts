@@ -2,21 +2,21 @@ import type { Session } from "$lib/types";
 
 const API_ENDPOINTS: any = {
   'local': {
-    host: import.meta.env.VITE_LOCAL_API_HOST,
+    host: '127.0.0.1',
     protocol: 'http',
     port: 30800, 
     authorization: "",
     key: ""
   },
   'dev': {
-    host: import.meta.env.VITE_DEV_API_HOST,
+    host: 'api.socialcap.dev',
     protocol: 'https',
     port: 443, 
     authorization: "",
     key: ""
   },
   'main': {
-    host: import.meta.env.VITE_MAIN_API_HOST,
+    host:  'api.socialcap.app',
     protocol: 'https',
     port: 443, 
     authorization: "",
