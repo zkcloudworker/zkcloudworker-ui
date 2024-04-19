@@ -1,15 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Breadcrumb, BreadcrumbItem, Tabs, TabItem } from 'flowbite-svelte';
+  import { Breadcrumb, BreadcrumbItem, Dropdown, DropdownItem, Tabs, TabItem } from 'flowbite-svelte';
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
+  import { EnvelopeSolid, EditSolid, ShareNodesSolid,DotsVerticalOutline } from "flowbite-svelte-icons";
   import { H1, ErrorOnFetch } from "$lib/components";
-  import StateBadge from '$lib/components/StateBadge.svelte';
+  import StateBadge from '$lib/components/common/StateBadge.svelte';
   import { useGetCommunity } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';
   import { findState } from '$lib/types/states';
   import type { Community } from "$lib/types";
   import Time from 'svelte-time';
-
 
   export let uid: string | null = null;
   
@@ -55,12 +55,24 @@
             <div>
               <StateBadge data={sts} /> 
               <span class="text-xs ms-2">
-                Updated <Time relative={true} timestamp={cmn?.createdUTC.replace('T',' ')} />
+                Last update <Time relative={true} timestamp={cmn?.createdUTC.replace('T',' ')} />
               </span>
             </div>
-            <div>
-              <Button size="md" color="light">Share</Button> 
+            <div class="flex items-center space-x-1">
+              <!-- 
+                <Button size="md" color="light" class="!p-2 --bg-orange-500 --text-white"><EditSolid  class="w-6 h-6" /></Button> 
+              -->
               <Button size="md" class="bg-orange-500">Admin this</Button> 
+              <!-- <Button size="md" color="light" class="!p-2"><EnvelopeSolid  class="w-6 h-6" /></Button>  -->
+              <Button size="md" color="light" class="!p-2"><ShareNodesSolid  class="w-6 h-6" /></Button> 
+              <DotsVerticalOutline class="dots-menu w-6 h-6 font-bold dark:text-white" />
+              <Dropdown placement="bottom" triggeredBy=".dots-menu">
+                <DropdownItem>Share ...</DropdownItem>
+                <DropdownItem>Invite ...</DropdownItem>
+                <DropdownItem slot="footer">Delete this !</DropdownItem>
+              </Dropdown>              
+              <!--  
+          -->
             </div>
           </div>
         
@@ -69,7 +81,7 @@
             {cmn?.description}                                              
           </p>
 
-          <Tabs style="underline" defaultClass="flex flex-wrap items-end justify-center space-x-4 rtl:space-x-reverse">
+          <Tabs style="underline" defaultClass="flex flex-wrap items-end justify-between space-x-4 rtl:space-x-reverse">
             <TabItem open class="">
               <span slot="title" class="font-bold">
                 <span class="inline-block text-sm">

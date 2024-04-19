@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
   import { Heading, P } from "flowbite-svelte";
-  import H1 from "$lib/components/H1.svelte";
+  import H1 from "$lib/components/common/H1.svelte";
 </script>
 
 <div class="p-4">

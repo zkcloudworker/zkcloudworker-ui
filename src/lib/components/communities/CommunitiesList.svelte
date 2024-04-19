@@ -1,6 +1,6 @@
 <script lang="ts">
   import { P } from 'flowbite-svelte';
-  import H1 from "$lib/components/H1.svelte";
+  import H1 from "$lib/components/common/H1.svelte";
   import CommunityCard from "./CommunityCard.svelte";
 
   export let 

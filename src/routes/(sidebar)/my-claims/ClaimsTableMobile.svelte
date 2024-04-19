@@ -1,5 +1,5 @@
 <script>
-	import StateBadge from '$lib/components/StateBadge.svelte';
+	import StateBadge from '$lib/components/common/StateBadge.svelte';
 	import {
 		Table,
 		TableBody,

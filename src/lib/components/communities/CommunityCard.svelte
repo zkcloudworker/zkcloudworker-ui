@@ -1,5 +1,5 @@
 <script lang="ts">
-  import StateBadge from '$lib/components/StateBadge.svelte';
+  import StateBadge from '$lib/components/common/StateBadge.svelte';
 	import { findState } from '$lib/types/states';
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
 
@@ -40,22 +40,22 @@
     <div class="ms-0 mt-4 justify-between items-center flex rtl:space-x-reverse">
       {#if joined}
         <span class="inline-block text-sm font-bold">
-          <Badge class="inline-block mb-0 bg-gray-200 rounded-full">
+          <Badge class="inline-block mb-0 py-1 bg-gray-200 rounded-full">
             { nClaims }
           </Badge> claims
         </span>
         <span class="inline-block text-sm font-bold">
-          <Badge class="inline-block mb-0 bg-gray-200 rounded-full">
+          <Badge class="inline-block mb-0 py-1 bg-gray-200 rounded-full">
             { nCredentials }
           </Badge> issued
         </span>
       {/if}
-      <div class="flex ms-4">
-        <Avatar src="/images/gradient-lean.svg" stacked size="sm"/>
-        <Avatar src="/images/gradient-mario.svg" stacked  size="sm"/>
-        <Avatar src="/images/gradient-nicolas.svg" stacked  size="sm"/>
-        <Avatar stacked size="sm" class="bg-gray-700 text-white font-bold hover:bg-gray-600 text-xs">
-          {count}
+      <div class="flex ms-4 items-center">
+        <Avatar src="/images/gradient-lean.svg" stacked size="xs"/>
+        <Avatar src="/images/gradient-mario.svg" stacked  size="xs"/>
+        <Avatar src="/images/gradient-nicolas.svg" stacked  size="xs"/>
+        <Avatar stacked size="xs" class="py-1 bg-gray-200 text-dark font-bold hover:bg-gray-600 text-xs w-10">
+          +{Number(count)-3 }
         </Avatar>        
       </div>      
       {#if !joined}

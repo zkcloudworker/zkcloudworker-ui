@@ -3,7 +3,7 @@
   import { CACHE, type APIResponse } from "$lib/api";
   import { P } from "flowbite-svelte";
   import { H1, ErrorOnFetch } from "$lib/components";
-	import CommunitiesList from "./CommunitiesList.svelte";
+	import CommunitiesList from "$lib/components/communities/CommunitiesList.svelte";
   import { useGetMyCommunities } from "$lib/hooks/communities";
   
   const communities = useGetMyCommunities();

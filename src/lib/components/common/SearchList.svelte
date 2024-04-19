@@ -1,6 +1,6 @@
 <script>
 	import { Button, Popover, ToolbarButton } from 'flowbite-svelte';
-  import Icon from "$lib/components/Icon.svelte";
+  import Icon from "$lib/components/common/Icon.svelte";
 
 </script>
 
