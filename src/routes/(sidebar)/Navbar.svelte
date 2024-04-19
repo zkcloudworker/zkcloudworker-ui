@@ -15,9 +15,9 @@
 	} from 'flowbite-svelte';
 	import '../../app.pcss';
 	import Users from '../data/users.json';
-	import Notifications from '$lib/components/NotificationList.svelte';
-  import SearchList from '$lib/components/SearchList.svelte';
-  import UserMenu from '$lib/components/UserMenu.svelte';
+	import Notifications from '$lib/components/common/NotificationList.svelte';
+  import SearchList from '$lib/components/common/SearchList.svelte';
+  import UserMenu from '$lib/components/common/UserMenu.svelte';
 
 	export let fluid = true;
 	export let drawerHidden = false;

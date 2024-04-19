@@ -7,7 +7,7 @@
   import { SidebarDropdownWrapper, SidebarDropdownItem } from "flowbite-svelte";
   import { Avatar, Select, A } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
-  import Icon from "$lib/components/Icon.svelte";
+  import Icon from "$lib/components/common/Icon.svelte";
   import type { Community, Plan } from "$lib/types";
   import { useGetMyAdminedCommunities } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';

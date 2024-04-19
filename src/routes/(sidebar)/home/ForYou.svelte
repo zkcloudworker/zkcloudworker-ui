@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import { P, A, Tabs, TabItem } from "flowbite-svelte";
   import { H1 } from "$lib/components";
-  import CommunitiesList from "../my-communities/CommunitiesList.svelte"
-	import ErrorOnFetch from "$lib/components/ErrorOnFetch.svelte";
+  import CommunitiesList from "$lib/components/communities/CommunitiesList.svelte"
+	import ErrorOnFetch from "$lib/components/common/ErrorOnFetch.svelte";
   import { useGetAllCommunities } from "$lib/hooks/communities";
 
   const communities =  useGetAllCommunities();

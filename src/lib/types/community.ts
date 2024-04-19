@@ -1,6 +1,6 @@
 export type { Community };
 
-type CommunityState =  "DRAFT" | "APPROVED" | "PAUSED" | "REJECTED";
+type CommunityState =  "INITIAL" | "APPROVED" | "PAUSED" | "REJECTED";
 
 interface Community {
   /// from basic DB Claim Entity ///

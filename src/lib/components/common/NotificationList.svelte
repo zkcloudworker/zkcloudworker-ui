@@ -8,8 +8,8 @@
 		HeartSolid,
 		UsersGroupSolid
 	} from 'flowbite-svelte-icons';
-  import Icon from "$lib/components/Icon.svelte";
-	import Users from '../../routes/data/users.json';
+  import Icon from "$lib/components/common/Icon.svelte";
+	import Users from "../../../routes/data/users.json";
 	import Notification from './Notification.svelte';
 </script>
 

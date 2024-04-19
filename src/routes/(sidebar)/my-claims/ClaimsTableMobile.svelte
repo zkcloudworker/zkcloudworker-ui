@@ -1,5 +1,5 @@
 <script>
-	import StateBadge from '$lib/components/StateBadge.svelte';
+	import StateBadge from '$lib/components/common/StateBadge.svelte';
 	import {
 		Table,
 		TableBody,
@@ -12,10 +12,11 @@
 	} from 'flowbite-svelte';
 	import Time from 'svelte-time';
 	export let data;
-	import { DotsVerticalOutline } from 'flowbite-svelte-icons';
+	import { FilePenOutline } from 'flowbite-svelte-icons';
+	import Icon from '$lib/components/Icon.svelte';
 </script>
 
-<Table>
+<Table class="p-0">
 	<TableBody class="table-fixed">
 		{#each data as t}
 			<TableBodyRow>
@@ -24,34 +25,30 @@
 						<div class="flex space-x-4">
 							<Avatar src={t.image} class="round h-10 w-10 drop-shadow-lg" />
 							<div class="space-y-4">
-								<div class="flex items-center space-x-2">
+								<div class="flex items-center justify-between">
 									<div class="grid grid-cols-1 gap-1">
 										<p class="text-weight-400 truncate text-xs text-gray-500">{t.community}</p>
 										<p class="text-weight-600 text-md truncate">{t.type}</p>
 									</div>
 								</div>
-								<div class="flex items-center justify-between">
-									<div class="flex space-x-4">
-										<div class="grid grid-cols-1 gap-1">
-											<p class="text-md text-weight-600 text-gray-500">Created</p>
-											<p class="text-xs"><Time timestamp={t.createdUTC} /></p>
-										</div>
-										<div class="grid grid-cols-1 gap-1 text-center">
-											<p class="text-md text-weight-600 text-gray-500">Claimed</p>
-											<p class="text-xs">
-												{#if t.issuedUTC}<Time timestamp={t.issuedUTC} />
-												{:else}-{/if}
-											</p>
-										</div>
-										<div class="grid grid-cols-1 gap-1 text-center">
-											<p class="text-md text-weight-600 text-gray-500">State</p>
-											<StateBadge class="p-0 text-sm" data={t.state} />
-										</div>
+								<div class="flex space-x-4 md:space-x-6">
+									<div class="grid grid-cols-1 gap-1">
+										<p class="text-weight-500 text-xs text-gray-500">Created</p>
+										<p class="text-xs"><Time format="DD MMM, YYYY" timestamp={t.createdUTC} /></p>
+									</div>
+									<div class="grid grid-cols-1 gap-1 text-center">
+										<p class="text-weight-500 text-xs text-gray-500">Claimed</p>
+										<p class="text-xs">
+											{#if t.issuedUTC}<Time timestamp={t.issuedUTC} />
+											{:else}-{/if}
+										</p>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div><Button color="alternative" size="sm">Edit</Button></div>
+						<div>
+							<StateBadge class="text-xs" data={t.state} />
+						</div>
 					</div>
 				</TableBodyCell>
 			</TableBodyRow>
