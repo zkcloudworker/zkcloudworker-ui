@@ -1,7 +1,6 @@
 <script>
-	import StateBadge from '$lib/components/common/StateBadge.svelte';
-	import {
-		Table,
+  import {
+    Table,
 		TableBody,
 		TableBodyCell,
 		TableBodyRow,
@@ -11,9 +10,9 @@
 		Avatar
 	} from 'flowbite-svelte';
 	import Time from 'svelte-time';
+  import { Icon, StateBadge } from '$lib/components';
 	export let data;
 	import { FilePenOutline } from 'flowbite-svelte-icons';
-	import Icon from '$lib/components/Icon.svelte';
 </script>
 
 <Table class="p-0">
