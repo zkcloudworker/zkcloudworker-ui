@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Frame, type LinkType } from 'flowbite-svelte';
+	import { Card, Frame, A, type LinkType } from 'flowbite-svelte';
 	import {
 		DiscordSolid,
 		DribbbleSolid,
@@ -26,7 +26,7 @@
 	];
 </script>
 
-<Frame
+<!-- <Frame
 	tag="footer"
 	rounded
 	shadow
@@ -57,4 +57,22 @@
 	© 2019-2023 <a href="https://flowbite.com/" class="hover:underline" target="_blank">
 		Flowbite.com
 	</a>. All rights reserved.
-</p>
+</p> -->
+
+<div tag="footer"	class="px-4">
+  <hr>
+<!--   <div class="mt-4 px-4 leading-relaxed text-gray-600">
+    <p class="my-0 text-sm">
+      © 2023-2024 - 
+      <A href="https://socialcap.app/" class="font-bold hover:underline" target="_blank">
+        Socialcap
+      </A>. 
+      All rights reserved.
+    </p>
+    <div class="mt-2 mx-1 text-sm space-x-3">
+      <A class="underline inline-block">Privacy Policies</A>
+      <A class="underline inline-block">Terms and Conditions</A>
+    </div>
+  </div>
+ -->
+</div>
