@@ -1,7 +1,6 @@
 <script lang="ts">
   import MyClaims from "./MyClaims.svelte";
   import { MetaTag } from "$lib/components";
-	export let data;
 
 	const path: string = '/home';
   const description: string = 'Admin Dashboard example using Flowbite Svelte';
