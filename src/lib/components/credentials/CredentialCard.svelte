@@ -5,6 +5,10 @@
 	import Time from 'svelte-time';
 	import { useGetCommunity } from '$lib/hooks/communities';
 	import ErrorOnFetch from '../common/ErrorOnFetch.svelte';
+	import { onMount } from 'svelte';
+	import type { User } from '$lib/types';
+	import { getCurrentUser } from '$lib/store';
+
 	export let data: Credential;
 	const community = useGetCommunity(data.communityUid);
 
@@ -13,6 +17,12 @@
 	function gotoLink(uid: string) {
 		return `/credential/${uid}`;
 	}
+
+	let profile: User | null = getCurrentUser();
+
+	onMount(() => {
+		profile = getCurrentUser();
+	});
 </script>
 
 {#if $community.isLoading}
@@ -26,9 +36,11 @@
 		<div class="relative flex items-end justify-center">
 			<img src={bgImage} class="fill h-auto w-full" alt="applicant" />
 
-			<div class="border-1 absolute -bottom-4 flex items-center gap-2 rounded-full border-gray-100 bg-gray-50 p-1">
-				<Avatar size="xs" src={'/images/profile-2.png'} tabindex="0" />
-				<div class="text-xs text-black dark:text-white">John Leon</div>
+			<div
+				class="border-1 absolute -bottom-4 flex items-center gap-2 rounded-full border-gray-100 bg-gray-50 p-1"
+			>
+				<Avatar size="xs" src={profile?.image ? profile?.image : '/images/profile-2.png'} tabindex="0" />
+				<div class="text-xs text-black dark:text-white">{profile?.fullName}</div>
 			</div>
 		</div>
 
