@@ -18,7 +18,7 @@
 			<div
 				class="items-center justify-center space-y-4 sm:flex sm:space-x-4 sm:space-y-0 rtl:space-x-reverse"
 			>
-				<Button color="primary" size="sm">Back home</Button>
+				<Button href="/" color="primary" size="sm">Back home</Button>
 				<Button color="none" class="border-0">Learn more</Button>
 			</div>
 
