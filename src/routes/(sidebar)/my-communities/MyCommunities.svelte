@@ -5,6 +5,7 @@
   import { H1, ErrorOnFetch } from "$lib/components";
 	import CommunitiesList from "$lib/components/communities/CommunitiesList.svelte";
   import { useGetMyCommunities } from "$lib/hooks/communities";
+	import NoData from "$lib/components/common/NoData.svelte";
   
   const communities = useGetMyCommunities();
 </script>
@@ -22,6 +23,8 @@
       description="All the communities"
       error={$communities.error} 
     />
+  {:else if !$communities.data || $communities.data.length === 0}
+    <NoData text="You didn’t join any community yet" />
   {:else}
     <ul>
       <CommunitiesList 
