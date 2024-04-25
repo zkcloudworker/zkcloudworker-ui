@@ -1,4 +1,4 @@
-export { User };
+export type { User };
 
 interface User {
   uid: string;
