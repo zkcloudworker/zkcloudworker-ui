@@ -1,4 +1,4 @@
-export type { Community };
+export type { Community, NewCommunity };
 
 type CommunityState =  "INITIAL" | "APPROVED" | "PAUSED" | "REJECTED";
 
@@ -26,4 +26,10 @@ interface Community {
   countMembers: number;
   countCredentials: number;
   countClaims: number;
+}
+
+interface NewCommunity {
+  name: string;
+  description: string;
+  adminUid?: string;
 }
