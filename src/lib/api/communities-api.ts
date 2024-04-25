@@ -1,15 +1,17 @@
 import { API, type APIResponse } from "./api-client";
-import type { Community, User } from "$lib/types";
+import { type Community, type User } from "$lib/types";
 import { getCurrentUser } from "$lib/store";
+import type { NewCommunity } from "$lib/types/community";
 
-export { 
+export {
   getAllCommunities,
   getMyCommunities,
-  getCommunity
+  getCommunity,
+  createCommunity
 }
 
 async function getCommunity(params: {
-  uid: string, 
+  uid: string,
 }): Promise<Community> {
   const rs = await API.query("get_community", params);
   if (rs.error) throw Error(rs.error.message, rs.error.cause); // Todo handle error
@@ -23,7 +25,7 @@ async function getCommunity(params: {
  * @returns APIResponse - on success array of Community 
  */
 async function getAllCommunities(params: {
-  columns?: string[], 
+  columns?: string[],
   notJoined?: boolean
 }): Promise<Community[]> {
   const rs = await API.query("get_all_communities", params);
@@ -38,14 +40,14 @@ async function getAllCommunities(params: {
  * @returns APIResponse - on success array of Community 
  */
 async function getMyCommunities(params: {
-  admined?: boolean, 
-  columns?: string[], 
+  admined?: boolean,
+  columns?: string[],
 }): Promise<Community[]> {
   const rs = await API.query("get_my_communities", {});
   if (rs.error) return []; // Todo handle error
 
   // if not admined return all
-  if (!params.admined) return rs.data; 
+  if (!params.admined) return rs.data;
 
   // only the ones admined by this user
   if (params.admined) {
@@ -56,4 +58,18 @@ async function getMyCommunities(params: {
     ));
   }
   return [];
+}
+
+
+/**
+ * Create a new community
+ * @param name: string
+ * @param description: string
+ * @returns Created Commmunity
+ */
+async function createCommunity(data: NewCommunity): Promise<Community> {
+  const rs = await API.mutate("update_community", { ...data, state: "INITIAL", new: true })
+  if (rs.error) throw Error(rs.error.message, rs.error.cause);
+  return rs.data;
+
 }

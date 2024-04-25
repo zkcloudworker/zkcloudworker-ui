@@ -11,6 +11,7 @@
   import type { Community, Plan } from "$lib/types";
   import { useGetMyAdminedCommunities } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';
+	import CreateCommunityModal from '$lib/components/communities/CreateCommunityModal.svelte';
   
 	export let drawerHidden: boolean = false;
   export let network: string = 'main';
@@ -31,7 +32,8 @@
   
 	$: mainSidebarUrl = $page.url.pathname;
 	let activeMainSidebar: string;
-  
+  let openCreateCommunityModal = false;
+
 	afterNavigate((navigation) => {
     // this fixes https://github.com/themesberg/flowbite-svelte/issues/364
 		document.getElementById('svelte')?.scrollTo({ top: 0 });
@@ -44,6 +46,8 @@
     removeActiveSession();
   }
 </script>
+
+<CreateCommunityModal bind:open={openCreateCommunityModal}/>
 
 <Sidebar
   class={drawerHidden ? 'hidden' : ''}
@@ -152,7 +156,7 @@
         </SidebarDropdownWrapper>
       {/if}
       <p class="ms-2 pt-3">
-        <Button color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
+        <Button   on:click={() => { openCreateCommunityModal = true; }} color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
           Create new community
         </Button>
       </p>
