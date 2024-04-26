@@ -3,12 +3,13 @@
   import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
   import { removeActiveSession } from '$lib/store/sessions';
+	import { setNavigationPath } from '$lib/store/navigation';
 	import { Button, Sidebar,	SidebarGroup,	SidebarItem, SidebarWrapper } from 'flowbite-svelte';
   import { SidebarDropdownWrapper, SidebarDropdownItem } from "flowbite-svelte";
   import { Avatar, Select, A } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/common/Icon.svelte";
-  import type { Community, Plan } from "$lib/types";
+  import type { Community, Plan, NavigationPath } from "$lib/types";
   import { useGetMyAdminedCommunities } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';
 	import CreateCommunityModal from '$lib/components/communities/CreateCommunityModal.svelte';
@@ -35,7 +36,11 @@
   let openCreateCommunityModal = false;
 
 	afterNavigate((navigation) => {
-    console.log("Sidebar afterNavigate navigation=", navigation);
+    setNavigationPath({
+      from: navigation.from?.route.id || "",
+      to: navigation.to?.route.id || "", 
+      type: navigation.type
+    })
 
     // this fixes https://github.com/themesberg/flowbite-svelte/issues/364
 		document.getElementById('svelte')?.scrollTo({ top: 0 });

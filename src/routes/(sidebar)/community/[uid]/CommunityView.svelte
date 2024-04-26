@@ -1,15 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Breadcrumb, BreadcrumbItem, Dropdown, DropdownItem, Tabs, TabItem } from 'flowbite-svelte';
-  import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
+  import { Dropdown, DropdownItem, Tabs, TabItem } from 'flowbite-svelte';
+  import { Badge, Avatar, Button, Img } from 'flowbite-svelte';
   import { EnvelopeSolid, EditSolid, ShareNodesSolid,DotsVerticalOutline } from "flowbite-svelte-icons";
   import { H1, ErrorOnFetch } from "$lib/components";
-  import StateBadge from '$lib/components/common/StateBadge.svelte';
   import { useGetCommunity } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';
   import { findState } from '$lib/types/states';
   import type { Community } from "$lib/types";
   import Time from 'svelte-time';
+  import StateBadge from '$lib/components/common/StateBadge.svelte';
+  import Breadcrumbs from "$lib/components/common/Breadcrumbs.svelte";
 
   export let uid: string | null = null;
   
@@ -24,12 +25,8 @@
 </script>
 
 <div class="p-4">
-  <!-- <Breadcrumb class="mb-5">
-    <BreadcrumbItem home href="/home">Home</BreadcrumbItem>
-    <BreadcrumbItem></BreadcrumbItem>
-    <BreadcrumbItem>{$community.data?.name || '?'}</BreadcrumbItem>
-  </Breadcrumb> -->
-
+  <Breadcrumbs label={$community.data?.name || '?'}/>
+  
   <div>
     {#if $community.isLoading}
       <span>Loading...</span>
@@ -39,7 +36,7 @@
         error={$community.error} 
       />
     {:else}
-      <div class="w-full max-w-screen-lg" padding="none">
+      <div class="w-full max-w-screen-lg">
         <!-- <div class="bg-[url(')] bg-cover p-4">
         </div> -->
         <div class="relative bg-blue-100 mb-12 rounded-md">

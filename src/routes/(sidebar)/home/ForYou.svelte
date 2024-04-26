@@ -26,7 +26,7 @@
     </TabItem>
 
     <TabItem>
-      <span slot="title" class="--font-bold">Join communities</span>
+      <a slot="title" class="--font-bold" href="#join-cmns">Join communities</a>
       <div>
         {#if $communities.isLoading}
         <span>Loading...</span>
