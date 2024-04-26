@@ -35,6 +35,8 @@
   let openCreateCommunityModal = false;
 
 	afterNavigate((navigation) => {
+    console.log("Sidebar afterNavigate navigation=", navigation);
+
     // this fixes https://github.com/themesberg/flowbite-svelte/issues/364
 		document.getElementById('svelte')?.scrollTo({ top: 0 });
 		closeDrawer();

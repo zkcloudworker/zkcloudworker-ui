@@ -11,14 +11,14 @@
   $: sts = findState((state === 'INITIAL') ? 'Revision' : state);
   const bgImage = '/images/socialcap-bg-signin.svg'; // gradient-background-1.jpeg';
 
-  function gotoLink(joined: boolean, uid: string) {
+  function gotoLink(uid: string) {
     return joined 
       ? `/community/${uid}`
       : `/community/${uid}`;
   }
 </script>
 
-<Card class="" padding="none" size="fluid">
+<Card class="" padding="none" size="fluid" href={gotoLink(uid)}>
   <!-- <div class="bg-[url(')] bg-cover p-4">
   </div> -->
   <div class="relative bg-blue-100">
@@ -31,9 +31,7 @@
   <div class="px-4 pt-2 pb-4">
     <!-- <Badge rounded border large color="green" class="inline-block mb-0">{state}</Badge> -->
     <StateBadge data={sts} />
-    <a href={gotoLink(joined, uid)}>
-      <h6 class="mt-2 mb-2 text-xl font-bold text-blue-900 dark:text-white">{title}</h6>
-    </a>
+    <h6 class="mt-2 mb-2 text-xl font-bold text-blue-900 dark:text-white">{title}</h6>
     <p class="h-10 max-h-10 mb-6 text-sm text-gray-600 dark:text-gray-400 text-ellipsis overflow-hidden ">
       {description}
     </p>
