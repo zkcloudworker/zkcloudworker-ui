@@ -6,21 +6,74 @@
 	import type { User } from '$lib/types';
 	import SubmitButton from '../common/SubmitButton.svelte';
 	import CommunityCard from './CommunityCard.svelte';
+	import { object, string, boolean } from 'yup';
+	import { createForm, getValue } from 'felte';
+	import { checkCommunityNameExist } from '$lib/api/communities-api';
 	export let open = false;
 	export let created = false;
-	let name = '';
-	let description = '';
-	let acceptTac = false;
-	let isAdmin = false;
+	const schema = object({
+		name: string()
+			.required('Name is required')
+			.test('verified', 'Community name already exists', async (value, values) => {
+				const exist = await checkCommunityNameExist(value);
+				return !exist as boolean;
+			}),
+		description: string().required('Description is required'),
+		acceptTac: boolean().required().default(false).oneOf([true], 'Field must be checked'),
+		isAdmin: boolean().default(false)
+	});
+
 	const createCommunityMutation = useCreateCommunity();
 	$: working = $createCommunityMutation.isPending ? 'Creating...' : '';
 	let profile: User | null = getCurrentUser();
-	const onSubmit = async (e: any) => {
-		e.preventDefault();
-		e.stopPropagation();
-		await $createCommunityMutation.mutateAsync({ name, description, adminUid: profile?.uid });
-		created = true;
-	};
+
+	const { form, errors, isValid, data, touched, createSubmitHandler } = createForm({
+		validate: async (values) => {
+			try {
+				await schema.validate(values, { abortEarly: false });
+			} catch (err: any) {
+				const errors = err.inner.reduce(
+					(res: any, value: any) => ({
+						[value.path]: value.message,
+						...res
+					}),
+					{}
+				);
+				return errors;
+			}
+		}
+	});
+
+	const submit = createSubmitHandler({
+		onSubmit: async (values, context) => {
+			console.log('submitting');
+			await $createCommunityMutation.mutateAsync({
+				name: values.name,
+				description: values.description,
+				adminUid: profile?.uid
+			});
+			created = true;
+		},
+		validate: async (values) => {
+			try {
+				await schema.validate(values, { abortEarly: false });
+			} catch (err: any) {
+				const errors = err.inner.reduce(
+					(res: any, value: any) => ({
+						[value.path]: value.message,
+						...res
+					}),
+					{}
+				);
+				return errors;
+			}
+		},
+		onSuccess: (response, context) => {
+			console.log('succcess');
+			created = true;
+		}
+	});
+
 	onMount(() => {
 		profile = getCurrentUser();
 	});
@@ -34,43 +87,49 @@
 				We’ll check the community registration before approving it.
 			</h4>
 		</div>
-		<form class="mx-6 flex flex-col space-y-4">
-			<Label class="space-y-2">
+		<form use:form on:submit|stopPropagation|preventDefault class="mx-6 flex flex-col space-y-4">
+			<Label for="name" class="space-y-2" color="{$errors.name ? "red" : "gray"}">
 				<div class="flex justify-between">
 					<span>Name</span><span class="text-orange-400">Required</span>
 				</div>
-				<Input type="text" name="name" required bind:value={name} />
+				<Input color="{$errors.name ? "red" : "base"}" type="text" name="name" required />
+				{#if $errors.name && $touched.name}
+					<span class="text-sm text-red-500">{$errors.name}</span>
+				{/if}
 				<Helper class="mt-2 text-sm text-gray-500">Community name must be unique</Helper>
 			</Label>
-			<Label class="space-y-2">
+			<Label class="space-y-2" color="{$errors.description ? "red" : "gray"}" for="description">
 				<div class="flex justify-between">
 					<span>Description</span><span class="text-orange-400">Required</span>
 				</div>
-				<Input type="text" name="description" required bind:value={description} />
+				<Input color="{$errors.description ? "red" : "base"}" type="text" name="description" required />
+				{#if $errors.description && $touched.description}
+					<span class="text-sm text-red-500">{$errors.description}</span>
+				{/if}
 				<Helper class="mt-2 text-sm text-gray-500">This description will be public</Helper>
 			</Label>
 
-			<Checkbox bind:checked={isAdmin}>I am one of the administrator of this community</Checkbox>
+			<Checkbox name="isAdmin">I am one of the administrator of this community</Checkbox>
 			<Label class="items-baseline space-y-2">
-				<Checkbox bind:checked={acceptTac}
+				<Checkbox name="acceptTac"
 					>Accept&nbsp;<a href="/"> Terms of Service</a>&nbsp;and&nbsp;<a href="/">Privacy Policy</a
 					></Checkbox
 				>
 			</Label>
+			<SubmitButton
+				on:click={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					submit();
+				}}
+				{working}
+				disabled={!$isValid || $createCommunityMutation.isPending}
+				class="order-1 mb-2 mt-6 w-full md:order-2 md:mb-0 md:ms-2"
+				size="lg"
+			>
+				Create
+			</SubmitButton>
 		</form>
-
-		<SubmitButton
-			on:click={onSubmit}
-			{working}
-			disabled={!acceptTac ||
-				name.trim() == '' ||
-				description.trim() == '' ||
-				$createCommunityMutation.isPending}
-			class="order-1 mb-2 mt-6 w-full md:order-2 md:mb-0 md:ms-2"
-			size="lg"
-		>
-			Create
-		</SubmitButton>
 	{:else}
 		<div class="flex flex-col space-y-5">
 			<div class="flex flex-col space-y-1 text-center">
@@ -81,7 +140,12 @@
 					We’ll send you an email when it’s ready
 				</h4>
 			</div>
-			<CommunityCard title={name} {description} state={'INITIAL'} joined={true} />
+			<CommunityCard
+				title={getValue($data, 'name')}
+				description={getValue($data, 'description')}
+				state={'INITIAL'}
+				joined={true}
+			/>
 
 			<Button
 				on:click={() => {
