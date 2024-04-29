@@ -88,21 +88,21 @@
 			</h4>
 		</div>
 		<form use:form on:submit|stopPropagation|preventDefault class="mx-6 flex flex-col space-y-4">
-			<Label class="space-y-2">
+			<Label for="name" class="space-y-2" color="{$errors.name ? "red" : "gray"}">
 				<div class="flex justify-between">
 					<span>Name</span><span class="text-orange-400">Required</span>
 				</div>
-				<Input type="text" name="name" required />
+				<Input color="{$errors.name ? "red" : "base"}" type="text" name="name" required />
 				{#if $errors.name && $touched.name}
 					<span class="text-sm text-red-500">{$errors.name}</span>
 				{/if}
 				<Helper class="mt-2 text-sm text-gray-500">Community name must be unique</Helper>
 			</Label>
-			<Label class="space-y-2">
+			<Label class="space-y-2" color="{$errors.description ? "red" : "gray"}" for="description">
 				<div class="flex justify-between">
 					<span>Description</span><span class="text-orange-400">Required</span>
 				</div>
-				<Input type="text" name="description" required />
+				<Input color="{$errors.description ? "red" : "base"}" type="text" name="description" required />
 				{#if $errors.description && $touched.description}
 					<span class="text-sm text-red-500">{$errors.description}</span>
 				{/if}
