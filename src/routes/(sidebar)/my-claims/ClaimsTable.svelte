@@ -21,10 +21,7 @@
   let claim: Claim;
 </script>
 
-{#if claim}
-  <ClaimModal bind:open={showModal} {claim}/>
-{/if}
-
+{#if data}
 <Table>
 	<TableHead class="text-md bg-white normal-case text-gray-500">
 		<TableHeadCell>Credential</TableHeadCell>
@@ -36,7 +33,7 @@
 		</TableHeadCell>
 	</TableHead>
 	<TableBody class="divide-y">
-		{#each data as t}
+		{#each (data || []) as t}
 			<TableBodyRow>
 				<TableBodyCell>
 					<div class="flex space-x-3 items-center">
@@ -66,3 +63,4 @@
 		{/each}
 	</TableBody>
 </Table>
+{/if}

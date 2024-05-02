@@ -17,7 +17,7 @@
 
 <Table class="p-0">
 	<TableBody class="table-fixed">
-		{#each data as t}
+		{#each (data || []) as t}
 			<TableBodyRow>
 				<TableBodyCell>
 					<div class="flex justify-between">

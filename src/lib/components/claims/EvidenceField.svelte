@@ -13,7 +13,6 @@
 
   const plugins = [gfmPlugin()];  
   let previewOn = false;
-  let buffer = data[index].value;
 
   function validateField(e: any) {
     const value = e.target.value;
@@ -38,6 +37,7 @@
   };
 </script>
 
+{#if data[index]}
 <div class="no-border px-0 mb-6">
   {#if field.label}
     <Label for="exampleText" class="flex justify-between text-sm font-bold text-gray-900 pb-1">
@@ -189,3 +189,4 @@
     </p>
   {/if}
 </div>
+{/if}

@@ -16,7 +16,6 @@
 
   let profile: User | null = getCurrentUser();
   $: isNew = (data.uid === 'new');
-
   $: refreshOn = data.uid;//+Math.random();
 </script>
 
@@ -32,7 +31,7 @@
   <Breadcrumbs label={$plan.data?.name || '?'}/>
 
   {#key refreshOn}
-      {#if $plan.isLoading}
+    {#if $plan.isLoading}
       <span>Loading...</span>
     {:else if $plan.isError}
       <ErrorOnFetch 
@@ -44,12 +43,12 @@
         data={$plan.data} 
         isNew={data.uid === 'new'}
       />
-      {#if isNew}
-        <ClaimEditor 
+      {#if isNew && $plan.data}
+        <!-- <ClaimEditor 
           plan={$plan?.data}
           claim={null}
           {isNew}
-        />
+        /> -->
       {/if}
     {/if}
   {/key}

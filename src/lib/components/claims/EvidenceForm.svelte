@@ -5,7 +5,7 @@
     personal or private data will be stored and kept.
   </Alert>
 
-  {#each eform as field, index}
+  {#each (eform || []) as field, index}
       <EvidenceField 
         field={field} 
         index={index} 
