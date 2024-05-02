@@ -8,7 +8,8 @@ interface Plan {
     name: string;
     alias?: string;
     description?: string;
-    image?: string;
+    image?: string; // for avatar
+    banner?: string; // has banner additionally to avatar image
     template?: string;
     evidence?: string;
     strategy?: string;
@@ -25,4 +26,5 @@ interface Plan {
     revocable?: boolean;
     startsUTC?: Date;
     endsUTC?: Date;
+    joined?: boolean;
 }

@@ -1,4 +1,5 @@
 import { getCurrentSession, getDefaultSession } from "$lib/store/sessions";
+import { setNavigationPath } from "$lib/store/navigation";
 import { API } from "$lib/api/api-client";
 
 let activeSession = getCurrentSession();
@@ -8,6 +9,13 @@ console.log("hook.client.js activeSession=", activeSession);
 if ('serviceWorker' in navigator) {
   console.log('hook.clients.js: serviceWorker in navigator = true')
 }
+
+// set defualt values for this global
+setNavigationPath({
+  from: "", 
+  to: "",
+  type: ""
+})
 
 if (activeSession) {
   API.init(activeSession);  

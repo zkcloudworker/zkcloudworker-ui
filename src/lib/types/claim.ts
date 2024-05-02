@@ -1,6 +1,7 @@
 import type { State } from "./states"
 
 export type { Claim }
+
 interface Claim {
     uid: string
     communityUid: string

@@ -4,6 +4,14 @@ export type State = {
     badgeType?: "info" | "success" | "danger" | "warning"
 }
 
+export const 
+  DRAFT = 1,
+  CANCELLED = 2,
+  REVISION = 3,
+  CLAIMED = 4,
+  ACTIVE = 8,
+  UNPAID = 12;
+
 export const States: State[] = [
     {
         name: 'None',

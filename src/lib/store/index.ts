@@ -11,3 +11,8 @@ export {
   removeActiveSession
 }
 from "./sessions";
+export {
+  // getNavigationPath,
+  setNavigationPath,
+  navigationPath
+} from "./navigation";

@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { useGetMyClaims } from '$lib/hooks/claims';
-	import ClaimsTable from './ClaimsTable.svelte';
 	import { P } from 'flowbite-svelte';
 	import { H1, ErrorOnFetch } from '$lib/components';
+	import ClaimsTable from './ClaimsTable.svelte';
 	import ClaimsTableMobile from './ClaimsTableMobile.svelte';
 	import NoData from '$lib/components/common/NoData.svelte';
+
 	const claims = useGetMyClaims();
 </script>
 
@@ -21,10 +22,14 @@
 		<NoData text="Yo have no pending claims" />
 	{:else}
 		<div class="hidden lg:block">
-			<ClaimsTable data={$claims.data} />
+			<ClaimsTable data={
+        ($claims.data && Array.isArray($claims.data)) ? $claims.data : []
+      } />
 		</div>
 		<div class="block lg:hidden">
-			<ClaimsTableMobile data={$claims.data} />
+			<ClaimsTableMobile data={
+        ($claims.data && Array.isArray($claims.data)) ? $claims.data : []
+      } />
 		</div>
 	{/if}
 </div>
