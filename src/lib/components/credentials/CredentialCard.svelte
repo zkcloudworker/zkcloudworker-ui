@@ -125,7 +125,9 @@
 				</div>
 
         {#if isClaimable}
-          <Button color="primary" href={`/claim/new?mp=${data.uid}`}>
+          <Button color="primary" 
+            data-sveltekit-preload-data="false"
+            href={`/claim/new?mp=${data.uid}`}>
             Claim it!
           </Button>
         {/if}
