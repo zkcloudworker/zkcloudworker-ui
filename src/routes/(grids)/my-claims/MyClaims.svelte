@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { PageData } from '../../(sidebar)/my-claims/$types';
 	import { useGetMyClaims } from '$lib/hooks/claims';
 	import { P } from 'flowbite-svelte';
 	import { H1, ErrorOnFetch } from '$lib/components';
