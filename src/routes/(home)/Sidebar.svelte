@@ -163,8 +163,8 @@
         </SidebarDropdownWrapper>
       {/if}
       <p class="ms-2 pt-3">
-        <Button   on:click={() => { openCreateCommunityModal = true; }} color="light" size="lg" class="w-full text-sm text-blue-700 font-bold">
-          Create new community
+        <Button   on:click={() => { openCreateCommunityModal = true; }} color="primary" text-color="white" size="lg" class="w-full text-sm font-bold">
+          Create a community
         </Button>
       </p>
     </SidebarGroup>  

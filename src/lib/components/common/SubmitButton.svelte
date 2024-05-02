@@ -11,6 +11,7 @@
 </script>
 
 <Button 
+  type="submit"
   on:click
   size={size}
   color={color}

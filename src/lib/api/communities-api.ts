@@ -7,7 +7,8 @@ export {
   getAllCommunities,
   getMyCommunities,
   getCommunity,
-  createCommunity
+  createCommunity,
+  checkCommunityNameExist
 }
 
 async function getCommunity(params: {
@@ -72,4 +73,10 @@ async function createCommunity(data: NewCommunity): Promise<Community> {
   if (rs.error) throw Error(rs.error.message, rs.error.cause);
   return rs.data;
 
+}
+
+async function checkCommunityNameExist(name: string): Promise<boolean> {
+  const rs = await API.query("check_community_name_exist", { name });
+  if (rs.error) throw Error(rs.error.message, rs.error.cause);
+  return rs.data;
 }
