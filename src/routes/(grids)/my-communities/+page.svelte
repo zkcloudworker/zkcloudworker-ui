@@ -12,7 +12,7 @@
 
 <MetaTag {path} {description} {title} {subtitle} />
 
-<main class="p-4">
+<main class="py-4">
   <!-- only on mobile -->
   <Breadcrumb class="mb-5 lg:hidden">
     <BreadcrumbItem home href="/home">Home</BreadcrumbItem>
