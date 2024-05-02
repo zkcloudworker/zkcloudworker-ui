@@ -85,7 +85,7 @@
       id={field.sid} 
       name={field.sid} 
       bind:value={data[index].value}
-      class="text-xl border-gray-400"
+      class="text-xl border-gray-400 py-8"
       rows={initialTextareaSize(data[index].value)}
       bind:inner={field.inner} 
       on:input={() => resizeTextarea(field.inner)}

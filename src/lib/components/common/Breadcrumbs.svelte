@@ -15,7 +15,7 @@
   })
 </script>
 
-<Breadcrumb class={`mb-5 ms-2 ${twClasses}`}>
+<Breadcrumb class={`mt-8 mb-8 ms-2 ${twClasses}`}>
   <BreadcrumbItem home href="/home">
     { NavigationLabels['/home'] }
   </BreadcrumbItem>

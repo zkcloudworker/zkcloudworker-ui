@@ -50,9 +50,6 @@
           claim={null}
           {isNew}
         />
-        <pre>
-          {JSON.stringify($plan.data || { error: "NOT FOUND" }, null, 2)}
-        </pre>
       {/if}
     {/if}
   {/key}
