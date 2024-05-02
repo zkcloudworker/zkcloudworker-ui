@@ -9,14 +9,17 @@
 	import type { User } from '$lib/types';
 	import { getCurrentUser } from '$lib/store';
 	import { useGetPlan } from "$lib/hooks/plans";
+  import { useGetClaim } from "$lib/hooks/claims"
 
 	export let data: any ;
-  
-  const plan = useGetPlan(data.planUid);
 
   let profile: User | null = getCurrentUser();
   $: isNew = (data.uid === 'new');
   $: refreshOn = data.uid;//+Math.random();
+
+  const plan = useGetPlan(data.planUid);
+  let claim: any = null;
+  $: claim = ($plan?.data) ? useGetClaim(data.uid, $plan?.data) : null;
 </script>
 
 <MetaTag 
@@ -31,7 +34,7 @@
   <Breadcrumbs label={$plan.data?.name || '?'}/>
 
   {#key refreshOn}
-    {#if $plan.isLoading}
+    {#if $plan.isLoading || $claim.isLoading}
       <span>Loading...</span>
     {:else if $plan.isError}
       <ErrorOnFetch 
@@ -39,16 +42,26 @@
         error={$plan.error} 
       />
     {:else}
-      <ClaimHeader 
-        data={$plan.data} 
-        isNew={data.uid === 'new'}
-      />
-      {#if isNew && $plan.data}
-        <!-- <ClaimEditor 
-          plan={$plan?.data}
-          claim={null}
-          {isNew}
-        /> -->
+      {#if isNew && $plan.data && claim}
+        {#if $claim.isLoading}
+          <span>Loading...</span>
+        {:else if $plan.isError}
+          <ErrorOnFetch 
+            description="A new claim"
+            error={$claim.error} 
+          />
+        {:else}
+          <ClaimHeader 
+            plan={$plan?.data}
+            claim={$claim.data}
+            {isNew}
+          />
+          <ClaimEditor 
+            plan={$plan?.data}
+            claim={$claim.data}
+            {isNew}
+          />
+        {/if}  
       {/if}
     {/if}
   {/key}

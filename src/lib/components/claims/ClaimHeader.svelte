@@ -1,28 +1,24 @@
 <script lang="ts">
-	import StateBadge from '$lib/components/common/StateBadge.svelte';
 	import { type Plan } from '$lib/types/plan';
 	import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
 	import Time from 'svelte-time';
-	import ErrorOnFetch from '../common/ErrorOnFetch.svelte';
   import { H1 } from "$lib/components";
 	import { onMount } from 'svelte';
-	import type { User } from '$lib/types';
-	import { getCurrentUser } from '$lib/store';
-	import { PlayOutline } from 'flowbite-svelte-icons';
+	import type { Claim } from '$lib/types/claim';
+	import ClaimEditor from './ClaimEditor.svelte';
 
 	export let 
-    data: Plan,
-    isNew: boolean,
-    isEdit: boolean,
-    isView: boolean;
-  
-  // Date values and labels depend on isClaimable
+    plan: Plan,
+    claim: Claim,
+    isNew: boolean = false;
+
   $: fromDateLabel = 'Starts';
   $: toDateLabel = 'Ends';
-  $: fromDate = data.startsUTC;
-  $: toDate = data.endsUTC;
-  $: bannerImage = data?.banner || '/images/socialcap-bg-signin.svg';//'/images/credentialbg.svg'; 
-  $: avatarImage = data.image || '/images/credentialbg.svg';
+  $: fromDate = plan.startsUTC;
+  $: toDate = plan.endsUTC;
+  $: bannerImage = plan?.banner || '/images/socialcap-bg-signin.svg';//'/images/credentialbg.svg'; 
+  $: avatarImage = plan.image || '/images/credentialbg.svg';
+  $: claimingHasEnded = (new Date()) > toDate!;
 
 	onMount(async () => {
 		//profile = getCurrentUser();
@@ -42,17 +38,17 @@
   </div>
 
 		<div class="px-4 pt-16">
-      <H1>{data.name}</H1>
+      <H1>{plan.name}</H1>
 			<p class="mb-0 mt-2 text-lg text-gray-400 dark:text-gray-400">
-				{data.description}
+				{plan.description}
 			</p>
 		</div>
 
 		<div class="px-4 pb-4 pt-0">
 			<div class="ms-0 mt-4 flex items-center justify-between rtl:space-x-reverse">
 				<div class="text-start">
-          {#if (data?.available || 0) > 0 }
-            <Badge rounded large color="green" class="bg-green-200">{`${data.available} left`}</Badge>
+          {#if (plan?.available || 0) > 0 }
+            <Badge rounded large color="green" class="bg-green-200">{`${plan.available} left`}</Badge>
           {:else}
             <Badge rounded large color="red">{`All claimed!`}</Badge>
           {/if}

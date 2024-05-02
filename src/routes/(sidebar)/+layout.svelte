@@ -19,7 +19,7 @@
 <div class="overflow-hidden lg:flex">
 	<QueryClientProvider client={queryClient}>
   	<Sidebar bind:drawerHidden />
-  	<div class="relative h-full w-full overflow-y-auto lg:ml-64">
+  	<div class="relative h-full w-full overflow-y-auto lg:ms-64">
   		<slot />
   		<Footer />
   	</div>

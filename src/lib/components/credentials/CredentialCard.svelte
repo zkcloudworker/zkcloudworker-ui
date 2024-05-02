@@ -9,6 +9,7 @@
 	import type { User } from '$lib/types';
 	import { getCurrentUser } from '$lib/store';
 	import { avatarPath } from '$lib/variables';
+	import { goto } from '$app/navigation';
 
 	export let 
   data: Credential,
@@ -126,8 +127,7 @@
 
         {#if isClaimable}
           <Button color="primary" 
-            data-sveltekit-preload-data="false"
-            href={`/claim/new?mp=${data.uid}`}>
+            on:click={() => goto(`/claim/new?mp=${data.uid}`)}>
             Claim it!
           </Button>
         {/if}

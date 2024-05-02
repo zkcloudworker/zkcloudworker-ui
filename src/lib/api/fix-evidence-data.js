@@ -15,7 +15,7 @@
 export function fixEvidenceData(evidenceForm, evidenceData) {
 
   // build a dictio for the existent evidenceData items 
-  let dictio = Object.fromEntries(evidenceData.map((x) => [x.id, x]));
+  let dictio = Object.fromEntries((evidenceData || []).map((x) => [x.id, x]));
 
   let fixedData = (evidenceForm || []).map((field) => {
     // check if we have the corresponding field in evidenceData
