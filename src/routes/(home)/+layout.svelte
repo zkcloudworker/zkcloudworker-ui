@@ -3,6 +3,7 @@
 	import Footer from './Footer.svelte';
 	import Navbar from './Navbar.svelte';
 	import Sidebar from './Sidebar.svelte';
+  import ActivityPanel from "./ActivityPanel.svelte";
 	import { QueryClientProvider, QueryClient } from '@tanstack/svelte-query'
 
 	let drawerHidden = false;
@@ -20,10 +21,13 @@
 	<QueryClientProvider client={queryClient}>
   	<Sidebar bind:drawerHidden />
   	<div class="relative h-full w-full overflow-y-auto lg:ms-64">
-      <div>
+      <div class="w-full max-w-screen-lg mx-auto">
         <slot />
       </div>
   		<Footer />
   	</div>
+    <div class="hidden xl:block xl:ms-8 max-w-[32rem]">
+      <ActivityPanel />
+    </div> 
 	</QueryClientProvider>
 </div>
