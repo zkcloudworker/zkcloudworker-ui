@@ -1,16 +1,31 @@
 <script lang="ts">
 	import type { Plan } from '$lib/types';
   import type { Claim } from '$lib/types/claim';
-  import { fixEvidenceData } from '../../api/fix-evidence-data';
+	import { Button } from 'flowbite-svelte';
 	import StateBadge from '../common/StateBadge.svelte';
   import EvidenceForm from './EvidenceForm.svelte';
-	import { Button } from 'flowbite-svelte';
+  import { CONFIRM_SUBMIT } from './payment-flow';
+  import PaymentDialog from './PaymentDialog.svelte';
 
   export let 
     plan: any,
     claim: any,
     isNew: boolean;
+
+  let toggleDialog = false, step = 0;
+
+  async function confirmSubmission() {
+    toggleDialog = true;
+    step = CONFIRM_SUBMIT;
+  }
 </script>
+
+<PaymentDialog 
+  bind:open={toggleDialog} 
+  step={step} 
+  claim={claim}
+  plan={plan}
+/>
 
 <div class="relative">
   <div class="mb-24 p-8 w-full">
@@ -37,7 +52,8 @@
           <Button size="lg" color="light" class="me-2">
             Save Draft
           </Button>
-          <Button size="lg" primay class="me-8">
+          <Button size="lg" primay class="me-8" 
+            on:click={() => confirmSubmission()}>
             Submit
           </Button>
         </div>
