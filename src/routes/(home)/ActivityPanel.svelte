@@ -2,12 +2,12 @@
   import { type APIResponse } from '$lib/api';
   import { Heading, P, Badge  } from 'flowbite-svelte';
 	import { ErrorOnFetch } from '$lib/components';
-  import { activities } from './data';
+  import { activities } from './home/data';
 
   // let activities: APIResponse | null = null;
 </script>
 
-<div class="block w-full border-1 rounded px-4">
+<div class="block w-full border-s-2 border-s-gray-100 rounded py-11 px-8">
   <Heading tag="h4">
     Activity
   </Heading>
