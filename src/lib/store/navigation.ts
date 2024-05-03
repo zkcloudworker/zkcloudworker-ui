@@ -24,5 +24,5 @@ function setNavigationPath(path: NavigationPath) {
 };
 
 function normalizePath(path: string): string {
-  return (path || "").replace('/(sidebar)','') || '/home'; 
+  return (path || "").replace('/(home)','') || '/home'; 
 }

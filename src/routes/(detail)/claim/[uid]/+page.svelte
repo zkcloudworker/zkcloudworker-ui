@@ -29,7 +29,7 @@
   description="" 
 />
 
-<div class="px-8 max-w-screen-lg">
+<div class="px-2">
 
   <Breadcrumbs label={$plan.data?.name || '?'}/>
 
