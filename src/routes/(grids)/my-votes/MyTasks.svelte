@@ -8,6 +8,6 @@
 
 <div class="p-4">
   <Heading tag="h1">
-    My Tasks page
+    My Votes page
   </Heading>
 </div>

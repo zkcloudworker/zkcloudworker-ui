@@ -119,7 +119,7 @@
           <!-- <ShapesSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="My Tasks" {spanClass} {itemClass} href="/my-tasks">
+      <SidebarItem label="My Votes" {spanClass} {itemClass} href="/my-votes">
         <svelte:fragment slot="icon">
           <Icon name="Tasks" size="5" />
           <!-- <InboxSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->

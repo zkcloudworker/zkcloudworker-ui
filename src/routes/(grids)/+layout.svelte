@@ -20,7 +20,7 @@
 <div class="overflow-hidden lg:flex">
 	<QueryClientProvider client={queryClient}>
   	<Sidebar bind:drawerHidden />
-  	<div class="relative h-full w-full overflow-y-auto lg:ms-64 lg:me-32">
+  	<div class="relative h-full w-full overflow-y-auto lg:ms-64 --xl:me-32">
       <div class="max-w-screen-lg mx-auto --bg-red-200">
         <slot />
       </div>
