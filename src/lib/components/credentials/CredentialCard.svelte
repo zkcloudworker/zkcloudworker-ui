@@ -12,9 +12,9 @@
 	import { goto } from '$app/navigation';
 
 	export let 
-  data: Credential,
-  joined: boolean = false,
-  isClaimable: boolean = false;
+    data: Credential,
+    joined: boolean = false,
+    isClaimable: boolean = false;
   
   const community = useGetCommunity(data.communityUid);
   let profile: User | null = getCurrentUser();
@@ -30,7 +30,7 @@
       ? (data?.image || '/images/credentialbg.svg')
       : (profile?.image || '/images/profile-2.png');
   $: avatarLabel = isClaimable 
-      ? ($community.data?.name || 'No name')
+      ? (data?.community || 'No name')
       : (profile?.fullName || 'No name');
   $: issuedByImage = isIssued 
       ? ($community.data?.image || '/images/credentialbg.svg')
@@ -63,7 +63,7 @@
         crossorigin=""
       />
 
-			<div class="border-1 absolute -bottom-4 flex items-center gap-2 rounded-full border-gray-100 bg-gray-50 p-1">
+			<div class="border-2 absolute -bottom-4 flex items-center gap-2 rounded-full border-gray-200 bg-gray-50 p-1">
 				<Avatar size="xs" src={avatarImage} crossorigin="" tabindex="0" />
 				<div class="text-xs truncate max-w-64 text-black dark:text-white px-2">{avatarLabel}</div>
 			</div>
