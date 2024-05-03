@@ -1,68 +1,47 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { MetaTag } from "$lib/components";
+	import { onMount } from 'svelte';
+	import { MetaTag } from '$lib/components';
 	// import ClaimEditor from "./ClaimEditor.svelte";
-  import ErrorOnFetch from '$lib/components/common/ErrorOnFetch.svelte';
-  import ClaimHeader from "$lib/components/claims/ClaimHeader.svelte";
-  import ClaimEditor from "$lib/components/claims/ClaimEditor.svelte";
-  import Breadcrumbs from "$lib/components/common/Breadcrumbs.svelte";
+	import ErrorOnFetch from '$lib/components/common/ErrorOnFetch.svelte';
+	import ClaimHeader from '$lib/components/claims/ClaimHeader.svelte';
+	import ClaimEditor from '$lib/components/claims/ClaimEditor.svelte';
+	import Breadcrumbs from '$lib/components/common/Breadcrumbs.svelte';
 	import type { User } from '$lib/types';
 	import { getCurrentUser } from '$lib/store';
-	import { useGetPlan } from "$lib/hooks/plans";
-  import { useGetClaim } from "$lib/hooks/claims"
+	import { useGetPlan } from '$lib/hooks/plans';
+	import { useGetClaim } from '$lib/hooks/claims';
 
-	export let data: any ;
+	export let data: any;
 
-  let profile: User | null = getCurrentUser();
-  $: isNew = (data.uid === 'new');
-  $: refreshOn = data.uid;//+Math.random();
+	let profile: User | null = getCurrentUser();
+	$: isNew = data.uid === 'new';
+	$: refreshOn = data.uid; //+Math.random();
 
-  const plan = useGetPlan(data.planUid);
-  let claim: any = null;
-  $: claim = ($plan?.data) ? useGetClaim(data.uid, $plan?.data) : null;
+	const plan = useGetPlan(data.planUid);
+	let claim: any = null;
+	$: claim = $plan?.data ? useGetClaim(data.uid, $plan?.data) : null;
 </script>
 
-<MetaTag 
-  path="community" 
-  title="Socialcap" 
-  subtitle={`Community`}
-  description="" 
-/>
+<MetaTag path="claim" title="Socialcap" subtitle={`Claim`} description="" />
 
 <div class="px-2">
+	<Breadcrumbs label={$plan.data?.name || '?'} />
 
-  <Breadcrumbs label={$plan.data?.name || '?'}/>
+	{#key refreshOn}
+		{#if $plan.isLoading || $claim.isLoading}
+			<span>Loading...</span>
+		{:else if $plan.isError}
+			<ErrorOnFetch description="A new claim" error={$plan.error} />
+		{:else if isNew && $plan.data && claim}
+			{#if $claim.isLoading}
+				<span>Loading...</span>
+			{:else if $plan.isError}
+				<ErrorOnFetch description="A new claim" error={$claim.error} />
+			{:else}
+				<ClaimHeader plan={$plan?.data} claim={$claim.data} {isNew} />
 
-  {#key refreshOn}
-    {#if $plan.isLoading || $claim.isLoading}
-      <span>Loading...</span>
-    {:else if $plan.isError}
-      <ErrorOnFetch 
-        description="A new claim"
-        error={$plan.error} 
-      />
-    {:else}
-      {#if isNew && $plan.data && claim}
-        {#if $claim.isLoading}
-          <span>Loading...</span>
-        {:else if $plan.isError}
-          <ErrorOnFetch 
-            description="A new claim"
-            error={$claim.error} 
-          />
-        {:else}
-          <ClaimHeader 
-            plan={$plan?.data}
-            claim={$claim.data}
-            {isNew}
-          />
-          <ClaimEditor 
-            plan={$plan?.data}
-            claim={$claim.data}
-            {isNew}
-          />
-        {/if}  
-      {/if}
-    {/if}
-  {/key}
+				<ClaimEditor plan={$plan?.data} claim={$claim.data} {isNew} />
+			{/if}
+		{/if}
+	{/key}
 </div>

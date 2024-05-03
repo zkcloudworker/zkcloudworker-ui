@@ -53,6 +53,7 @@
 		"svelte-check": "^3.6.6",
 		"svelte-lib-helpers": "^0.3.17",
 		"svelte-meta-tags": "^3.1.1",
+		"svelte-tags-input": "^6.0.0",
 		"svelte-time": "^0.8.3",
 		"tailwindcss": "^3.4.1",
 		"tslib": "^2.6.2",
@@ -72,7 +73,6 @@
 		"o1js": "^1.1.0",
 		"slugify": "^1.6.6",
 		"svelte-exmarkdown": "^3.0.3",
-		"svelte-tags-input": "^6.0.0",
 		"tailwind-merge": "^2.2.1"
 	},
 	"keywords": [
