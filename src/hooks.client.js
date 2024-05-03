@@ -1,6 +1,7 @@
 import { getCurrentSession, getDefaultSession } from "$lib/store/sessions";
 import { setNavigationPath } from "$lib/store/navigation";
 import { API } from "$lib/api/api-client";
+import { PrivateKey, PublicKey, Poseidon } from "o1js";
 
 let activeSession = getCurrentSession();
 let user;
