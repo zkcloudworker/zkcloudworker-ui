@@ -5,4 +5,4 @@ export { getAllCommunities, getMyCommunities, getCommunity } from "./communities
 export { getMyClaims, getClaim } from "./claims-api";
 export { getPlan, getAdminedPlans, getAllClaimables } from "./plans-api";
 export { getMyCredentials } from "./credentials-api";
-export { getMyTasks } from "./tasks-api";
+export { getMyTasks, submitBatchTasks } from "./tasks-api";

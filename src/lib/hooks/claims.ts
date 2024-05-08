@@ -6,17 +6,17 @@ import type { Plan } from "$lib/types/plan";
 
 export function useGetMyClaims() {
   return createQuery<Claim[], Error>({
-      queryKey: ['get_my_claims'],
-      queryFn: () => getMyClaims({}),
-    })
+    queryKey: ['get_my_claims'],
+    queryFn: () => getMyClaims({}),
+  })
 }
 
 export function useGetClaim(
-  uid: string, 
+  uid: string,
   plan?: Plan
 ) {
   return createQuery<Claim, Error>({
-      queryKey: ['get_claim'],
-      queryFn: () => getClaim({ uid: uid, plan: plan }),
-    })
+    queryKey: ['get_claim'],
+    queryFn: () => getClaim({ uid: uid, plan: plan }),
+  })
 }

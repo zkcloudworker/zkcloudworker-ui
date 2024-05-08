@@ -4,7 +4,7 @@ interface Task {
     uid: string
     planUid: string
     claimUid: string
-    assignedUid: string
+    assigneeUid: string
     state: number
     stateDescr: string
     assignedUTC?: Date
