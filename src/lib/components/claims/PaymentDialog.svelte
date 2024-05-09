@@ -33,12 +33,14 @@
 -->
 <div>
   <Modal 
-    title={Step[step].title} 
-    autoclose size="md" class="p-0 mx-1 w-full max-w-screen-md"
+    autoclose size="md" 
+    class="p-0 mx-0 w-full max-w-screen-md h-[32rem] relative"
     bind:open={open}>
 
     {#if step === CONFIRM_SUBMIT} 
       <ConfirmSubmitDialog 
+        title={Step[step].title}
+        description={Step[step].description} 
         claim={claim}
         plan={plan}
         bind:action={nextAction}

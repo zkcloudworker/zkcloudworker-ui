@@ -29,7 +29,7 @@
 	let itemClass =
   'flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700';
 	let groupClass = 'pt-3 space-y-3';
-  let spanClass = 'text-base text-black dark:text-gray-100 flex-1 ms-3 whitespace-nowrap';
+  let spanClass = 'text-base text-gray-600 black dark:text-gray-100 flex-1 ms-3 whitespace-nowrap';
   
 	$: mainSidebarUrl = $page.url.pathname;
 	let activeMainSidebar: string;

@@ -9,6 +9,9 @@ export const
   PAYMENT_CANCELED = 6;
 
 export const Step: any = {
-  0: { title: "..."},
-  1: { title: "Ready to submit?" }
+  0: { title: "...", description: "..."},
+  1: { 
+    title: "Let's start your submission", 
+    description: "Step by step process to submit your claim" 
+  }
 }

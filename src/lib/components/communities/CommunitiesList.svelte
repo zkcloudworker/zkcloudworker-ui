@@ -10,7 +10,7 @@
 
 <div class="">
   <div class="w-full mt-0 mb-0">
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-1">
         {#each (data || []) as t}
           <div class=" transition-opacity duration-1000">
             <CommunityCard 
