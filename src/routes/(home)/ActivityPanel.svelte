@@ -7,7 +7,7 @@
   // let activities: APIResponse | null = null;
 </script>
 
-<div class="block w-full border-s-2 border-s-gray-100 rounded py-11 px-8">
+<div class="w-full rounded py-11 px-8">
   <Heading tag="h4">
     Activity
   </Heading>

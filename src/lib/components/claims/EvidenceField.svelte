@@ -80,9 +80,8 @@
 				invalid={!isValid(field, data[index].value)}
 				feedback={hasMessage(field, data[index].value)}
 			/>
-			<p>errors: {$errors[field.sid]}</p>
 			{#if $errors[field.sid] && $touched[field.sid]}
-				<span class="text-sm text-red-500">{$errors[field.sid]}</span>
+				<div class="text-sm text-red-500">{$errors[field.sid]}</div>
 			{/if}
 		{/if}
 

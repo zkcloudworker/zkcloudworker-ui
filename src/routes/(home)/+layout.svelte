@@ -26,7 +26,7 @@
       </div>
   		<Footer />
   	</div>
-    <div class="hidden xl:block xl:ms-8 max-w-[32rem]">
+    <div class="hidden xl:block xl:ms-8 w-full max-w-[32rem] border-s border-gray-200">
       <ActivityPanel />
     </div> 
 	</QueryClientProvider>
