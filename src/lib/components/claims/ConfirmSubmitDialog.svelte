@@ -1,30 +1,22 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { Alert, Button, Badge } from "flowbite-svelte";
+  import { Alert, Button, Badge, StepIndicator } from "flowbite-svelte";
   import Time from "svelte-time/Time.svelte";
   import { type Claim } from "$lib/types/claim";
-	import type { Plan } from "$lib/types";
+	import { type Plan, PayedBy } from "$lib/types";
+	import PaymentDialog from "./PaymentDialog.svelte";
 
   const dispatch = createEventDispatcher();
 
   export let 
-    action = "",
-    title = "",
-    description = "",
     plan: Plan,
     claim: Claim;
 
-  let payedByCommunity = false;    
+  $: payedByCommunity = (plan.payedBy === PayedBy.community);    
 </script>
 
 <div>
-  <div class="px-4 text-base">
-    <div class="text-lg font-bold text-black">
-      {title}
-    </div>
-    <div class="text-sm  text-gray-500">
-      {description}
-    </div>
+  <div class="text-base">
     <div class="text-gray-800 mt-10">
       {plan.description}
     </div>
@@ -53,15 +45,13 @@
   
   <div class="text-end --border-t-2 px-8 py-6 absolute bottom-0 left-0 right-0 text-right">
     <Button color="light"  class="py-3" on:click={() => { 
-        action = "cancel";
-        dispatch(action);
+        dispatch("cancel");
       }}>
       I'll do it later
     </Button>
     &nbsp;
     <Button color="blue" class="py-3" on:click={() => { 
-        action = "submit"; 
-        dispatch(action);
+        dispatch("submit");
       }}>
       Go ahead
     </Button>

@@ -1,4 +1,11 @@
 export type { Plan };
+export { PayedBy };
+
+enum PayedBy {
+  applicant = 1,
+  community = 2,
+  socialcap = 3
+}
 
 interface Plan {
     uid: string;
@@ -27,4 +34,7 @@ interface Plan {
     startsUTC?: Date;
     endsUTC?: Date;
     joined?: boolean;
+    payedBy?: PayedBy;
+    votingStartsUTC?: Date;
+    votingEndsUTC?: Date;
 }
