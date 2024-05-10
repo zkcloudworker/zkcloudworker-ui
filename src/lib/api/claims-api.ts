@@ -8,7 +8,9 @@ import { getCurrentUser } from "$lib/store";
 
 export { 
   getMyClaims,
-  getClaim
+  getClaim,
+  saveDratClaim,
+  updateClaim
 }
 
 /**
@@ -54,6 +56,31 @@ async function getClaim(params: {
   return data;
 }
 
+
+/**
+ * Save claim as draft
+ * @param data: Claim
+ * @returns Created Claim
+ */
+async function saveDratClaim(data: Claim): Promise<Claim> {
+  console.log("adding new claim", data)
+  const rs = await API.mutate("add_claim", data)
+  if (rs.error) throw rs.error;
+  return rs.data;
+
+}
+
+/**
+ * Update claim
+ * @param data: Claim
+ * @returns Updated Claim
+ */
+async function updateClaim(data: Claim): Promise<Claim> {
+  const rs = await API.mutate("update_claim", data)
+  if (rs.error) throw rs.error;
+  return rs.data;
+
+}
 
 function buildEmptyClaim(plan: Plan): Claim {
 
