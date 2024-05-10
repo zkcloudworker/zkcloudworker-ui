@@ -25,7 +25,7 @@ async function getMyTasks(params: {
  */
 async function submitBatchTasks(params: {
     senderAccountId: string,
-    signedData: any,
+    signedPack: any,
     extras?: { addToQueue: boolean }
 }): Promise<any> {
     const rs = await API.mutate("submit_tasks_batch", params);
