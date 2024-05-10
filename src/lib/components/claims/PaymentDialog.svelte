@@ -1,30 +1,44 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { Button, Modal } from 'flowbite-svelte';
+  import { Button, Modal, StepIndicator } from 'flowbite-svelte';
   import type { Claim } from '$lib/types/claim';
 	import type { Plan } from '$lib/types';
-  import { CONFIRM_SUBMIT, Step } from './payment-flow';
+  import { PaymentStep, Step } from './payment-flow';
+	import { getCurrentBlockchain } from '$lib/store';
   import ConfirmSubmitDialog from './ConfirmSubmitDialog.svelte';
-	import SearchList from '../common/SearchList.svelte';
+  import ConnectWalletDialog from './ConnectWalletDialog.svelte';
+  import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
+  import PaymentSentDialog from "./PaymentSentDialog.svelte";
 
   export let 
     open = false,
     plan: Plan,
     claim: Claim,
-    step: number = 0;
+    step: number = 1,
+    steps = ['1','2', '3'],
+    txnId = "";
 
   const dispatch = createEventDispatcher();  
 
-  let nextAction = "";
-
   async function cancelSubmit() {
-    alert("Canceled");
-    dispatch(nextAction);
+    open = false;
+    step = 1;
   }
 
-  async function submitClaim() {
-    alert("Submit")
-    dispatch(nextAction);
+  async function confirmSubmit() {
+    step = PaymentStep.CONNECT_WALLET;
+    open = true;
+  }
+
+  async function confirmConnect() {
+    step = PaymentStep.CONFIRM_PAYMENT;
+    open = true;
+  }
+
+  async function donePayment(detail: any) {
+    step = PaymentStep.PAYMENT_SENT;
+    txnId = detail.hash;
+    open = true;
   }
 </script>
 
@@ -33,19 +47,58 @@
 -->
 <div>
   <Modal 
-    title={Step[step].title} 
-    autoclose size="md" class="p-0 mx-1 w-full max-w-screen-md"
+    size="md" 
+    class="p-0 mx-0 w-full max-w-screen-md h-[32rem] relative"
     bind:open={open}>
 
-    {#if step === CONFIRM_SUBMIT} 
-      <ConfirmSubmitDialog 
-        claim={claim}
-        plan={plan}
-        bind:action={nextAction}
-        on:cancel={() => cancelSubmit()}
-        on:submit={() => submitClaim()}
-      />
-    {/if}
+    <div class="px-4 text-base">
+      <div class="text-lg font-bold text-black">
+        {Step[step].title}
+      </div>
+      <div class="text-sm  text-gray-500">
+        {Step[step].description}
+      </div>
+      <div class="mt-6">
+        <StepIndicator {steps} size="h-1.5" hideLabel={true} currentStep={step} class="py-2"/>
+      </div>
+    </div>
+
+    <div class="px-4">
+      {#if step === PaymentStep.CONFIRM_SUBMIT} 
+        <ConfirmSubmitDialog 
+          claim={claim}
+          plan={plan}
+          on:cancel={() => cancelSubmit()}
+          on:submit={() => confirmSubmit()}
+        />
+      {/if}
+  
+      {#if step === PaymentStep.CONNECT_WALLET} 
+        <ConnectWalletDialog 
+          claim={claim}
+          plan={plan}
+          on:cancel={() => cancelSubmit()}
+          on:continue={() => confirmConnect()}
+        />
+      {/if}
+
+      {#if step === PaymentStep.CONFIRM_PAYMENT} 
+        <ConfirmPaymentDialog 
+          claim={claim}
+          plan={plan}
+          on:cancel={() => cancelSubmit()}
+          on:done={(ev) => donePayment(ev.detail)}
+        />
+      {/if}
+
+      {#if step === PaymentStep.PAYMENT_SENT} 
+        <PaymentSentDialog 
+          chain={getCurrentBlockchain()}
+          txnId={txnId} 
+          on:close={() => cancelSubmit()}
+        />
+      {/if}
+    </div>
 
     <!-- <ModalHeader {toggle}>
       Payment for credential

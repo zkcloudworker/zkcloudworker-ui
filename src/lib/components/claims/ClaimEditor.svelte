@@ -4,7 +4,7 @@
 	import { Button } from 'flowbite-svelte';
 	import StateBadge from '../common/StateBadge.svelte';
   import EvidenceForm from './EvidenceForm.svelte';
-  import { CONFIRM_SUBMIT } from './payment-flow';
+  import { PaymentStep } from './payment-flow';
   import PaymentDialog from './PaymentDialog.svelte';
 
   export let 
@@ -16,16 +16,17 @@
 
   async function confirmSubmission() {
     toggleDialog = true;
-    step = CONFIRM_SUBMIT;
   }
 </script>
 
-<PaymentDialog 
-  bind:open={toggleDialog} 
-  step={step} 
-  claim={claim}
-  plan={plan}
-/>
+{#if toggleDialog}
+  <PaymentDialog 
+    bind:open={toggleDialog} 
+    step={PaymentStep.CONFIRM_SUBMIT} 
+    claim={claim}
+    plan={plan}
+  />
+{/if}
 
 <div class="relative">
   <div class="mb-24 p-8 w-full">

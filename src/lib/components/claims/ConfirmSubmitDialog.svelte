@@ -1,81 +1,59 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { Alert, Button } from "flowbite-svelte";
+  import { Alert, Button, Badge, StepIndicator } from "flowbite-svelte";
   import Time from "svelte-time/Time.svelte";
   import { type Claim } from "$lib/types/claim";
-	import type { Plan } from "$lib/types";
+	import { type Plan, PayedBy } from "$lib/types";
+	import PaymentDialog from "./PaymentDialog.svelte";
 
   const dispatch = createEventDispatcher();
 
   export let 
-    action = "",
     plan: Plan,
     claim: Claim;
 
-  let payedByCommunity = true;    
+  $: payedByCommunity = (plan.payedBy === PayedBy.community);    
 </script>
 
 <div>
-  <div>
-    {#if payedByCommunity}
-      <div>
-        <Alert class="text-md bg-green-200 text-black -mx-2 px-8">
-          This claim has a fee of <b>{plan.fee} $MINA</b>. But do not worry, <b>it will be paid by the community!</b>
-        </Alert>
-      </div>
-      <div class="p-2 leading-loose">
-        Are you ready to submit it? 
-        <ul class="list-disc ps-8">
-          <li>Please connect your wallet</li>
-          <li>We will ask you to sign the submission. This has no cost.</li>
-          <li>After this your draft will be submitted</li>
-          <li>Please confirm because you will not be able to resubmit.</li>
-          <li>
-            Final submission date is <b>
-              <Time format="MMM DD, YYYY" timestamp={plan.endsUTC} />
-              (23:59 UTC)
-            </b>
-          </li>
-        </ul>
-      </div>
-    {:else}  
-      <div>
-        <Alert class="text-md bg-yellow-200 text-black -mx-2 px-8">
-          This claim has a fee of <b>{plan.fee} $MINA</b>. Please ready your Auro wallet.
-        </Alert>
-      </div>
-      <div class="p-2 leading-loose">
-        Are you ready to submit it? 
-        <ul class="list-disc ps-8">
-          <li>Please connect your wallet</li>
-          <li>We will ask you to deposit a fee of <b>{plan.fee} $MINA</b></li>
-          <li>After this your draft will be submitted</li>
-          <li>Please confirm because you will not be able to resubmit.</li>
-          <li>
-            Final submission date is <b>
-              <Time format="MMM DD, YYYY" timestamp={plan.endsUTC} />
-              (23:59 UTC)
-            </b>
-          </li>
-        </ul>
-      </div>
-    {/if}
-
+  <div class="text-base">
+    <div class="text-gray-800 mt-10">
+      {plan.description}
+    </div>
+    <div class="mt-8">
+      Final submission date: <b>
+        <Time format="MMM DD, YYYY" timestamp={plan.endsUTC} />
+        (23:59 UTC)
+      </b>
+    </div>
+    <div class="text-base mt-8">
+      Fee <Badge rounded large 
+        class={
+          (payedByCommunity ? "line-through bg-gray-400" : "bg-gray-500")
+          + " text-white px-4 ms-2"
+        }>
+        {plan.fee} MINA
+      </Badge>
+      {#if payedByCommunity}
+        <span class="ms-2">will be paid by the community.</span>
+      {/if}
+      {#if !payedByCommunity}
+        <span class="ms-2"> Prepare your wallet.</span>
+      {/if}
+    </div>  
   </div>
   
-  <div class="text-end --border-t-2 mt-4 pt-4 px-4">
-    <Button color="light" on:click={() => { 
-        action = "cancel";
-        dispatch(action);
+  <div class="text-end --border-t-2 px-8 py-6 absolute bottom-0 left-0 right-0 text-right">
+    <Button color="light"  class="py-3" on:click={() => { 
+        dispatch("cancel");
       }}>
-      No, not ready
+      I'll do it later
     </Button>
     &nbsp;
-    <Button color="primary" on:click={() => { 
-        action = "submit"; 
-        dispatch(action);
+    <Button color="blue" class="py-3" on:click={() => { 
+        dispatch("submit");
       }}>
-      Yes, submit it !
+      Go ahead
     </Button>
   </div>
 </div>

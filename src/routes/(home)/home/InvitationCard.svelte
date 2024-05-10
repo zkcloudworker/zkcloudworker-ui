@@ -2,7 +2,7 @@
   import { Card, Dropdown, DropdownItem, Avatar, Button, Img } from 'flowbite-svelte';
 </script>
 
-<Card class="text-center mt-8 border-0" size="fluid" padding="xl">
+<Card class="text-center mt-8 border-0 shadow-xl" size="fluid" padding="xl">
   <div class="flex flex-col items-center pb-4">
     <!-- <div class="flex mb-5">
       <Avatar src="/images/gradient-nicolas.svg" stacked />
@@ -18,8 +18,8 @@
       Invite teammates and create better communities
     </p>
     <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 rtl:space-x-reverse">
-      <Button color="light" class="border-0">Dismiss</Button>
-      <Button color="primary" size="sm">Invite</Button>
+      <Button color="light">Dismiss</Button>
+      <Button color="blue">Invite</Button>
     </div>
   </div>
 </Card>  

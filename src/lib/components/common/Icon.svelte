@@ -11,7 +11,7 @@
   $: size = size;
 </script>
 
-<span class={`inline-block leading-none h-${width} w-${width} ${color} ${twClasses}`}>
+<span class={`inline-block leading-none h-${width} w-${width} ${color} ${twClasses}`} style="fill:red;">
   <img 
     src={`/icons/${name}.svg`} 
     class={`h-${width} w-${width}`}
