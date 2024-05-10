@@ -16,3 +16,8 @@ export {
   setNavigationPath,
   navigationPath
 } from "./navigation";
+export {
+  getBlockchainInfo,
+  getCurrentBlockchain,
+  setBlockchain
+} from "./networks";
