@@ -44,9 +44,8 @@ async function getClaim(params: {
 
   if (!plan) 
     throw Error("We can not check the Claim without a Masterplan");
-
   // we are looking for an existent claim with a given Uid
-  const rs = await API.query("get_claim", params);
+  const rs = await API.query("get_claim", { uid: uid });
   if (rs.error) throw rs.error; // TODO handle error
 
   // fix evidence data in case the masterplan form has changed 

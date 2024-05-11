@@ -57,10 +57,7 @@
 						<Button
 							color="alternative"
 							size="sm"
-							on:click={() => {
-								showModal = true;
-								claim = t;
-							}}
+							href="/claim/{t.uid}/?mp={t.planUid}"
 						>
 							Edit
 						</Button>

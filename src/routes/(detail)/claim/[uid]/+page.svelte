@@ -15,33 +15,34 @@
 
 	let profile: User | null = getCurrentUser();
 	$: isNew = data.uid === 'new';
-	$: refreshOn = data.uid; //+Math.random();
+	$: refreshOn = data.uid;
 
-	const plan = useGetPlan(data.planUid);
+	const planQuery = useGetPlan(data.planUid);
+	$: plan = $planQuery.data;
 	let claim: any = null;
-	$: claim = $plan?.data ? useGetClaim(data.uid, $plan?.data) : null;
+	$: claim = useGetClaim(data.uid, plan);
 </script>
 
 <MetaTag path="claim" title="Socialcap" subtitle={`Claim`} description="" />
 
 <div class="px-2">
-	<Breadcrumbs label={$plan.data?.name || '?'} />
+	{#if $planQuery.isLoading}
+		<span>Loading...</span>
+	{:else if $planQuery.isError}
+		<ErrorOnFetch description="A new claim" error={$planQuery.error} />
+	{:else}
+		<Breadcrumbs label={plan?.name || '?'} />
 
-	{#key refreshOn}
-		{#if $plan.isLoading || $claim.isLoading}
-			<span>Loading...</span>
-		{:else if $plan.isError}
-			<ErrorOnFetch description="A new claim" error={$plan.error} />
-		{:else if isNew && $plan.data && claim}
+		{#key refreshOn}
 			{#if $claim.isLoading}
 				<span>Loading...</span>
-			{:else if $plan.isError}
+			{:else if $claim.isError}
 				<ErrorOnFetch description="A new claim" error={$claim.error} />
 			{:else}
-				<ClaimHeader plan={$plan?.data} claim={$claim.data} {isNew} />
+				<ClaimHeader {plan} claim={$claim.data} {isNew} />
 
-				<ClaimEditor plan={$plan?.data} claim={$claim.data} {isNew} />
+				<ClaimEditor {plan} claim={$claim.data} {isNew} />
 			{/if}
-		{/if}
-	{/key}
+		{/key}
+	{/if}
 </div>

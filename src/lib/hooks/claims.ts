@@ -19,6 +19,7 @@ export function useGetClaim(
   return createQuery<Claim, Error>({
       queryKey: ['get_claim', uid],
       queryFn: () => getClaim({ uid: uid, plan: plan }),
+      enabled: !!plan
     })
 }
 
