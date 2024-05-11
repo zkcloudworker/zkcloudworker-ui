@@ -26,7 +26,7 @@ const API_ENDPOINTS: any = {
 
 export function getDefaultAPISessionFromEnv(): Session {
   const key = import.meta.env.VITE_USE_API;
-  const session = API_ENDPOINTS[key] || API_ENDPOINTS['dev'];
+  const session = API_ENDPOINTS[key] || API_ENDPOINTS['local'];
   console.log("store/api/getDefaultAPISessionFromEnv", session);
   return session;
 }
