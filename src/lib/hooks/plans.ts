@@ -7,6 +7,7 @@ export function useGetPlan(uid: string) {
     return createQuery<Plan, Error>({
         queryKey: ['get_my_claims'],
         queryFn: () => getPlan({uid}),
+        enabled: uid !== undefined
       })
 }
 

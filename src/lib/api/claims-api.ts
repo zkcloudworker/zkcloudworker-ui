@@ -8,7 +8,9 @@ import { getCurrentUser } from "$lib/store";
 
 export { 
   getMyClaims,
-  getClaim
+  getClaim,
+  saveDratClaim,
+  updateClaim
 }
 
 /**
@@ -42,9 +44,8 @@ async function getClaim(params: {
 
   if (!plan) 
     throw Error("We can not check the Claim without a Masterplan");
-
   // we are looking for an existent claim with a given Uid
-  const rs = await API.query("get_claim", params);
+  const rs = await API.query("get_claim", { uid: uid });
   if (rs.error) throw rs.error; // TODO handle error
 
   // fix evidence data in case the masterplan form has changed 
@@ -54,6 +55,31 @@ async function getClaim(params: {
   return data;
 }
 
+
+/**
+ * Save claim as draft
+ * @param data: Claim
+ * @returns Created Claim
+ */
+async function saveDratClaim(data: Claim): Promise<Claim> {
+  console.log("adding new claim", data)
+  const rs = await API.mutate("add_claim", data)
+  if (rs.error) throw rs.error;
+  return rs.data;
+
+}
+
+/**
+ * Update claim
+ * @param data: Claim
+ * @returns Updated Claim
+ */
+async function updateClaim(data: Claim): Promise<Claim> {
+  const rs = await API.mutate("update_claim", data)
+  if (rs.error) throw rs.error;
+  return rs.data;
+
+}
 
 function buildEmptyClaim(plan: Plan): Claim {
 
