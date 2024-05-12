@@ -8,6 +8,7 @@
 	import PaymentDialog from './PaymentDialog.svelte';
 	import EvidenceFormPreview from './EvidenceFormPreview.svelte';
 	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
+	import { goto } from '$app/navigation';
 
 	export let plan: any, claim: any, isNew: boolean;
 	const saveClaim = useSaveDratClaim();
@@ -21,12 +22,12 @@
 	}
 
 	async function saveDraft() {
-		console.log('saving draft', claim);
 		if (isNew) {
 			const result = await $saveClaim.mutateAsync(claim);
 		} else {
 			const result = await $updateClaim.mutateAsync(claim);
 		}
+		goto('/my-claims');
 	}
 </script>
 
@@ -63,7 +64,7 @@
 				</span>
 
 				<Button size="lg" color="light" class="me-2" on:click={() => saveDraft()}>
-					{#if $saveClaim.isPending}
+					{#if $saveClaim.isPending || $updateClaim.isPending}
 						Saving...
 					{:else}
 						Save Draft
