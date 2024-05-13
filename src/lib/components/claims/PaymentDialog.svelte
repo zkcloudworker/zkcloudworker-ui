@@ -9,17 +9,18 @@
   import ConnectWalletDialog from './ConnectWalletDialog.svelte';
   import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
   import PaymentSentDialog from "./PaymentSentDialog.svelte";
+	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
 
   export let 
     open = false,
     plan: Plan,
     claim: Claim,
+    isNew: boolean,
     step: number = 1,
     steps = ['1','2', '3'],
     txnId = "";
 
   const dispatch = createEventDispatcher();  
-
   async function cancelSubmit() {
     open = false;
     step = 1;
@@ -68,6 +69,7 @@
         <ConfirmSubmitDialog 
           claim={claim}
           plan={plan}
+          isNew={isNew}
           on:cancel={() => cancelSubmit()}
           on:submit={() => confirmSubmit()}
         />
@@ -86,6 +88,7 @@
         <ConfirmPaymentDialog 
           claim={claim}
           plan={plan}
+          isNew={isNew}
           on:cancel={() => cancelSubmit()}
           on:done={(ev) => donePayment(ev.detail)}
         />

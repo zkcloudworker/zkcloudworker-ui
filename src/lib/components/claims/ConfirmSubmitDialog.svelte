@@ -10,7 +10,8 @@
 
   export let 
     plan: Plan,
-    claim: Claim;
+    claim: Claim,
+    isNew: boolean;
 
   $: payedByCommunity = (plan.payedBy === PayedBy.community);    
 </script>
