@@ -77,6 +77,7 @@
           plan={plan}
           isNew={isNew}
           on:cancel={() => cancelSubmit()}
+          on:done={() => doneSubmit()}
           on:submit={() => confirmSubmit()}
         />
       {/if}
