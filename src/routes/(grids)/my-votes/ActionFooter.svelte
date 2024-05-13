@@ -7,8 +7,9 @@
 	import { useSubmitBatchTasks } from '$lib/hooks/tasks';
 	import { get } from 'svelte/store';
 	import { auroWallet$ } from '$lib/store/auroWallet';
+	import { VoteStep } from './vote-flow';
 
-	export let tasks: Task[] = [], confirm: boolean = false;
+	export let tasks: Task[] = [];
     const dispatch = createEventDispatcher();  
 
     let openDialog = false;
@@ -24,8 +25,6 @@
 		SENT = 3;
 
 	const submitAllVotes = () => {
-		// filter all the Not voted tasks, we only send the ones with results
-		const completedTasks = tasks.filter((t: Task) => t.state !== ASSIGNED);
 		// open dialog
         console.log("opening dialog")
         openDialog = true;
@@ -77,25 +76,14 @@
 		status = SENT; // sent ;
 		await tick();
 	}
-
-
-	async function cancelSubmit() {
-		alert('Canceled');
-	}
-
-	async function submitTasks() {
-		sendThemNow();
-	}
 </script>
-<!-- {#if openDialog} -->
+{#if openDialog}
 <SubmitVotesDialog
-    open={openDialog}
+    bind:open={openDialog}
 	{votes}
-	bind:confirm={confirm}
-	on:cancel={() => cancelSubmit()}
-	on:submit={() => submitTasks()}
+	step={VoteStep.CONFIRM_SUBMIT}
 />
-<!-- {/if} -->
+{/if}
 <div class="fixed bottom-0 left-0 right-0 border-t-2 bg-white py-4 lg:left-64">
 	<div class="border-3 --bg-red-300 flex content-end justify-end px-8">
 		<div>

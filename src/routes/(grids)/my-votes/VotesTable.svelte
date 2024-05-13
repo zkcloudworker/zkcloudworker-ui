@@ -35,7 +35,7 @@
 				<TableHeadCell>Status</TableHeadCell>
 				<TableHeadCell>Credential Name</TableHeadCell>
 				<TableHeadCell>Applicant</TableHeadCell>
-				<TableHeadCell>Details</TableHeadCell>
+				<!-- <TableHeadCell>Details</TableHeadCell> -->
 				<TableHeadCell>Vote</TableHeadCell>
 			</TableHead>
 			<TableBody class="divide-y">
@@ -46,7 +46,7 @@
 						</TableBodyCell>
 						<TableBodyCell>{t.community}</TableBodyCell>
 						<TableBodyCell>{t.claimer}</TableBodyCell>
-						<TableBodyCell>Todo</TableBodyCell>
+						<!-- <TableBodyCell>Todo</TableBodyCell> -->
 						<TableBodyCell>
 							{#if t.state === ASSIGNED}
 								<ButtonGroup>

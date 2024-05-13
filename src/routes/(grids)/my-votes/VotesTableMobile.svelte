@@ -40,7 +40,7 @@
 								<div class="space-y-1">
 									<div>{t.community}</div>
 									<div>{t.claimer}</div>
-									<div>Todo</div>
+									<!-- <div>Todo</div> -->
 								</div>
 								<div>
 									{#if t.state === ASSIGNED}

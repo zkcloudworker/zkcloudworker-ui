@@ -7,11 +7,7 @@
 
   const dispatch = createEventDispatcher();
 
-  export let 
-    plan: Plan,
-    claim: Claim;
-
-  let isConnecting = false, isError = false, isConnected = false;
+   let isConnecting = false, isError = false, isConnected = false;
   let accountId = "";
   let errorMessage = "";
 

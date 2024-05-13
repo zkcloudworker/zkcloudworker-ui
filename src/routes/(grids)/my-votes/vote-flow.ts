@@ -4,8 +4,8 @@ export enum VoteStep {
   CONFIRM_SUBMIT = 1,
   CONNECT_WALLET = 2,
   CONFIRM_VOTE = 3,
-  PAYMENT_SENT = 4,
-  PAYMENT_CANCELED = 5
+  VOTES_SENT = 4,
+  VOTES_CANCELED = 5
 }
 
 export const Step: any = {
