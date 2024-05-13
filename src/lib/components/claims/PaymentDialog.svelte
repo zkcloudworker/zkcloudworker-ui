@@ -10,6 +10,7 @@
   import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
   import PaymentSentDialog from "./PaymentSentDialog.svelte";
 	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
+	import { goto } from '$app/navigation';
 
   export let 
     open = false,
@@ -40,6 +41,11 @@
     step = PaymentStep.PAYMENT_SENT;
     txnId = detail.hash;
     open = true;
+  }
+
+  async function doneSubmit() {
+    open= false;
+    goto('/my-claims');
   }
 </script>
 
@@ -99,6 +105,7 @@
           chain={getCurrentBlockchain()}
           txnId={txnId} 
           on:close={() => cancelSubmit()}
+          on:done={() => doneSubmit()}
         />
       {/if}
     </div>

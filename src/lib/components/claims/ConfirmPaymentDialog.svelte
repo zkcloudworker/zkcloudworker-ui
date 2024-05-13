@@ -39,7 +39,7 @@
 		return false;
 	}
 	async function saveNewClaim() {
-    const state = plan.payedBy === PayedBy.community ? CLAIMED : UNPAID;
+		const state = plan.payedBy === PayedBy.community ? CLAIMED : UNPAID;
 		await $saveClaimMutation.mutateAsync({ ...claim, state: state });
 	}
 	async function updateClaim(state: number) {
@@ -78,8 +78,8 @@
 			});
 
 			let txnHash = response.hash;
-      // transaction done update claim state
-      await updateClaim(CLAIMED);
+			// transaction done update claim state
+			await updateClaim(CLAIMED);
 			dispatch('done', { hash: txnHash, success: true });
 		} catch (err) {
 			isError = true;

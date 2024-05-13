@@ -29,7 +29,7 @@
 
   <div class="text-end --border-t-2 px-8 py-6 absolute bottom-0 left-0 right-0 text-right">
     <Button color="blue" class="py-3" 
-      on:click={() => dispatch("close")}>
+      on:click={() => dispatch("done")}>
       Done !
     </Button>
   </div>
