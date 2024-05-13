@@ -14,6 +14,7 @@
 	import ClaimModal from './ClaimModal.svelte';
 	import type { Claim } from '$lib/types/claim';
 	import Time from 'svelte-time';
+	import { DRAFT, UNPAID } from '$lib/types/states';
 
 	export let data;
 
@@ -54,6 +55,7 @@
 					>
 					<TableBodyCell><StateBadge data={t.state} /></TableBodyCell>
 					<TableBodyCell>
+						{#if t.state === DRAFT || t.state === UNPAID}
 						<Button
 							color="alternative"
 							size="sm"
@@ -61,6 +63,7 @@
 						>
 							Edit
 						</Button>
+						{/if}
 					</TableBodyCell>
 				</TableBodyRow>
 			{/each}

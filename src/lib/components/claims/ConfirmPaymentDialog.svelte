@@ -12,6 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let plan: Plan, claim: Claim, isNew: boolean;
+	$: payedByCommunity = (plan.payedBy === PayedBy.community);    
 	const saveClaimMutation = useSaveDratClaim();
 	const updateClaimMutation = useUpdateClaim();
 	let isWorking = false,
@@ -39,7 +40,7 @@
 		return false;
 	}
 	async function saveNewClaim() {
-    const state = plan.payedBy === PayedBy.community ? CLAIMED : UNPAID;
+		const state = plan.payedBy === PayedBy.community ? CLAIMED : UNPAID;
 		await $saveClaimMutation.mutateAsync({ ...claim, state: state });
 	}
 	async function updateClaim(state: number) {
@@ -53,9 +54,10 @@
 			if (!payer) throw Error('There is no account to paying the fee');
 			if (!isConnected) throw Error('Need a wallet to pay');
 
-			// save draft as UNPAID
 			if (isNew) {
 				await saveNewClaim();
+			} else {
+				await updateClaim(UNPAID);
 			}
 
 			console.log('saving draft as unpaid', claim);
@@ -78,8 +80,8 @@
 			});
 
 			let txnHash = response.hash;
-      // transaction done update claim state
-      await updateClaim(CLAIMED);
+			// transaction done update claim state
+			await updateClaim(CLAIMED);
 			dispatch('done', { hash: txnHash, success: true });
 		} catch (err) {
 			isError = true;
@@ -107,7 +109,11 @@
 					<div class="w-1/2">&nbsp;</div>
 					<div class="w-1/4 text-start">
 						<p class="text-sm font-bold text-gray-800">Fee</p>
-						<p class="text-gray-700">{plan.fee} MINA</p>
+						
+						<p class={
+							(payedByCommunity ? "line-through" : "")
+							+ " text-gray-700"
+						  }>{plan.fee} MINA</p>
 					</div>
 					<div class="w-1/4 text-start">
 						<p class="text-sm font-bold text-gray-800">Expire</p>
