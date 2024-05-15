@@ -49,22 +49,22 @@
 						<!-- <TableBodyCell>Todo</TableBodyCell> -->
 						<TableBodyCell>
 							{#if t.state === ASSIGNED}
-								<ButtonGroup>
+								<ButtonGroup class="transition">
 									<RadioButton
 										on:click={(e) => changeVote(e, t, i)}
-										class="active:bg-green-100 checked:text-green-800"
+										class="{t.result === '1' ? 'bg-green-100 text-green-800' : ''}"
 										value={"1"}
 										bind:group={t.result}>Yes</RadioButton
 									>
 									<RadioButton
 										on:click={(e) => changeVote(e, t, i)}
-										class="checked:bg-red-100 checked:text-red-800"
+										class="{t.result === '-1' ? 'bg-red-100 text-red-800' : ''}"
 										value={"-1"}
 										bind:group={t.result}>No</RadioButton
 									>
 									<RadioButton
 										on:click={(e) => changeVote(e, t, i)}
-										class="checked:bg-yellow-100 checked:text-yellow-800"
+										class="{t.result === '0' ? 'bg-yellow-100 text-yellow-800' : ''}"
 										value={"0"}
 										bind:group={t.result}>Abstain</RadioButton
 									>
