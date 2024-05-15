@@ -49,7 +49,7 @@
 						<!-- <TableBodyCell>Todo</TableBodyCell> -->
 						<TableBodyCell>
 							{#if t.state === ASSIGNED}
-								<ButtonGroup class="transition">
+								<ButtonGroup>
 									<RadioButton
 										on:click={(e) => changeVote(e, t, i)}
 										class="{t.result === '1' ? 'bg-green-100 text-green-800' : ''}"

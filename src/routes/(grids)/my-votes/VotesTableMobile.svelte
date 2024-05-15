@@ -31,8 +31,8 @@
 		<TableBody class="table-fixed">
 			{#each data || [] as t, i}
 				<TableBodyRow>
-					<TableBodyCell class="py-4 px-0" >
-						<div class="flex items-center space-x-4 w-full mx-auto" >
+					<TableBodyCell class="px-0 py-4">
+						<div class="mx-auto flex w-full items-center space-x-4">
 							<div>
 								<StateBadge class="text-xs" data={t.state} />
 							</div>
@@ -46,23 +46,20 @@
 									{#if t.state === ASSIGNED}
 										<ButtonGroup size="xs">
 											<RadioButton
-												size="xs"
 												on:click={(e) => changeVote(e, t, i)}
-												class="checked:bg-green-100 checked:text-green-800"
+												class={t.result === '1' ? 'bg-green-100 text-green-800' : ''}
 												value={'1'}
 												bind:group={t.result}>Yes</RadioButton
 											>
 											<RadioButton
-												size="xs"
 												on:click={(e) => changeVote(e, t, i)}
-												class="checked:bg-red-100 checked:text-red-800"
+												class={t.result === '-1' ? 'bg-red-100 text-red-800' : ''}
 												value={'-1'}
 												bind:group={t.result}>No</RadioButton
 											>
 											<RadioButton
-												size="xs"
 												on:click={(e) => changeVote(e, t, i)}
-												class="checked:bg-yellow-100 checked:text-yellow-800"
+												class={t.result === '0' ? 'bg-yellow-100 text-yellow-800' : ''}
 												value={'0'}
 												bind:group={t.result}>Abstain</RadioButton
 											>
