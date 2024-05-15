@@ -5,6 +5,8 @@
 	import { type Task } from '$lib/types/task';
 	import { getCurrentBlockchain } from '$lib/store';
 	import { useSubmitBatchTasks } from '$lib/hooks/tasks';
+	import { Poseidon, MerkleTree, PublicKey, Field } from 'o1js';
+	import { UID } from '$lib/types/uid';
 
 	const dispatch = createEventDispatcher();
 	let submitBatchTasks = useSubmitBatchTasks();
@@ -35,6 +37,34 @@
 		}
 		return false;
 	}
+	function buildMerkleTree(tasks: Task[], electorId: string) {
+		let tree = new MerkleTree(10); // max of 1024 leafs
+
+		// each task:
+		// {
+		//   uid: t.uid,
+		//   claimUid: t.claimUid,
+		//   result: t.result,
+		//   assigneeUid: t.assigneeUid,
+		//   communityUid: t.community.uid,
+		//   planUid: t.plan.uid
+		// }
+
+		(tasks || []).forEach((t, index) => {
+			// we hash the task so we can verify it later
+			// each leaf of MerkleTree is hash(claimuid, electorPubkey, vote)
+			const leafValue = Poseidon.hash(
+				PublicKey.fromBase58(electorId)
+					.toFields()
+					.concat([UID.toField(t.claimUid)])
+					.concat([Field(t.result)])
+			);
+
+			tree.setLeaf(BigInt(index), leafValue);
+		});
+
+		return tree;
+	}
 
 	async function confirm() {
 		isWorking = true;
@@ -45,19 +75,20 @@
 			const accounts: any[] = (await window.mina?.requestAccounts()) || [];
 			const account = accounts[0];
 			console.log('account', account);
+			// let merkleTree = buildMerkleTree(votes, account);
+
 			let signedData = await window.mina?.signMessage({
-				message: JSON.stringify(votes)
+				message: JSON.stringify({ root: Field(0), votes })
 			});
-      console.log(
-				'signedData publicKey',
+
+			console.log(
+				'signedData',
 				signedData.publicKey,
-				'signedData signature',
 				signedData.signature.field,
-				'signedData signature scalar',
 				signedData.signature.scalar
 			);
 
-      	// we can now submit the Votes and continue the voting process
+			// we can now submit the Votes and continue the voting process
 
 			let result = await $submitBatchTasks.mutateAsync({
 				senderAccountId: signedData.publicKey,
@@ -65,7 +96,6 @@
 			});
 
 			dispatch('done', { success: true });
-
 		} catch (err) {
 			isError = true;
 			errorMessage = `${err}`;
