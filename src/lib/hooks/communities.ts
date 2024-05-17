@@ -24,10 +24,16 @@ export function useGetMyAdminedCommunities() {
       })
 }
 
-export function useGetAllCommunities() {
+export function useGetAllCommunities(params: {
+  notJoined?: boolean,
+  states?: string[]
+}) {
     return createQuery<Community[], Error>({
         queryKey: ['get_all_communities'],
-        queryFn: () => getAllCommunities({ notJoined: true }),
+        queryFn: () => getAllCommunities({ 
+          notJoined: params?.notJoined || true,
+          states: params?.states 
+        }),
       })
 }
 

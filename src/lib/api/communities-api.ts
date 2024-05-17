@@ -27,11 +27,17 @@ async function getCommunity(params: {
  */
 async function getAllCommunities(params: {
   columns?: string[],
-  notJoined?: boolean
+  notJoined?: boolean,
+  states?: string[]
 }): Promise<Community[]> {
   const rs = await API.query("get_all_communities", params);
   if (rs.error) return []; // TODO handle error
-  return rs.data;
+  if (!params.states) return rs.data;
+
+  // only the ones in the given states
+  return (rs.data || []).filter((t: Community) => (
+    (params?.states || []).includes(t.state)
+  ));
 }
 
 /**
