@@ -11,6 +11,7 @@
   import Time from 'svelte-time';
   import StateBadge from '$lib/components/common/StateBadge.svelte';
   import Breadcrumbs from "$lib/components/common/Breadcrumbs.svelte";
+	import CommunityBanner from "$lib/components/communities/CommunityBanner.svelte";
 
   export let uid: string | null = null;
   
@@ -21,12 +22,12 @@
   $: cmn = $community.data;
   $: sts = findState((cmn?.state === 'INITIAL') ? 'Revision' : (cmn?.state || '-'));
     
-  const bgImage = '/images/socialcap-bg-signin.svg'; // gradient-background-1.jpeg';
+  const bgImage = '/images/community-banner-light.svg'; // gradient-background-1.jpeg';
 </script>
 
 <div class="p-4">
   <Breadcrumbs label={$community.data?.name || '?'}/>
-  
+
   <div>
     {#if $community.isLoading}
       <span>Loading...</span>
@@ -39,12 +40,13 @@
       <div class="w-full max-w-screen-lg">
         <!-- <div class="bg-[url(')] bg-cover p-4">
         </div> -->
-        <div class="relative bg-blue-100 mb-12 rounded-md">
+        <CommunityBanner image={cmn?.image} />
+        <!-- <div class="relative bg-blue-100 mb-12 rounded-md">
           <Img src={bgImage} class="h-32 w-full rounded"/>
           <span class="inline-block mt-4 ms-4 absolute top-[4rem] left-0">
-            <Avatar src={cmn?.image || bgImage} class="h-24 w-24 round drop-shadow-lg"/>
+            <Img src={cmn?.image || bgImage} class="h-24 w-24 round drop-shadow-lg"/>
           </span>
-        </div>
+        </div> -->
       
         <div class="px-4 pt-3 pb-4">
           <!-- <Badge rounded border large color="green" class="inline-block mb-0">{state}</Badge> -->
