@@ -10,8 +10,7 @@
   let navigation: NavigationPath | null = null;
 
   onMount(() => {
-    // navigation = getNavigationPath();
-    // console.log("onMount navigation=", navigation);
+    console.log("onMount navigation=", $navigationPath);
   })
 </script>
 

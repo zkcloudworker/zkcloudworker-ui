@@ -24,5 +24,9 @@ function setNavigationPath(path: NavigationPath) {
 };
 
 function normalizePath(path: string): string {
-  return (path || "").replace('/(home)','') || '/home'; 
+  return (path || "")
+    .replace('/(home)','') 
+    .replace('/(grids)', '')
+    .replace('/(detail)', '')
+    || '/home'; 
 }

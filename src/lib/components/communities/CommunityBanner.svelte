@@ -18,20 +18,22 @@
 </script>
 
 {#if inside === 'page'}
-  <div class="relative bg-blue-200 mb-4 rounded-t-lg">
+  <div class="relative bg-white mb-4 rounded-t-lg">
     <Img 
       src={image || defaultImage} 
       crossorigin={(image || "").includes('socialcap.') ? null : ""}
-      class="max-h-60 w-full bg-blue-200 rounded-t-lg --shadow-xl"
+      class="max-h-60 w-full rounded-t-lg --shadow-xl"
     />
   </div>
 {/if}
 
 {#if inside === 'card'}
-  <Img 
-    src={image || defaultImage} 
-    crossorigin={(image || "").includes('socialcap.') ? null : ""}
-    class="max-h-48 lg:max-h-32 bg-blue-200 rounded-t-lg --shadow-xl"
-  />
+  <div class="relative bg-white mb-0 rounded-t-lg">
+    <Img 
+      src={image || defaultImage} 
+      crossorigin={(image || "").includes('socialcap.') ? null : ""}
+      class="max-h-48 lg:max-h-32 rounded-t-lg --shadow-xl"
+    />
+  </div>
 {/if}
 
