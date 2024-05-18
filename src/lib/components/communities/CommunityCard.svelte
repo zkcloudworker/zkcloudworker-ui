@@ -10,7 +10,7 @@
     joined = false, isAdmin: boolean = false;
 
   $: sts = findState((state === 'INITIAL') ? 'Revision' : state);
-  const bgImage = '/images/socialcap-bg-signin.svg'; // gradient-background-1.jpeg';
+  const bgImage = image || '/images/community-banner.svg';
 
   function gotoLink(uid: string) {
     return joined 
@@ -22,14 +22,14 @@
 <Card class="" padding="none" size="fluid" href={gotoLink(uid)}>
   <!-- <div class="bg-[url(')] bg-cover p-4">
   </div> -->
-  <div class="relative bg-blue-100">
-    <img src={bgImage} class="h-32 w-full"/>
+  <div class="relative bg-blue-100 h-32 bg-[url('/images/community-banner-light.svg')] bg-cover rounded-t-lg">
+    <Img src={bgImage} crossorigin="" class="max-w-32 h-32 mt-5 px-3 py-2"/>
     <!-- <span class="inline-block mt-4 ms-4 absolute top-0 left-0">
       <Avatar src={image || bgImage} class="h-24 w-24 round drop-shadow-lg"/>
     </span> -->
   </div>
 
-  <div class="px-4 pt-2 pb-4">
+  <div class="px-4 pt-6 pb-4">
     <!-- <Badge rounded border large color="green" class="inline-block mb-0">{state}</Badge> -->
     <div class="flex items-center justify-between">
       <StateBadge data={sts} />
