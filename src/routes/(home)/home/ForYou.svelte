@@ -58,6 +58,7 @@
           <CommunitiesList 
             data={$communities.data} 
             joined={false} 
+            grid="1"
           />
         </ul>
       {/if}
