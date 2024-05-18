@@ -21,7 +21,7 @@
 </script>
 
 <Card class="" padding="none" size="none" href={gotoLink(uid)}>
-  <CommunityBanner {image} />
+  <CommunityBanner {image} inside="card"/>
 
   <div class="px-4 pt-6 pb-4">
     <!-- <Badge rounded border large color="green" class="inline-block mb-0">{state}</Badge> -->

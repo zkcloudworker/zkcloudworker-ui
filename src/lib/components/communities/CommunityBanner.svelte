@@ -1,15 +1,37 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
   
+  const defaultImage = "/images/community-banner.svg";
   export let image: string = "";
+  export let inside = "page";
+
+  /*
+  Image sizes to make the banner look right:
+  
+  Full image: 2048x512 px, Aspect ratio: 0.25
+  
+  In page (all): 960x240 px => "w-full h-60"
+  In card (mobile): 960x240 px => "w-full h-60"
+  In card (desktop): 337x114 px => "w-full h-28"
+  */
 </script>
 
-<div class="relative bg-blue-100 h-32 bg-[url('/images/community-banner-light.svg')] bg-cover rounded-t-lg">
+{#if inside === 'page'}
+  <div class="relative bg-blue-200 mb-4 rounded-t-lg">
+    <Img 
+      src={image || defaultImage} 
+      crossorigin={(image || "").includes('socialcap.') ? null : ""}
+      class="max-h-60 w-full bg-blue-200 rounded-t-lg --shadow-xl"
+    />
+  </div>
+{/if}
+
+{#if inside === 'card'}
   <Img 
-    src={image} 
+    src={image || defaultImage} 
     crossorigin={(image || "").includes('socialcap.') ? null : ""}
-    class="absolute max-w-24 h-24 mt-10 ms-4 bg-gray-200 border-2 border-gray-100 rounded-3xl"/>
-    <!-- <span class="inline-block mt-4 ms-4 absolute top-0 left-0">
-      <Avatar src={image || bgImage} class="h-24 w-24 round drop-shadow-lg"/>
-    </span> -->
-</div>
+    class="max-h-48 lg:max-h-32 bg-blue-200 rounded-t-lg --shadow-xl"
+  />
+{/if}
+
