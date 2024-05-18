@@ -23,7 +23,7 @@
   <!-- <div class="bg-[url(')] bg-cover p-4">
   </div> -->
   <div class="relative bg-blue-100 h-32 bg-[url('/images/community-banner-light.svg')] bg-cover rounded-t-lg">
-    <Img src={bgImage} crossorigin="" class="max-w-32 h-32 mt-5 px-3 py-2"/>
+    <Img src={bgImage} crossorigin="" class="max-w-28 h-28 mt-6 ms-4 bg-gray-100 rounded-lg"/>
     <!-- <span class="inline-block mt-4 ms-4 absolute top-0 left-0">
       <Avatar src={image || bgImage} class="h-24 w-24 round drop-shadow-lg"/>
     </span> -->
