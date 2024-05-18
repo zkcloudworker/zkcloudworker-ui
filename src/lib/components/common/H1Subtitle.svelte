@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Heading } from 'flowbite-svelte';
+	import { P } from 'flowbite-svelte';
 	
   //export let href: string = '#';
   let twClasses = ""; 
 	export { twClasses as class };  
 </script>
 
-<Heading tag="h1" class={`text-black text-3xl font-semibold ${twClasses}`}>
+<P class={`text-gray-400 font-normal ${twClasses} text-xl lg:text-2xl`}>
   <slot/>
-</Heading>
+</P>
