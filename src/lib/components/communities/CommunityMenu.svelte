@@ -39,7 +39,9 @@
 <button 
   on:click|preventDefault|stopPropagation={() => open = !open} 
   class="p-1 no-border">
-  <DotsVerticalOutline size="lg" class="dark:text-white" />
+  <slot>
+    <DotsVerticalOutline size="lg" class="dark:text-white" />
+  </slot>
 </button>
 <Dropdown bind:open={open} class="shadow-lg rounded-lg border-2 border-gray-100 text-black py-1">
   {#each items as item}

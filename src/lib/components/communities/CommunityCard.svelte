@@ -4,11 +4,14 @@
   import { Card, Badge, Avatar, Button, Img } from 'flowbite-svelte';
   import CommunityMenu from './CommunityMenu.svelte';
   import CommunityBanner from './CommunityBanner.svelte';
+  import JoinCommunityModal from './JoinCommunityModal.svelte';
 
   export let 
     uid = '', title = '', description = '', image = '',
     state = '', count = "0", nClaims = 0, nCredentials = 0,
     joined = false, isAdmin: boolean = false;
+
+  let joinModalOpened = false;
 
   $: sts = findState((state === 'INITIAL') ? 'Revision' : state);
   const bgImage = image || '/images/community-banner.svg';
@@ -18,7 +21,19 @@
       ? `/community/${uid}`
       : `/community/${uid}`;
   }
+
+  function openJoinModal(ev: any) {
+    ev.preventDefault();//.stopPropagation();
+    joinModalOpened = true;
+  }
 </script>
+
+<JoinCommunityModal 
+  title={title}
+  uid={uid}
+  description={description}
+  bind:open={joinModalOpened} 
+/>
 
 <Card class="" padding="none" size="none" href={gotoLink(uid)}>
   <CommunityBanner {image} inside="card"/>
@@ -58,7 +73,10 @@
         </Avatar>       
       </div>      
       {#if !joined}
-        <Button color="primary" size="sm">Join</Button>
+        <Button color="primary" size="sm" 
+          on:click={(ev) => openJoinModal(ev)}>
+          Join
+        </Button>
       {/if}
     </div>                
   </div>
