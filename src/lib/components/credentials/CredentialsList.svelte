@@ -9,14 +9,23 @@
     grid = "1";
 
   let gridClass = "grid grid-cols-1 gap-4 lg:grid-cols-"+grid;  
+
+  let noData = {
+    title: (isClaimable) 
+      ? 'No credentials available' 
+      : 'No issued credentials', 
+      text: (isClaimable) 
+        ? 'There are no credentials you can claim at this moment.\nCome back soon !'
+        : 'We have not issued any credential yet.\nCome back soon !',
+  }
 </script>
 
 <div class="">
   <div class="w-full --max-w-screen-lg mt-0 mb-0">
     {#if !data || !(data || []).length}
       <NoData
-        title='No credentials available'
-        text='There are no credentials you can claim at this moment.\nCome back soon !'
+        title={noData.title}
+        text={noData.text}
         buttons={false}
       />        
     {:else}

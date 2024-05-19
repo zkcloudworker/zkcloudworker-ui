@@ -25,7 +25,7 @@
   <div class="w-full flex items-center justify-between text-end py-4 mb-4">
     <div class="w-10/12">&nbsp;</div>
     <div class="w-5/12">
-      <Search class="inline-block text-gray-800 text-md" autofocus placeholder="" size="md" bind:value={q} />
+      <Search class="inline-block text-gray-800 text-md" autofocus placeholder="Search" size="md" bind:value={q} />
     </div>
   </div>
 

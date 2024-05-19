@@ -13,7 +13,7 @@
 			</div>
 			<h6 class="text-md text-weight-500 mb-2 text-gray-900 dark:text-white">{title}</h6>
 			<p class="text-weight-400 mb-4 text-sm text-gray-600 dark:text-gray-400 sm:text-lg">
-				{@html text.replaceAll('\\n', '<br/>')}
+				{@html text.replaceAll('\n', '<br/>')}
 			</p>
       {#if buttons}
         <div
