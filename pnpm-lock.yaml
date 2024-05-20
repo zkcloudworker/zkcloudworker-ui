@@ -33,8 +33,8 @@ dependencies:
     specifier: ^2.2.1
     version: 2.2.2
   zkcloudworker:
-    specifier: ^0.7.9
-    version: 0.7.15(o1js@1.1.0)
+    specifier: ^0.8.2
+    version: 0.8.2(o1js@1.1.0)
 
 devDependencies:
   '@felte/validator-yup':
@@ -4754,8 +4754,8 @@ packages:
       type-fest: 2.19.0
     dev: true
 
-  /zkcloudworker@0.7.15(o1js@1.1.0):
-    resolution: {integrity: sha512-QmnD1XhZZYtDUmJgBchLQFJBGitO9Pm8oLewMuBoSTWTuyucLhiMMx94hHKS6WoldSGxNZhHLERI70tGGPn/nA==}
+  /zkcloudworker@0.8.2(o1js@1.1.0):
+    resolution: {integrity: sha512-onpjOTZradixKHOffiaeZXl9SOGt1fAzYV7pmqWlieDbPhuNDJ/t2Ek0BrpH3yWOzrV5/JDmso3QxlTh6Gmh7A==}
     engines: {node: '>=18.14.0'}
     peerDependencies:
       o1js: ^1.1.0
