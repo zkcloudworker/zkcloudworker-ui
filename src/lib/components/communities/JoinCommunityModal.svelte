@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { useJoinCommunity } from '$lib/hooks/communities';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { Label, Input, Button, Modal, Checkbox, Helper } from 'flowbite-svelte';
 	import { getCurrentUser } from '$lib/store';
 	import type { User } from '$lib/types';
@@ -32,6 +33,7 @@
       });
       open = false;
       console.log("Joined:", rs);
+      goto(`/community/${uid}`)
     }, 2000)
   }
 </script>
