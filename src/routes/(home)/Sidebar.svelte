@@ -127,7 +127,7 @@
           <!-- <InboxSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
         <svelte:fragment slot="subtext">
-          <span class="text-sm inline-flex justify-center items-center p-3 ms-3 w-3 h-3 text-sm font-medium text-primary-600 bg-primary-200 rounded-full dark:bg-primary-900 dark:text-primary-200"> {$tasks.data?.length} </span>
+          <span class="text-sm inline-flex justify-center items-center p-3 ms-3 w-3 h-3 text-sm font-medium text-primary-600 bg-primary-200 rounded-full dark:bg-primary-900 dark:text-primary-200"> {$tasks.data?.length || ''} </span>
         </svelte:fragment>
       </SidebarItem>
       <SidebarItem label="Activity" {spanClass} href="/activity">

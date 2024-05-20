@@ -41,8 +41,11 @@
 				<ErrorOnFetch description="A new claim" error={$claim.error} />
 			{:else}
 				<ClaimHeader {plan} claim={$claim.data} {isNew} />
-
-				<ClaimEditor {plan} claim={$claim.data} {isNew} {mode} />
+				<ClaimEditor 
+          claim={$claim.data} 
+          {plan} 
+          {isNew} 
+          mode={isNew ? "edit" : mode} />
 			{/if}
 		{/key}
 	{/if}
