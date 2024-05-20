@@ -7,13 +7,13 @@ import { saveDratClaim, updateClaim } from '$lib/api/claims-api';
 
 export function useGetMyClaims() {
   return createQuery<Claim[], Error>({
-      queryKey: ['get_my_claims'],
-      queryFn: () => getMyClaims({}),
-    })
+    queryKey: ['get_my_claims'],
+    queryFn: () => getMyClaims({}),
+  })
 }
 
 export function useGetClaim(
-  uid: string, 
+  uid: string,
   plan?: Plan
 ) {
   return createQuery<Claim, Error>({

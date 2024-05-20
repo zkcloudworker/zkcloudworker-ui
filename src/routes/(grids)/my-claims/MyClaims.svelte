@@ -18,7 +18,7 @@
 	{:else if $claims.isError}
 		<ErrorOnFetch description="All my claims" error={$claims.error} />
 	{:else if !$claims.data || $claims.data.length === 0}
-		<NoData text="Yo have no pending claims" />
+		<NoData text="You have no pending claims" />
 	{:else}
 		<div class="hidden lg:block">
 			<ClaimsTable data={
