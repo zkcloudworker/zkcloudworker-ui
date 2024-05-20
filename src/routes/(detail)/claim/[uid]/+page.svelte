@@ -15,6 +15,7 @@
 
 	let profile: User | null = getCurrentUser();
 	$: isNew = data.uid === 'new';
+	$: mode = data.mode || 'view';
 	$: refreshOn = data.uid;
 
 	const planQuery = useGetPlan(data.planUid);
@@ -41,7 +42,7 @@
 			{:else}
 				<ClaimHeader {plan} claim={$claim.data} {isNew} />
 
-				<ClaimEditor {plan} claim={$claim.data} {isNew} />
+				<ClaimEditor {plan} claim={$claim.data} {isNew} {mode} />
 			{/if}
 		{/key}
 	{/if}

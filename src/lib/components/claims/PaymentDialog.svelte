@@ -6,7 +6,7 @@
 	import { PaymentStep, Step } from './payment-flow';
 	import { getCurrentBlockchain } from '$lib/store';
 	import ConfirmSubmitDialog from './ConfirmSubmitDialog.svelte';
-	import ConnectWalletDialog from './ConnectWalletDialog.svelte';
+	import ConnectWalletDialog from '../common/ConnectWalletDialog.svelte';
 	import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
 	import PaymentSentDialog from './PaymentSentDialog.svelte';
 	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
@@ -48,7 +48,7 @@
 		goto('/my-claims');
 	}
 
-  async function payByCommunity() {
+	async function payByCommunity() {
 		step = PaymentStep.PAID_BY_COMMUNITY;
 		open = true;
 	}
@@ -79,7 +79,7 @@
 					{isNew}
 					on:cancel={() => cancelSubmit()}
 					on:done={() => doneSubmit()}
-          on:paycommunity={() => payByCommunity()}
+					on:paycommunity={() => payByCommunity()}
 					on:submit={() => confirmSubmit()}
 				/>
 			{/if}

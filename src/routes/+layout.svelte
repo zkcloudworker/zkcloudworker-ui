@@ -33,5 +33,6 @@
 <slot />
 
 <svelte:head>
+  <title>Socialcap App</title>
 	<script async src={"https://www.googletagmanager.com/gtag/js?id="+import.meta.env.VITE_GA_TAG}></script>
 </svelte:head>
