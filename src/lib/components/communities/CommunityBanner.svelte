@@ -32,7 +32,7 @@
     <Img 
       src={image || defaultImage} 
       crossorigin={(image || "").includes('socialcap.') ? null : ""}
-      class="max-h-48 lg:max-h-32 rounded-t-lg --shadow-xl"
+      class="max-h-48 lg:max-h-64 rounded-t-lg --shadow-xl"
     />
   </div>
 {/if}
