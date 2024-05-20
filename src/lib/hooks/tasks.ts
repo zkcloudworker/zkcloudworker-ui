@@ -13,7 +13,7 @@ export function useGetMyTasks() {
 
 export function useGetMyAssignedTasks() {
     return createQuery<Task[], Error>({
-        queryKey: ['get_my_tasks'],
+        queryKey: ['get_my_assigned_tasks'],
         queryFn: () => getMyTasks({states: [ASSIGNED]}),
     })
 }
@@ -24,7 +24,8 @@ export function useSubmitBatchTasks() {
         mutationFn: submitBatchTasks,
         // Always refetch after error or success:
         onSettled: () => {
-            client.invalidateQueries({ queryKey: ['get_my_tasks'] })
+          client.invalidateQueries({ queryKey: ['get_my_tasks'] }),
+          client.invalidateQueries({ queryKey: ['get_my_assigned_tasks'] })
         },
     })
 }
