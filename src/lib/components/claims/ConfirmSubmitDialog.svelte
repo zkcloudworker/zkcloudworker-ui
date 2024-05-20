@@ -74,7 +74,7 @@
 				class="py-3"
 				on:click={() => {
 					saveClaim();
-					dispatch('done');
+					dispatch('paycommunity');
 				}}
 			>
 				{#if $saveClaimMutation.isPending || $updateClaimMutation.isPending}

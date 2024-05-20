@@ -5,7 +5,8 @@ export enum PaymentStep {
   CONNECT_WALLET = 2,
   CONFIRM_PAYMENT = 3,
   PAYMENT_SENT = 4,
-  PAYMENT_CANCELED = 5
+  PAYMENT_CANCELED = 5,
+  PAID_BY_COMMUNITY = 6
 }
 
 export const Step: any = {
@@ -29,6 +30,10 @@ export const Step: any = {
   },
   5: { 
     title: "Your payment failed", 
+    description: "Step by step process to submit your claim" 
+  },
+  6: { 
+    title: "Paid by the community", 
     description: "Step by step process to submit your claim" 
   },
 }
