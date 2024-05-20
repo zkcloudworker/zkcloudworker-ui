@@ -44,8 +44,22 @@
 						<TableBodyCell>
 							<StateBadge data={t.state} />
 						</TableBodyCell>
-						<TableBodyCell>{t.community}</TableBodyCell>
-						<TableBodyCell>{t.claimer}</TableBodyCell>
+						<TableBodyCell>
+              <a href={`/claim/${t.claimUid}?mp=${t.planUid}&mode=view`}>
+                <div class="text-xs text-gray-400">
+                  {t.community}
+                </div>
+                <div class="text-sm text-dark mt-1 text-wrap">
+                  {t.plan}
+                </div>  
+                <div class="text-xs text-blue-600 mt-1">
+                  {t.claimUid.slice(0,4)}...{t.claimUid.slice(-6)}
+                </div>  
+              </a>
+            </TableBodyCell>
+						<TableBodyCell>
+              {t.claimer}
+            </TableBodyCell>
 						<!-- <TableBodyCell>Todo</TableBodyCell> -->
 						<TableBodyCell>
 							{#if t.state === ASSIGNED}
@@ -75,6 +89,10 @@
 				{/each}
 			</TableBody>
 		</Table>
+
+    <div>
+      <br/><br/><br/><br/>
+    </div>
 	{/if}
 
 	<ActionFooter tasks={data} />

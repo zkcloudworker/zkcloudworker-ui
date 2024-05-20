@@ -47,7 +47,7 @@ export const States: State[] = [
     {
         name: 'Assigned',
         value: 7,
-        badgeType: "success"
+        badgeType: "warning"
     },
     {
         name: 'Active',

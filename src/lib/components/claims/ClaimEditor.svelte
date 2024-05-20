@@ -36,13 +36,13 @@
 </script>
 
 {#if toggleDialog}
-	<PaymentDialog
-		bind:open={toggleDialog}
-		step={PaymentStep.CONFIRM_SUBMIT}
-		{claim}
-		{plan}
-		{isNew}
-	/>
+	<PaymentDialog 
+    bind:open={toggleDialog} 
+    step={PaymentStep.CONFIRM_SUBMIT} 
+    {claim} 
+    {plan} 
+    {isNew} 
+  />
 {/if}
 
 <div class="relative">
@@ -59,7 +59,7 @@
 		{/if}
 	</div>
 
-	<div class="fixed bottom-0 left-0 right-0 border-t-2 bg-white bg-opacity-70 py-4 lg:left-64">
+	<div class="fixed bottom-0 left-0 right-0 border-t-2 bg-white py-4 lg:left-64">
 		<div class="border-3 --bg-red-300 flex items-center justify-between px-8">
 			<div class="ps-8">
 				{#if !previewOn}
