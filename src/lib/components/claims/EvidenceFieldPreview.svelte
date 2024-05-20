@@ -26,7 +26,7 @@
 
 	{#if field.type === 'links'}
 		{#each field.value || [] as link}
-			<p class="lh-sm fs-md text-break word-wrap">
+			<p class="lh-sm fs-md text-break word-wrap text-blue-700">
 				<a href={link}>{link} </a>
 			</p>
 		{/each}
@@ -35,7 +35,7 @@
 	{#if field.type === 'files'}
 		{#each field.value || [] as link}
 			<p class="lh-sm fs-md text-break word-wrap">
-				<a href={link} target="_blank">
+				<a href={link} target="_blank" class="text-blue-700">
 					{link}
 				</a>
 			</p>

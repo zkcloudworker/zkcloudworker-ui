@@ -1,115 +1,126 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import { Button, Modal, StepIndicator } from 'flowbite-svelte';
-  import type { Claim } from '$lib/types/claim';
+	import { createEventDispatcher } from 'svelte';
+	import { Button, Modal, StepIndicator } from 'flowbite-svelte';
+	import type { Claim } from '$lib/types/claim';
 	import type { Plan } from '$lib/types';
-  import { PaymentStep, Step } from './payment-flow';
+	import { PaymentStep, Step } from './payment-flow';
 	import { getCurrentBlockchain } from '$lib/store';
-  import ConfirmSubmitDialog from './ConfirmSubmitDialog.svelte';
-  import ConnectWalletDialog from '../common/ConnectWalletDialog.svelte';
-  import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
-  import PaymentSentDialog from "./PaymentSentDialog.svelte";
+	import ConfirmSubmitDialog from './ConfirmSubmitDialog.svelte';
+	import ConnectWalletDialog from '../common/ConnectWalletDialog.svelte';
+	import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
+	import PaymentSentDialog from './PaymentSentDialog.svelte';
 	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
 	import { goto } from '$app/navigation';
+	import PaidByCommunityDialog from './PaidByCommunityDialog.svelte';
 
-  export let 
-    open = false,
-    plan: Plan,
-    claim: Claim,
-    isNew: boolean,
-    step: number = 1,
-    steps = ['1','2', '3'],
-    txnId = "";
+	export let open = false,
+		plan: Plan,
+		claim: Claim,
+		isNew: boolean,
+		step: number = 1,
+		steps = ['1', '2', '3'],
+		txnId = '';
 
-  const dispatch = createEventDispatcher();  
-  async function cancelSubmit() {
-    open = false;
-    step = 1;
-  }
+	const dispatch = createEventDispatcher();
+	async function cancelSubmit() {
+		open = false;
+		step = 1;
+	}
 
-  async function confirmSubmit() {
-    step = PaymentStep.CONNECT_WALLET;
-    open = true;
-  }
+	async function confirmSubmit() {
+		step = PaymentStep.CONNECT_WALLET;
+		open = true;
+	}
 
-  async function confirmConnect() {
-    step = PaymentStep.CONFIRM_PAYMENT;
-    open = true;
-  }
+	async function confirmConnect() {
+		step = PaymentStep.CONFIRM_PAYMENT;
+		open = true;
+	}
 
-  async function donePayment(detail: any) {
-    step = PaymentStep.PAYMENT_SENT;
-    txnId = detail.hash;
-    open = true;
-  }
+	async function donePayment(detail: any) {
+		step = PaymentStep.PAYMENT_SENT;
+		txnId = detail.hash;
+		open = true;
+	}
 
-  async function doneSubmit() {
-    open= false;
-    goto('/my-claims');
-  }
+	async function doneSubmit() {
+		open = false;
+		goto('/my-claims');
+	}
+
+	async function payByCommunity() {
+		step = PaymentStep.PAID_BY_COMMUNITY;
+		open = true;
+	}
 </script>
 
 <!-- 
   Modal Payments Dialogs
 -->
 <div>
-  <Modal 
-    size="md" 
-    class="p-0 mx-0 w-full max-w-screen-md h-[32rem] relative"
-    bind:open={open}>
+	<Modal size="md" class="relative mx-0 h-[32rem] w-full max-w-screen-md p-0" bind:open>
+		<div class="px-4 text-base">
+			<div class="text-lg font-bold text-black">
+				{Step[step].title}
+			</div>
+			<div class="text-sm text-gray-500">
+				{Step[step].description}
+			</div>
+			<div class="mt-6">
+				<StepIndicator {steps} size="h-1.5" hideLabel={true} currentStep={step} class="py-2" />
+			</div>
+		</div>
 
-    <div class="px-4 text-base">
-      <div class="text-lg font-bold text-black">
-        {Step[step].title}
-      </div>
-      <div class="text-sm  text-gray-500">
-        {Step[step].description}
-      </div>
-      <div class="mt-6">
-        <StepIndicator {steps} size="h-1.5" hideLabel={true} currentStep={step} class="py-2"/>
-      </div>
-    </div>
+		<div class="px-4">
+			{#if step === PaymentStep.CONFIRM_SUBMIT}
+				<ConfirmSubmitDialog
+					{claim}
+					{plan}
+					{isNew}
+					on:cancel={() => cancelSubmit()}
+					on:done={() => doneSubmit()}
+					on:paycommunity={() => payByCommunity()}
+					on:submit={() => confirmSubmit()}
+				/>
+			{/if}
 
-    <div class="px-4">
-      {#if step === PaymentStep.CONFIRM_SUBMIT} 
-        <ConfirmSubmitDialog 
-          claim={claim}
-          plan={plan}
-          isNew={isNew}
-          on:cancel={() => cancelSubmit()}
-          on:done={() => doneSubmit()}
-          on:submit={() => confirmSubmit()}
-        />
-      {/if}
-  
-      {#if step === PaymentStep.CONNECT_WALLET} 
-        <ConnectWalletDialog 
-          on:cancel={() => cancelSubmit()}
-          on:continue={() => confirmConnect()}
-        />
-      {/if}
+			{#if step === PaymentStep.CONNECT_WALLET}
+				<ConnectWalletDialog
+					{claim}
+					{plan}
+					on:cancel={() => cancelSubmit()}
+					on:continue={() => confirmConnect()}
+				/>
+			{/if}
 
-      {#if step === PaymentStep.CONFIRM_PAYMENT} 
-        <ConfirmPaymentDialog 
-          claim={claim}
-          plan={plan}
-          isNew={isNew}
-          on:cancel={() => cancelSubmit()}
-          on:done={(ev) => donePayment(ev.detail)}
-        />
-      {/if}
+			{#if step === PaymentStep.CONFIRM_PAYMENT}
+				<ConfirmPaymentDialog
+					{claim}
+					{plan}
+					{isNew}
+					on:cancel={() => cancelSubmit()}
+					on:done={(ev) => donePayment(ev.detail)}
+				/>
+			{/if}
 
-      {#if step === PaymentStep.PAYMENT_SENT} 
-        <PaymentSentDialog 
-          chain={getCurrentBlockchain()}
-          txnId={txnId} 
-          on:close={() => cancelSubmit()}
-          on:done={() => doneSubmit()}
-        />
-      {/if}
-    </div>
+			{#if step === PaymentStep.PAYMENT_SENT}
+				<PaymentSentDialog
+					chain={getCurrentBlockchain()}
+					{txnId}
+					on:close={() => cancelSubmit()}
+					on:done={() => doneSubmit()}
+				/>
+			{/if}
+			{#if step === PaymentStep.PAID_BY_COMMUNITY}
+				<PaidByCommunityDialog
+					chain={getCurrentBlockchain()}
+					on:close={() => cancelSubmit()}
+					on:done={() => doneSubmit()}
+				/>
+			{/if}
+		</div>
 
-    <!-- <ModalHeader {toggle}>
+		<!-- <ModalHeader {toggle}>
       Payment for credential
     </ModalHeader>
 
@@ -170,7 +181,7 @@
       {/if}
     </ModalFooter> -->
 
-    <!-- <Modal isOpen={openNoWalletDlg} toggle={toggleNoWalletDlg}>
+		<!-- <Modal isOpen={openNoWalletDlg} toggle={toggleNoWalletDlg}>
       <ModalHeader toggle={toggleNoWalletDlg}>
         Auro wallet is not installed
       </ModalHeader>
@@ -181,8 +192,7 @@
         <Button color="secondary" on:click={toggle}>Cancel</Button>
       </ModalFooter>
     </Modal> -->
-
-  </Modal>
+	</Modal>
 </div>
 
 <!--

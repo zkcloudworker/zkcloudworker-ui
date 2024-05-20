@@ -27,3 +27,9 @@
     <p class="text-xs"> {state.name}</p>
 </Badge>
 {/if}
+
+{#if state.badgeType === "warning"}
+<Badge rounded color="yellow" class={`py-1 px-3 lg:py-2 lg:px-4 text-gray-800 ${clazz || ''}`}>
+    <p class="text-xs"> {state.name}</p>
+</Badge>
+{/if}

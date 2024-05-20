@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { useGetMyTasks } from '$lib/hooks/tasks';
 	import { DropdownItem, P, Dropdown } from 'flowbite-svelte';
-	import { H1, ErrorOnFetch } from '$lib/components';
+	import { H1, H1Subtitle, ErrorOnFetch } from '$lib/components';
 	import VotesTable from './VotesTable.svelte';
 	import VotesTableMobile from './VotesTableMobile.svelte';
 	import NoData from '$lib/components/common/NoData.svelte';
@@ -19,7 +19,9 @@
 	{:else if !$tasks.data || $tasks.data.length === 0}
 		<NoData text="You have no pending votes to cast" />
 	{:else}
-		<P class="mb-6 text-gray-400" size="base">You have {$tasks.data.length} pending votes</P>
+		<H1Subtitle class="mb-8">
+      You have {$tasks.data.length} pending votes
+    </H1Subtitle>
 		<div class="hidden lg:block">
 			<VotesTable data={$tasks.data && Array.isArray($tasks.data) ? $tasks.data : []} />
 		</div>

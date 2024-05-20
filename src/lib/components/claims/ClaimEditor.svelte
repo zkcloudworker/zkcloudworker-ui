@@ -9,14 +9,15 @@
 	import EvidenceFormPreview from './EvidenceFormPreview.svelte';
 	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
 	import { goto } from '$app/navigation';
+	import { DRAFT, UNPAID } from '$lib/types/states';
 
-	export let plan: any, claim: any, isNew: boolean;
+	export let plan: any, claim: any, isNew: boolean, mode: 'view' | 'edit';
 	const saveClaim = useSaveDratClaim();
 	const updateClaim = useUpdateClaim();
 
 	let toggleDialog = false,
 		step = 0;
-	let previewOn = false;
+	let previewOn = mode === 'view';
 	async function confirmSubmission() {
 		toggleDialog = true;
 	}
@@ -29,10 +30,19 @@
 		}
 		goto('/my-claims');
 	}
+	function isEditable() {
+		return claim?.state === DRAFT || claim?.state === UNPAID;
+	}
 </script>
 
 {#if toggleDialog}
-	<PaymentDialog bind:open={toggleDialog} step={PaymentStep.CONFIRM_SUBMIT} {claim} {plan} {isNew} />
+	<PaymentDialog 
+    bind:open={toggleDialog} 
+    step={PaymentStep.CONFIRM_SUBMIT} 
+    {claim} 
+    {plan} 
+    {isNew} 
+  />
 {/if}
 
 <div class="relative">
@@ -49,28 +59,29 @@
 		{/if}
 	</div>
 
-	<div class="fixed bottom-0 left-0 right-0 border-t-2 bg-white bg-opacity-70 py-4 lg:left-64">
+	<div class="fixed bottom-0 left-0 right-0 border-t-2 bg-white py-4 lg:left-64">
 		<div class="border-3 --bg-red-300 flex items-center justify-between px-8">
 			<div class="ps-8">
 				{#if !previewOn}
-					<Button alternate color="light" on:click={() => (previewOn = true)}>Preview</Button>
+					<Button disabled={!isEditable()} alternate color="light" on:click={() => (previewOn = true)}>Preview</Button>
 				{:else}
-					<Button alternate color="light" on:click={() => (previewOn = false)}>Edit</Button>
+					<Button disabled={!isEditable()} alternate color="light" on:click={() => (previewOn = false)}>Edit</Button>
 				{/if}
 			</div>
+
 			<div>
-				<span class="me-8 text-sm">
+				<span class="me-8 justify-end text-sm">
 					Status <StateBadge data={claim?.state} />
 				</span>
 
-				<Button size="lg" color="light" class="me-2" on:click={() => saveDraft()}>
+				<Button disabled={!isEditable()}  size="lg" color="light" class="me-2" on:click={() => saveDraft()}>
 					{#if $saveClaim.isPending || $updateClaim.isPending}
 						Saving...
 					{:else}
 						Save Draft
 					{/if}</Button
 				>
-				<Button size="lg" primay class="me-8" on:click={() => confirmSubmission()}>Submit</Button>
+				<Button disabled={!isEditable()} size="lg" primay class="me-8" on:click={() => confirmSubmission()}>Submit</Button>
 			</div>
 		</div>
 	</div>
