@@ -1,17 +1,15 @@
 <script lang="ts">
-  import MyTasks from "./MyTasks.svelte";
+  import MyVotes from "./MyVotes.svelte";
   import { MetaTag } from "$lib/components";
-	export let data;
 
 	const path: string = '/home';
-  const description: string = 'Admin Dashboard example using Flowbite Svelte';
-  const title: string = 'Flowbite Svelte Admin Dashboard - Dashboard';
-  const subtitle: string = 'Admin Dashboard';
+  const description: string = 'Votes on your community claims';
+  const title: string = 'My Votes';
+  const subtitle: string = 'My Votes';
 </script>
 
 <MetaTag {path} {description} {title} {subtitle} />
 
 <main class="p-4">
-	<!-- <Dashboard {data} /> -->
-  <MyTasks />
+  <MyVotes />
 </main>
