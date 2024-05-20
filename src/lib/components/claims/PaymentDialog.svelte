@@ -6,7 +6,7 @@
   import { PaymentStep, Step } from './payment-flow';
 	import { getCurrentBlockchain } from '$lib/store';
   import ConfirmSubmitDialog from './ConfirmSubmitDialog.svelte';
-  import ConnectWalletDialog from './ConnectWalletDialog.svelte';
+  import ConnectWalletDialog from '../common/ConnectWalletDialog.svelte';
   import ConfirmPaymentDialog from './ConfirmPaymentDialog.svelte';
   import PaymentSentDialog from "./PaymentSentDialog.svelte";
 	import { useSaveDratClaim, useUpdateClaim } from '$lib/hooks/claims';
@@ -84,8 +84,6 @@
   
       {#if step === PaymentStep.CONNECT_WALLET} 
         <ConnectWalletDialog 
-          claim={claim}
-          plan={plan}
           on:cancel={() => cancelSubmit()}
           on:continue={() => confirmConnect()}
         />

@@ -10,7 +10,8 @@ export const
   REVISION = 3,
   CLAIMED = 4,
   ACTIVE = 8,
-  UNPAID = 12;
+  UNPAID = 12,
+  ASSIGNED = 7
 
 export const States: State[] = [
     {
