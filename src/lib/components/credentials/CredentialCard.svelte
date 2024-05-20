@@ -28,10 +28,10 @@
   $: bannerImage = data?.banner || '/images/credentialbg.svg'; 
   $: avatarImage = isClaimable 
       ? (data?.image || '/images/credentialbg.svg')
-      : (profile?.image || '/images/profile-2.png');
+      : (profile?.image || data.image || '/images/profile-2.png');
   $: avatarLabel = isClaimable 
       ? (data?.community || 'No name')
-      : (profile?.fullName || 'No name');
+      : (data.applicant || 'No name');
   $: issuedByImage = isIssued 
       ? ($community.data?.image || '/images/credentialbg.svg')
       : "";
@@ -72,7 +72,7 @@
 		<div class="ps-4 pb-4 pt-4">
       {#if isIssued}
 			  <h6 class="mb-2 mt-2 text-xl font-bold text-gray-900 dark:text-white">
-          {data.type}
+          {data.type || data.name}
         </h6>
       {/if}
       {#if isClaimable}

@@ -1,7 +1,10 @@
 <script lang="ts">
   import { Card, Dropdown, DropdownItem, Avatar, Button, Img } from 'flowbite-svelte';
+
+  export let open = true;
 </script>
 
+{#if open}
 <Card class="text-center mt-8 border-0 shadow-xl" size="fluid" padding="xl">
   <div class="flex flex-col items-center pb-4">
     <!-- <div class="flex mb-5">
@@ -18,8 +21,14 @@
       Invite teammates and create better communities
     </p>
     <div class="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 rtl:space-x-reverse">
-      <Button color="light">Dismiss</Button>
+      <Button color="light"
+        on:click={() => open = false}>
+        Dismiss
+      </Button>
       <Button color="blue">Invite</Button>
     </div>
   </div>
 </Card>  
+
+<br>
+{/if}

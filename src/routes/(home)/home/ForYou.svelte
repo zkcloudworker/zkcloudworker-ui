@@ -7,9 +7,10 @@
 	import ErrorOnFetch from "$lib/components/common/ErrorOnFetch.svelte";
   import { useGetAllCommunities } from "$lib/hooks/communities";
 	import { useGetAllClaimables } from "$lib/hooks/plans";
+	import { ACTIVE } from "$lib/types/states";
 
-  const communities =  useGetAllCommunities();
-  const claimables = useGetAllClaimables();
+  const communities =  useGetAllCommunities({ states: ["APPROVED"]});
+  const claimables = useGetAllClaimables({});
 
   onMount(async () => { })
 
@@ -57,6 +58,7 @@
           <CommunitiesList 
             data={$communities.data} 
             joined={false} 
+            grid="1"
           />
         </ul>
       {/if}

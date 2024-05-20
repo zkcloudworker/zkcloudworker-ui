@@ -10,4 +10,7 @@ interface NavigationPath {
 export const NavigationLabels: any = {
   '/home': 'Home',
   '/my-communities': 'My Communities',
+  '/community/[uid]': 'My Communities',
+  '/my-claims': 'My Claims',
+  '/claim/[uid]': 'My Claims',
 }

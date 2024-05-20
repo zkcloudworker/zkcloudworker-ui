@@ -26,6 +26,9 @@ interface Community {
   countMembers: number;
   countCredentials: number;
   countClaims: number;
+  countClaimables?: number;
+  isAdmin?: boolean;
+  isMember?: string;
 }
 
 interface NewCommunity {

@@ -8,13 +8,17 @@ export {
   getMyCommunities,
   getCommunity,
   createCommunity,
-  checkCommunityNameExist
+  checkCommunityNameExist,
+  joinCommunity
 }
 
 async function getCommunity(params: {
   uid: string,
 }): Promise<Community> {
-  const rs = await API.query("get_community", params);
+  const rs = await API.query("get_community", {
+    uid: params.uid,
+    extras: false // do not include claims,etc in response
+  });
   if (rs.error) throw Error(rs.error.message, rs.error.cause); // Todo handle error
   return rs.data;
 }
@@ -27,11 +31,17 @@ async function getCommunity(params: {
  */
 async function getAllCommunities(params: {
   columns?: string[],
-  notJoined?: boolean
+  notJoined?: boolean,
+  states?: string[]
 }): Promise<Community[]> {
   const rs = await API.query("get_all_communities", params);
   if (rs.error) return []; // TODO handle error
-  return rs.data;
+  if (!params.states) return rs.data;
+
+  // only the ones in the given states
+  return (rs.data || []).filter((t: Community) => (
+    (params?.states || []).includes(t.state)
+  ));
 }
 
 /**
@@ -61,7 +71,6 @@ async function getMyCommunities(params: {
   return [];
 }
 
-
 /**
  * Create a new community
  * @param name: string
@@ -72,11 +81,25 @@ async function createCommunity(data: NewCommunity): Promise<Community> {
   const rs = await API.mutate("update_community", { ...data, state: "INITIAL", new: true })
   if (rs.error) throw Error(rs.error.message, rs.error.cause);
   return rs.data;
-
 }
 
 async function checkCommunityNameExist(name: string): Promise<boolean> {
   const rs = await API.query("check_community_name_exist", { name });
+  if (rs.error) throw Error(rs.error.message, rs.error.cause);
+  return rs.data;
+}
+
+/**
+ * Join an existent community
+ * @param communityUid: string - Uid of community to join
+ * @param personUid: string - Uid of the user to Join
+ * @returns Created Commmunity
+ */
+async function joinCommunity(data: {
+  communityUid: string, 
+  personUid: string
+}): Promise<any> {
+  const rs = await API.mutate("join_community", data)
   if (rs.error) throw Error(rs.error.message, rs.error.cause);
   return rs.data;
 }

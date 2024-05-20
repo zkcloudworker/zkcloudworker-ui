@@ -10,6 +10,7 @@ interface Credential {
     applicantId: string
     claimId: string
     // the source references (redundant by useful for querying)
+    applicant?: string;
     applicantUid: string
     communityUid: string
     claimUid: string
