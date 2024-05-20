@@ -32,7 +32,13 @@
 </script>
 
 {#if toggleDialog}
-	<PaymentDialog bind:open={toggleDialog} step={PaymentStep.CONFIRM_SUBMIT} {claim} {plan} {isNew} />
+	<PaymentDialog 
+    bind:open={toggleDialog} 
+    step={PaymentStep.CONFIRM_SUBMIT} 
+    {claim} 
+    {plan} 
+    {isNew} 
+  />
 {/if}
 
 <div class="relative">

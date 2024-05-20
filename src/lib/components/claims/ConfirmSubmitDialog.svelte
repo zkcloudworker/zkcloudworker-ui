@@ -13,9 +13,10 @@
 
 	export let plan: Plan, claim: Claim, isNew: boolean;
 
-	$: payedByCommunity = plan.payedBy === PayedBy.community;
 	const saveClaimMutation = useSaveDratClaim();
 	const updateClaimMutation = useUpdateClaim();
+
+	$: payedByCommunity = plan.payedBy === PayedBy.community;
 
 	async function saveClaim() {
 		if (isNew) {
@@ -28,6 +29,7 @@
 
 <div>
 	<div class="text-base">
+    PayedBy={plan.payedBy}
 		<div class="mt-10 text-gray-800">
 			{plan.description}
 		</div>
