@@ -1,9 +1,11 @@
 import { API } from "./api-client";
 import type { Credential } from "$lib/types/credential";
 
-export { 
+export {
   getMyCredentials,
-  getCommunityCredentials
+  getCommunityCredentials,
+  getCredential,
+  getCredentialDataOnChain
 }
 
 /**
@@ -28,5 +30,34 @@ async function getCommunityCredentials(
     communityUid: communityUid
   });
   if (rs.error) return []; // TODO handle error
+  return rs.data;
+}
+
+/**
+ * Get credential details  
+ * @returns Credential
+ */
+async function getCredential(
+  uid: string
+): Promise<Credential> {
+  const rs = await API.query("get_credential", {
+    uid: uid
+  });
+  if (rs.error) throw rs.error;
+  return rs.data;
+}
+
+/**
+ * Get credential data on-chain  
+ * @returns Credential
+ */
+async function getCredentialDataOnChain(
+  uid: string
+): Promise<Credential> {
+  // ToDo call api
+  const rs = await API.query("get_credential", {
+    uid: uid
+  });
+  if (rs.error) throw rs.error;
   return rs.data;
 }
