@@ -84,7 +84,7 @@
       <div class="absolute top-2 right-2">
         <button 
           data-sveltekit-preload-data="false"
-          class="bg-gray-50 border-0 rounded-lg text-xs text-red-500 py-1 px-2"
+          class="bg-gray-50 border-0 rounded-lg text-xs text-black py-1 px-2"
           on:click|preventDefault={(ev) => showOnchainData(ev)}>
           MINA Txns
         </button>  
