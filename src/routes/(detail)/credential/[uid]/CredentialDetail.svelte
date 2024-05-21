@@ -6,7 +6,7 @@
 	import CredentialCard from '../../../../lib/components/credentials/CredentialCard.svelte';
 	import type { User } from '$lib/types/user';
 	import Breadcrumbs from '../../../../lib/components/common/Breadcrumbs.svelte';
-	import { useGetCredential, useGetCredentialDataOnChain } from '$lib/hooks/credentials';
+	import { useGetCredential, useGetCredentialOnchainData } from '$lib/hooks/credentials';
 	import { ErrorOnFetch } from '$lib/components';
 	import StateBadge from '$lib/components/common/StateBadge.svelte';
 	import Time from 'svelte-time/Time.svelte';
@@ -21,7 +21,7 @@
 	$: credential = useGetCredential(uid);
 	$: community = useGetCommunity($credential.data?.communityUid!);
 	$: initials = $community.data ? getInitials($credential.data?.applicant!) : '??';
-	$: dataOnChain = useGetCredentialDataOnChain(uid)
+	$: dataOnChain = useGetCredentialOnchainData(uid)
 </script>
 
 <div class="p-4">
