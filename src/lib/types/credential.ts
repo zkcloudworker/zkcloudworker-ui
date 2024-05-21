@@ -1,6 +1,6 @@
 import type { Community } from "./community";
 
-export type { Credential };
+export type { Credential, OnchainCredentialData };
 
 interface Credential {
     uid: string
@@ -35,4 +35,25 @@ interface Credential {
     startsUTC?: Date // when claiming this credentials can start
     endsUTC?: Date // when claiming this credentials ends
     available?: number // number of claimable credentials of this type
+}
+
+interface OnchainCredentialData{
+  chain: string; // devnet, berkeley, mainnet, zeko, ...
+  address: string; // address of the zkApp claim account
+  claimUid: string;
+  applicantUid: string;
+  requiredQuorum: number;
+  requiredPositives: number;
+  positives:  bigint;
+  negatives:  bigint;
+  ignored:  bigint;
+  transactions: {
+    uid: string;
+    type: string;
+    sequence: bigint;
+    hash: string;
+    createdUTC: string;
+    status: string;
+    url: string;
+  }[];
 }

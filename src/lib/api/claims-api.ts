@@ -55,7 +55,6 @@ async function getClaim(params: {
   return data;
 }
 
-
 /**
  * Save claim as draft
  * @param data: Claim
@@ -66,7 +65,6 @@ async function saveDratClaim(data: Claim): Promise<Claim> {
   const rs = await API.mutate("add_claim", data)
   if (rs.error) throw rs.error;
   return rs.data;
-
 }
 
 /**
@@ -78,8 +76,8 @@ async function updateClaim(data: Claim): Promise<Claim> {
   const rs = await API.mutate("update_claim", data)
   if (rs.error) throw rs.error;
   return rs.data;
-
 }
+
 
 function buildEmptyClaim(plan: Plan): Claim {
 
@@ -92,7 +90,7 @@ function buildEmptyClaim(plan: Plan): Claim {
     applicantUid: applicant?.uid as string,
     planUid: plan.uid,
     state: state?.value as number,
-    accountId: applicant?.accountId as string,
+    accountId: "", // it MUST be empty when creating a new Claim
     alias: plan.alias,
     createdUTC: new Date(),
     updatedUTC: new Date(),
