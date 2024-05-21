@@ -10,6 +10,8 @@
 	import { getCurrentUser } from '$lib/store';
 	import { avatarPath } from '$lib/variables';
 	import { goto } from '$app/navigation';
+	import CredentialOnchainDataModal from './CredentialOnchainDataModal.svelte';
+	import { getCredentialOnchainData } from '$lib/api/credentials-api';
 
 	export let 
     data: Credential,
@@ -18,6 +20,8 @@
   
   const community = useGetCommunity(data.communityUid);
   let profile: User | null = getCurrentUser();
+  let modalOpened = false;
+  let onchainData: any = null;
 
   $: isIssued = !isClaimable;
   // Date values and labels depend on isClaimable
@@ -36,7 +40,6 @@
       ? ($community.data?.image || '/images/credentialbg.svg')
       : "";
 
-
 	function gotoLink(uid: string) {
 		return `/credential/${uid}`;
 	}
@@ -46,7 +49,17 @@
     console.log("community Image", $community.data?.image);
 	});
 
+  async function showOnchainData(ev: any) {
+    console.log("show", data);
+    onchainData = await getCredentialOnchainData({ claimUid: data.uid });
+    modalOpened = true;
+  }
 </script>
+
+<CredentialOnchainDataModal 
+  bind:open={modalOpened}
+  onchainData={onchainData}
+/>
 
 {#if $community.isLoading}
 	<span>Loading...</span>
@@ -67,6 +80,15 @@
 				<Avatar size="xs" src={avatarImage} crossorigin="" tabindex="0" />
 				<div class="text-xs truncate max-w-64 text-black dark:text-white px-2">{avatarLabel}</div>
 			</div>
+
+      <div class="absolute top-2 right-2">
+        <button 
+          data-sveltekit-preload-data="false"
+          class="bg-gray-50 border-0 rounded-lg text-xs text-red-500 py-1 px-2"
+          on:click|preventDefault={(ev) => showOnchainData(ev)}>
+          MINA Txns
+        </button>  
+      </div>
 		</div>
 
 		<div class="ps-4 pb-4 pt-4">

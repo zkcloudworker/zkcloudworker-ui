@@ -55,7 +55,6 @@ async function getClaim(params: {
   return data;
 }
 
-
 /**
  * Save claim as draft
  * @param data: Claim
@@ -66,7 +65,6 @@ async function saveDratClaim(data: Claim): Promise<Claim> {
   const rs = await API.mutate("add_claim", data)
   if (rs.error) throw rs.error;
   return rs.data;
-
 }
 
 /**
@@ -79,6 +77,7 @@ async function updateClaim(data: Claim): Promise<Claim> {
   if (rs.error) throw rs.error;
   return rs.data;
 }
+
 
 function buildEmptyClaim(plan: Plan): Claim {
 
