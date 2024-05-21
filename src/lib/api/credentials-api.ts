@@ -1,19 +1,18 @@
 import { API } from "./api-client";
-import type { Credential } from "$lib/types/credential";
+import type { Credential, OnchainCredentialData } from "$lib/types/credential";
 
 export {
   getMyCredentials,
   getCommunityCredentials,
   getCredential,
-  getCredentialDataOnChain
+  getCredentialOnchainData
 }
 
 /**
  * Get the list of all user credentials
  * @returns Credential[]
  */
-async function getMyCredentials(params?: {
-}): Promise<Credential[]> {
+async function getMyCredentials(params?: any): Promise<Credential[]> {
   const rs = await API.query("get_my_credentials", params);
   if (rs.error) return []; // TODO handle error
   return rs.data;
@@ -48,16 +47,19 @@ async function getCredential(
 }
 
 /**
- * Get credential data on-chain  
- * @returns Credential
+ * Get on-chain data for credential  
+ * @returns OnchainCredentialData object
+ *
+ * Get the Credential onchain data
+ * @returns A OnchainCredentialData object
  */
-async function getCredentialDataOnChain(
-  uid: string
-): Promise<Credential> {
-  // ToDo call api
-  const rs = await API.query("get_credential", {
-    uid: uid
+async function getCredentialOnchainData(params: {
+  claimUid: string
+}): Promise<OnchainCredentialData> {
+  const { claimUid } = params; 
+  const rs = await API.query("get_credential_onchain_data", { 
+    claimUid: claimUid 
   });
-  if (rs.error) throw rs.error;
+  if (rs.error) throw rs.error; // TODO handle error
   return rs.data;
 }

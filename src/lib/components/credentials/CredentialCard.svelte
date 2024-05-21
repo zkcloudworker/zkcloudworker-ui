@@ -10,19 +10,22 @@
 	import { getCurrentUser } from '$lib/store';
 	import { avatarPath } from '$lib/variables';
 	import { goto } from '$app/navigation';
+	import CredentialOnchainDataModal from './CredentialOnchainDataModal.svelte';
+	import { getCredentialOnchainData } from '$lib/api/credentials-api';
 
 	import GradientAvatar from '$lib/components/common/GradientAvatar.svelte';
 	import { getInitials, buildGradient } from '$lib/components/common/gradient-svg';
-
 	export let data: Credential,
 		joined: boolean = false,
 		isClaimable: boolean = false;
 
-	let clazz = '';
-	export { clazz as class };
-	const dispatch = createEventDispatcher();
 	const community = useGetCommunity(data.communityUid);
 	let profile: User | null = getCurrentUser();
+	let modalOpened = false;
+	let onchainData: any = null;
+
+	let clazz = '';
+	export { clazz as class };
 
 	$: isIssued = !isClaimable;
 	// Date values and labels depend on isClaimable
@@ -46,7 +49,15 @@
 		profile = getCurrentUser();
 		console.log('community Image', $community.data?.image);
 	});
+
+	async function showOnchainData(ev: any) {
+		console.log('show', data);
+		onchainData = await getCredentialOnchainData({ claimUid: data.uid });
+		modalOpened = true;
+	}
 </script>
+
+<CredentialOnchainDataModal bind:open={modalOpened} {onchainData} />
 
 {#if $community.isLoading}
 	<span>Loading...</span>
@@ -64,6 +75,16 @@
 				<GradientAvatar {initials} gradient={buildGradient(initials)} />
 
 				<div class="max-w-64 truncate px-2 text-xs text-black dark:text-white">{avatarLabel}</div>
+			</div>
+
+			<div class="absolute right-2 top-2">
+				<button
+					data-sveltekit-preload-data="false"
+					class="rounded-lg border-0 bg-gray-50 px-2 py-1 text-xs text-black"
+					on:click|preventDefault={(ev) => showOnchainData(ev)}
+				>
+					MINA Txns
+				</button>
 			</div>
 		</div>
 
