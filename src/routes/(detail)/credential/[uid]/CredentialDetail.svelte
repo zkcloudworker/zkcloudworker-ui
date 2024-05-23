@@ -92,12 +92,12 @@
 						</div>
 					</div>
 
-					<Accordion flush>
+					<!-- <Accordion flush>
 						<AccordionItem>
 							<span slot="header">On Chain Data</span>
 							<CredentialOnChainData data={$dataOnChain.data} />
 						</AccordionItem>
-					</Accordion>
+					</Accordion> -->
 				</div>
 			</div>
 		{/if}

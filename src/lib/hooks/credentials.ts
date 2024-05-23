@@ -1,6 +1,6 @@
 
 import { createQuery } from '@tanstack/svelte-query'
-import { getMyCredentials, getCommunityCredentials, getCredential, getCredentialOnchainData } from '$lib/api/queries';
+import { getMyCredentials, getCommunityCredentials, getCredential, getCredentialOnchainData, getClaim } from '$lib/api/queries';
 import type { Credential, OnchainCredentialData } from '$lib/types/credential';
 
 export function useGetMyCredentials() {
@@ -19,7 +19,7 @@ export function useGetCommunityCredentials(communityUid: string) {
 
 export function useGetCredential(uid: string) {
   return createQuery<Credential, Error>({
-    queryKey: ['get_credential', uid],
+    queryKey: ['get_credential', uid], 
     queryFn: () => getCredential(uid),
   })
 }
