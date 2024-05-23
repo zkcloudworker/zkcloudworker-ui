@@ -11,7 +11,6 @@
 	const plugins = [gfmPlugin()];
 	let previewOn = false;
 
-
 	/** Resize textareas **/
 
 	function initialTextareaSize(value: any) {
@@ -44,11 +43,11 @@
 				bind:value={data[index].value}
 				size="lg"
 				class=""
-				no-invalid={!isValid(field, data[index].value)}
-				no-feedback={hasMessage(field, data[index].value)}
+				invalid={!isValid(field, data[index].value)}
+				feedback={hasMessage(field, data[index].value)}
 			/>
 			{#if $errors[field.sid] && $touched[field.sid]}
-				<span class="text-sm text-red-500">{$errors[field.sid]}</span>
+				<div class="text-sm text-red-500">{$errors[field.sid]}</div>
 			{/if}
 		{/if}
 
@@ -91,16 +90,15 @@
 					<Radio
 						id={`rd-${option}-${i}`}
 						value={option}
-						label={option}
 						bind:group={data[index].value}
-						class="mt-1 px-2 py-1"
-					/>
+						class="mt-1 px-2 py-1">{option}</Radio
+					>
 				{/each}
 			</div>
 			{#if !isValid(field, data[index].value)}
-				<span class="text-danger fs-sm mt-0 p-0">
+				<div class="text-sm text-red-500">
 					{hasMessage(field, data[index].value)}
-				</span><br />
+				</div>
 			{/if}
 		{/if}
 
@@ -109,9 +107,9 @@
 				<MultiChecksField {field} bind:value={data[index].value} class="mt-1 px-2 py-1" />
 			</div>
 			{#if !isValid(field, data[index].value)}
-				<span class="text-danger fs-sm mt-0 p-0">
+				<div class="text-sm text-red-500">
 					{hasMessage(field, data[index].value)}
-				</span><br />
+				</div>
 			{/if}
 		{/if}
 
