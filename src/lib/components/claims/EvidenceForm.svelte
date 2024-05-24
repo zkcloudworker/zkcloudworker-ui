@@ -2,7 +2,8 @@
 	import EvidenceField from './EvidenceField.svelte';
 	import { Alert } from 'flowbite-svelte';
 	import { createForm } from 'felte';
-	import { object, string } from 'yup';
+	import { array, object, string } from 'yup';
+	import { onMount } from 'svelte';
 	export let eform: any, data: any; // this is the data for this MasterPlan and empty Claim
 
 	function camelize(str: string) {
@@ -24,12 +25,40 @@
 		description: string;
 		extras: any;
 	}
+	function getFieldSchema(field: IField) {
+		console.log('getFieldSchema', field);
+		if (field.type === 'text' || field.type === 'note') {
+			return field.required ? string().required(field.label + ' is required') : string();
+		}
+
+		if (field.type === 'note') {
+			return string();
+		}
+
+		if (field.type === 'checks') {
+			return field.required
+				? array().of(string()).min(1, 'At least one option must be selected')
+				: array();
+		}
+
+		if (field.type === 'tags') {
+			return field.required ? string().required(field.label + ' is required') : string();
+		}
+
+		if (field.type === 'links') {
+			return field.required ? string().required(field.label + ' is required') : string();
+		}
+
+		if (field.type === 'radio') {
+			return field.required ? string().required(field.label + ' is required') : string();
+		}
+	}
 
 	const fields = eform.map((field: any) => ({
 		name: camelize(field.type + '_' + field.label),
 		sid: field.sid && field.sid !== '' ? field.sid : camelize(field.type + '_' + field.label),
 		initialValue: '',
-		schemaType: field.required ? string().required(field.label + " is required") : string(),
+		schemaType: getFieldSchema(field),
 		description: field.description,
 		extras: field.extras,
 		label: field.label,
@@ -42,11 +71,9 @@
 	);
 
 	const schema = object().shape(schemaObject);
-
-	const { form, errors, isValid, touched, createSubmitHandler } = createForm({
+	const { form, errors, isValid, touched, createSubmitHandler, validate } = createForm({
 		validate: async (values) => {
 			try {
-				console.log('validating');
 				await schema.validate(values, { abortEarly: false });
 			} catch (err: any) {
 				const errors = err.inner.reduce(
@@ -59,6 +86,11 @@
 				return errors;
 			}
 		}
+	});
+
+	onMount(() => {
+		// force validation on mount
+		validate();
 	});
 </script>
 
