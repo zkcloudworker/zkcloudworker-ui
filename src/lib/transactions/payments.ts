@@ -15,6 +15,7 @@ export async function createDepositFeeTransaction(
 ) {
   const JWT = import.meta.env.VITE_ZKCW_JWT; 
 
+  console.log("zkCloudWorkerClient JWT:", JWT);
   const api = new zkCloudWorkerClient({ jwt: JWT });
 
   const response = await api.execute({
