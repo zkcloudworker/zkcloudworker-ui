@@ -29,7 +29,6 @@
 
 <div>
 	<div class="text-base">
-    PayedBy={plan.payedBy}
 		<div class="mt-10 text-gray-800">
 			{plan.description}
 		</div>
