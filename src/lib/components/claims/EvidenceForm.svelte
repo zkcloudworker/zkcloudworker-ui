@@ -26,13 +26,8 @@
 		extras: any;
 	}
 	function getFieldSchema(field: IField) {
-		console.log('getFieldSchema', field);
 		if (field.type === 'text' || field.type === 'note') {
 			return field.required ? string().required(field.label + ' is required') : string();
-		}
-
-		if (field.type === 'note') {
-			return string();
 		}
 
 		if (field.type === 'checks') {
@@ -42,15 +37,23 @@
 		}
 
 		if (field.type === 'tags') {
-			return field.required ? string().required(field.label + ' is required') : string();
+			return field.required
+				? array()
+						.of(string())
+						.min(1, field.label + ' is required')
+				: array();
 		}
 
 		if (field.type === 'links') {
-			return field.required ? string().required(field.label + ' is required') : string();
+			return field.required
+				? array()
+						.of(string())
+						.min(1, field.label + ' is required')
+				: array();
 		}
 
 		if (field.type === 'radio') {
-			return field.required ? string().required(field.label + ' is required') : string();
+			return field.required ? string().required('One option must be selected') : string();
 		}
 	}
 
