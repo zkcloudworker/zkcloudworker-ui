@@ -42,9 +42,6 @@
 				name={field.sid}
 				bind:value={data[index].value}
 				size="lg"
-				class=""
-				invalid={!isValid(field, data[index].value)}
-				feedback={hasMessage(field, data[index].value)}
 			/>
 			{#if $errors[field.sid] && $touched[field.sid]}
 				<div class="text-sm text-red-500">{$errors[field.sid]}</div>
@@ -76,8 +73,6 @@
 				class="border-gray-400 py-8 text-xl"
 				rows={initialTextareaSize(data[index].value)}
 				bind:inner={field.inner}
-				invalid={!isValid(field, data[index].value)}
-				feedback={hasMessage(field, data[index].value)}
 			/>
 			{#if $errors[field.sid] && $touched[field.sid]}
 				<div class="text-sm text-red-500">{$errors[field.sid]}</div>
@@ -90,14 +85,15 @@
 					<Radio
 						id={`rd-${option}-${i}`}
 						value={option}
+						name={field.sid}
 						bind:group={data[index].value}
 						class="mt-1 px-2 py-1">{option}</Radio
 					>
 				{/each}
 			</div>
-			{#if !isValid(field, data[index].value)}
+			{#if $errors[field.sid] && $touched[field.sid]}
 				<div class="text-sm text-red-500">
-					{hasMessage(field, data[index].value)}
+					<div class="text-sm text-red-500">{$errors[field.sid]}</div>
 				</div>
 			{/if}
 		{/if}
@@ -106,11 +102,11 @@
 			<div class="ms-4">
 				<MultiChecksField {field} bind:value={data[index].value} class="mt-1 px-2 py-1" />
 			</div>
-			{#if !isValid(field, data[index].value)}
-				<div class="text-sm text-red-500">
-					{hasMessage(field, data[index].value)}
-				</div>
-			{/if}
+			{#if $errors[field.sid] && $touched[field.sid]}
+			<div class="text-sm text-red-500">
+				<div class="text-sm text-red-500">{$errors[field.sid]}</div>
+			</div>
+		{/if}
 		{/if}
 
 		{#if field.type === 'links'}
@@ -122,10 +118,10 @@
 				bind:tags={data[index].value}
 				class="rounded-1 text-break word-wrap mb-1  px-2 py-1"
 			/>
-			{#if !isValid(field, data[index].value)}
-				<span class="text-danger fs-sm mt-0 p-0">
-					{hasMessage(field, data[index].value)}
-				</span><br />
+			{#if $errors[field.sid] && $touched[field.sid]}
+				<div class="text-sm text-red-500">
+					<div class="text-sm text-red-500">{$errors[field.sid]}</div>
+				</div>
 			{/if}
 		{/if}
 
@@ -138,10 +134,10 @@
 				bind:tags={data[index].value}
 				class="rounded-1 mb-1 px-2 py-1"
 			/>
-			{#if !isValid(field, data[index].value)}
-				<span class="text-danger fs-sm mt-0 p-0">
-					{hasMessage(field, data[index].value)}
-				</span><br />
+			{#if $errors[field.sid] && $touched[field.sid]}
+				<div class="text-sm text-red-500">
+					<div class="text-sm text-red-500">{$errors[field.sid]}</div>
+				</div>
 			{/if}
 		{/if}
 
@@ -154,10 +150,10 @@
 				bind:tags={data[index].value}
 				class="rounded-1 mb-1 px-2"
 			/>
-			{#if !isValid(field, data[index].value)}
-				<span class="text-danger fs-sm mt-0 p-0">
-					{hasMessage(field, data[index].value)}
-				</span><br />
+			{#if $errors[field.sid] && $touched[field.sid]}
+				<div class="text-sm text-red-500">
+					<div class="text-sm text-red-500">{$errors[field.sid]}</div>
+				</div>
 			{/if}
 		{/if}
 

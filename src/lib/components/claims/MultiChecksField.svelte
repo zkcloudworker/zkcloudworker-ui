@@ -29,7 +29,7 @@
 			class={className}
 			bind:group={value}
 			value={option}
-			
+			name={field.sid}
       
       >{option}
       </Checkbox

@@ -26,6 +26,7 @@ const handleValidation = {
 
 function validateText(field, value) {
   if (!(["text","note"].includes(field.type))) return IS_OK;
+  console.log("field",field, "value", field);
   const len = (value || "").trim().length;
   if (field.required && len === 0) return IS_EMPTY;
   if (field.extras.max && len >= field.extras.max) return TOO_LONG; 
