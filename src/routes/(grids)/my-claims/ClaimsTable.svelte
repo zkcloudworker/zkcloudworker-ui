@@ -31,7 +31,7 @@
 		<TableHead class="text-md bg-white normal-case text-gray-500">
 			<TableHeadCell>Credential</TableHeadCell>
 			<TableHeadCell>Created</TableHeadCell>
-			<TableHeadCell>Claimed</TableHeadCell>
+			<TableHeadCell>Issued</TableHeadCell>
 			<TableHeadCell>Status</TableHeadCell>
 			<TableHeadCell>
 				<span class="sr-only">Edit</span>

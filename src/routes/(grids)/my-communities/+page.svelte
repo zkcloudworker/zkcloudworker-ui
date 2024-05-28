@@ -5,9 +5,9 @@
 	import MyCommunities from "./MyCommunities.svelte";
 
 	const path: string = '/home';
-  const description: string = 'Admin Dashboard example using Flowbite Svelte';
-  const title: string = 'Flowbite Svelte Admin Dashboard - Dashboard';
-  const subtitle: string = 'Admin Dashboard';
+  const description: string = '';
+  const title: string = 'Socialcap';
+  const subtitle: string = 'My Communities';
 </script>
 
 <MetaTag {path} {description} {title} {subtitle} />

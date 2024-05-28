@@ -27,10 +27,10 @@
         alt: `${title}`
       }
     ],
-    siteName: 'Flowbite Svelte Admin Dashboard',
+    siteName: 'Socialcap',
   }}
   twitter={{
-    handle: '@shinokada',
+    handle: '@socialcap_',
     cardType: 'summary_large_image',
     title: `${title}`,
     description: `${description}`,
