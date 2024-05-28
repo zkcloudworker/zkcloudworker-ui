@@ -20,7 +20,7 @@
 	$: credential = useGetCredential(uid);
 	$: community = useGetCommunity($credential.data?.communityUid!);
 	$: initials = $community.data ? getInitials($credential.data?.applicant!) : '??';
-	$: dataOnChain = useGetCredentialOnchainData(uid)
+	$: dataOnChain = useGetCredentialOnchainData(uid);
 </script>
 
 <div class="p-4">
@@ -48,16 +48,18 @@
 					</div>
 				</div>
 
-				<div class="px-4 pb-4 pt-3">
+				<div class="px-4 pb-4 pt-3 space-y-3">
 					<div class="flex items-center justify-between">
 						<div>
 							<h6 class="mb-2 mt-2 text-3xl font-bold text-gray-900 dark:text-white">
 								{$credential.data?.type}
 							</h6>
-							<p class="mb-2 text-base text-gray-600 dark:text-gray-400">
-								{$credential.data?.community}
+							<p class="mb-2 text-sm text-gray-600 dark:text-gray-400">
+								{$credential.data?.description}
 							</p>
 						</div>
+					</div>
+					<div class="flex items-center justify-end">
 						<CredentialActions credential={$credential?.data} />
 					</div>
 					<div class="px-4 pb-4 pt-2">
@@ -92,12 +94,12 @@
 					</div>
 
 					{#if $credential.data}
-					<Accordion flush>
-						<AccordionItem>
-							<span slot="header">On Chain Data</span>
-							<CredentialOnChainData data={$dataOnChain.data} />
-						</AccordionItem>
-					</Accordion>
+						<Accordion flush>
+							<AccordionItem>
+								<span slot="header">On Chain Data</span>
+								<CredentialOnChainData data={$dataOnChain.data} />
+							</AccordionItem>
+						</Accordion>
 					{/if}
 				</div>
 			</div>
