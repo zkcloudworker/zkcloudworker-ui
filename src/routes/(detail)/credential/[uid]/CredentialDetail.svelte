@@ -21,6 +21,7 @@
 	$: community = useGetCommunity($credential.data?.communityUid!);
 	$: initials = $community.data ? getInitials($credential.data?.applicant!) : '??';
 	$: dataOnChain = useGetCredentialOnchainData(uid);
+	$: bannerImage = $credential.data?.banner || '/images/credentialbg.svg';
 </script>
 
 <div class="p-4">
@@ -34,8 +35,8 @@
 		{:else}
 			<div class="w-full max-w-screen-lg">
 				<div class="relative flex items-end justify-center">
-					<CommunityBanner image={$credential.data?.banner} />
-
+					<!-- <CommunityBanner image={$credential.data?.banner} /> -->
+					<img src={bannerImage} class="fill h-auto w-full" alt="Credential Banner" crossorigin="" />
 					<div
 						class="absolute -bottom-4 flex items-center gap-2 rounded-full border-2 border-gray-200 bg-gray-50 p-1"
 					>
