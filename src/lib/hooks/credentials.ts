@@ -1,25 +1,31 @@
 
 import { createQuery } from '@tanstack/svelte-query'
-import { getMyCredentials, getCommunityCredentials } from '$lib/api/queries';
+import { getMyCredentials, getCommunityCredentials, getCredential, getCredentialOnchainData, getClaim } from '$lib/api/queries';
 import type { Credential, OnchainCredentialData } from '$lib/types/credential';
-import { getCredentialOnchainData } from '$lib/api/credentials-api';
 
 export function useGetMyCredentials() {
-    return createQuery<Credential[], Error>({
-        queryKey: ['get_my_credentials'],
-        queryFn: () => getMyCredentials({}),
-      })
+  return createQuery<Credential[], Error>({
+    queryKey: ['get_my_credentials'],
+    queryFn: () => getMyCredentials({}),
+  })
 }
 
 export function useGetCommunityCredentials(communityUid: string) {
   return createQuery<Credential[], Error>({
-      queryKey: ['get_community_credentials'],
-      queryFn: () => getCommunityCredentials(communityUid),
-    })
+    queryKey: ['get_community_credentials', communityUid],
+    queryFn: () => getCommunityCredentials(communityUid),
+  })
+}
+
+export function useGetCredential(uid: string) {
+  return createQuery<Credential, Error>({
+    queryKey: ['get_credential', uid], 
+    queryFn: () => getCredential(uid),
+  })
 }
 
 export function useGetCredentialOnchainData(claimUid: string) {
-  return createQuery<OnchainCredentialData[], Error>({
+  return createQuery<OnchainCredentialData, Error>({
       queryKey: ['get_credential_onchain_data'],
       queryFn: () => getCredentialOnchainData({ claimUid: claimUid }),
     })

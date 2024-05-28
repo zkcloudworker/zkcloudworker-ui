@@ -3,10 +3,11 @@ import { getMyCommunities, getAllCommunities, getCommunity } from '$lib/api/quer
 import type { Community, NewCommunity } from '$lib/types/community';
 import { createCommunity, joinCommunity } from '$lib/api/communities-api';
 
-export function useGetCommunity(uid: string) {
+export function useGetCommunity(uid?: string) {
   return createQuery<Community | null, Error>({
       queryKey: ['get_community'],
-      queryFn: () => getCommunity({uid: uid}),
+      queryFn: () => getCommunity({uid: uid!}),
+      enabled: !!uid
     })
 }
 

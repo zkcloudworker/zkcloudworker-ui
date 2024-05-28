@@ -16,7 +16,7 @@
   import CommunityClaimables from "./CommunityClaimables.svelte";
   import CommunityMembers from "./CommunityMembers.svelte";
   import CommunityIssued from "./CommunityIssued.svelte";
-  import TabHeader from "./TabHeader.svelte";
+  import TabHeader from "$lib/components/common/TabHeader.svelte";
   import CommunityActions from "./CommunityActions.svelte";
 
   export let uid: string = "";
