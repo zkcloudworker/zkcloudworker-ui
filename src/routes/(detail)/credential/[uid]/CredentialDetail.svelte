@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { Avatar, Accordion, AccordionItem } from 'flowbite-svelte';
 	import { getCurrentUser } from '$lib/store';
-	import CredentialCard from '../../../../lib/components/credentials/CredentialCard.svelte';
 	import type { User } from '$lib/types/user';
 	import Breadcrumbs from '../../../../lib/components/common/Breadcrumbs.svelte';
 	import { useGetCredential, useGetCredentialOnchainData } from '$lib/hooks/credentials';
@@ -28,7 +27,7 @@
 	<Breadcrumbs label={$credential.data?.type || '?'} />
 
 	<div>
-		{#if $credential.isLoading || $community.isLoading}
+		{#if $credential.isLoading || $community.isLoading || $dataOnChain.isLoading}
 			<span>Loading...</span>
 		{:else if $credential.isError}
 			<ErrorOnFetch description="My community" error={$credential.error} />
@@ -92,12 +91,14 @@
 						</div>
 					</div>
 
-					<!-- <Accordion flush>
+					{#if $credential.data}
+					<Accordion flush>
 						<AccordionItem>
 							<span slot="header">On Chain Data</span>
 							<CredentialOnChainData data={$dataOnChain.data} />
 						</AccordionItem>
-					</Accordion> -->
+					</Accordion>
+					{/if}
 				</div>
 			</div>
 		{/if}

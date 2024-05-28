@@ -34,7 +34,7 @@ async function getCommunityCredentials(
 
 /**
  * Get credential details  
- * @returns Credential
+ * @returns Credential∫
  */
 async function getCredential(
   uid: string
