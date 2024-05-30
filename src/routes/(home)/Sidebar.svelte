@@ -77,7 +77,7 @@
             placeholder="" 
             bind:value={network}
             >
-            <option selected value="main">Mainnet</option>
+            <option selected value="main">Devnet</option>
             <option value="test">Testnet</option>
           </Select>
         </svelte:fragment>  
