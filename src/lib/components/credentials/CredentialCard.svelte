@@ -64,7 +64,7 @@
 {:else if $community.isError}
 	<ErrorOnFetch description="Credential" error={$community.error} />
 {:else}
-	<Card padding="md" size="md" class={`${clazz || ''}`} href={`/credential/${data.uid}`}>
+	<Card padding="md" size="md" class={`${clazz || ''}`} href={isIssued ? `/credential/${data.uid}` : `/claim/new?mp=${data.uid}` }>
 		<div class="relative flex items-end justify-center">
 			<img src={bannerImage} class="fill h-auto w-full" alt="Credential Banner" crossorigin="" />
 
@@ -147,7 +147,7 @@
 				</div>
 
 				{#if isClaimable}
-					<Button color="primary" on:click={() => goto(`/claim/new?mp=${data.uid}`)}>
+					<Button color="primary" on:click={(e) => { e.preventDefault(); e.stopPropagation(); goto(`/claim/new?mp=${data.uid}`)} }>
 						Claim it!
 					</Button>
 				{/if}
