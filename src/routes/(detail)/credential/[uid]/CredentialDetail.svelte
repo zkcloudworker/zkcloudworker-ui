@@ -94,7 +94,7 @@
 						</div>
 					</div>
 
-					{#if $credential.data}
+					{#if $dataOnChain.data}
 						<Accordion flush>
 							<AccordionItem>
 								<span slot="header">On Chain Data</span>
