@@ -98,30 +98,30 @@
         </svelte:fragment>  
       </SidebarItem>
 
-      <SidebarItem label="Home" {spanClass} {itemClass} href="/home">
+      <SidebarItem label="Home" {spanClass} {itemClass} href="/home/">
         <svelte:fragment slot="icon">
           <Icon name="Home" size="5" />
           <!-- <HouseSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="My Credentials" {spanClass} {itemClass} href="/my-credentials">
+      <SidebarItem label="My Credentials" {spanClass} {itemClass} href="/my-credentials/">
         <svelte:fragment slot="icon">
           <Icon name="MyCredentials" size="5" />
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="My Claims" {spanClass} {itemClass} href="/my-claims">
+      <SidebarItem label="My Claims" {spanClass} {itemClass} href="/my-claims/">
         <svelte:fragment slot="icon">
           <Icon name="MyClaims" size="5" />
           <!-- <BookmarkSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="My Communities" {spanClass} {itemClass} href="/my-communities">
+      <SidebarItem label="My Communities" {spanClass} {itemClass} href="/my-communities/">
         <svelte:fragment slot="icon">
           <Icon name="MyCommunities" size="5" />
           <!-- <ShapesSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="My Votes" {spanClass} {itemClass} href="/my-votes">
+      <SidebarItem label="My Votes" {spanClass} {itemClass} href="/my-votes/">
         <svelte:fragment slot="icon">
           <Icon name="Tasks" size="5" />
           <!-- <InboxSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
@@ -130,7 +130,7 @@
           <span class="text-sm inline-flex justify-center items-center p-3 ms-3 w-3 h-3 text-sm font-medium text-primary-600 bg-primary-200 rounded-full dark:bg-primary-900 dark:text-primary-200"> {$tasks.data ? $tasks.data.length : 0} </span>
         </svelte:fragment>
       </SidebarItem>
-      <SidebarItem label="Activity" {spanClass} href="/activity">
+      <SidebarItem label="Activity" {spanClass} href="/activity/">
         <svelte:fragment slot="icon">
           <Icon name="Activity" size="5" />
           <!-- <BoltLightningSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
@@ -147,7 +147,7 @@
           <Icon name="MyCredentials" size="5" />
         </svelte:fragment>
         {#each ($plans.data || []) as t}
-          <SidebarDropdownItem class="text-xs font-bold" label={`${t.name} (${t.stateDescr})`} href={`/admin/plan/${t.uid}`} />
+          <SidebarDropdownItem class="text-xs font-bold" label={`${t.name} (${t.stateDescr})`} href={`/admin/plan/${t.uid}/`} />
         {/each}
       </SidebarDropdownWrapper>
 
@@ -159,7 +159,7 @@
           {#each ($communities.data || []) as t}
             <SidebarDropdownItem class="text-xs font-bold" 
               label={t.name}
-              href={`/admin/community/${t.uid}?${slugify(t.name)}`} 
+              href={`/admin/community/${t.uid}?${slugify(t.name)}/`} 
             />
           {/each}
         </SidebarDropdownWrapper>
@@ -172,13 +172,13 @@
     </SidebarGroup>  
 
     <SidebarGroup border>
-      <SidebarItem label="Support" {spanClass} href="/support">
+      <SidebarItem label="Support" {spanClass} href="/support/">
         <svelte:fragment slot="icon">
           <Icon name="Support" size="5" />
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="Sign out" {spanClass} href="/login">
+      <SidebarItem label="Sign out" {spanClass} href="/login/">
         <svelte:fragment slot="icon">
           <Icon name="Disconnect" size="5" />
         </svelte:fragment>
