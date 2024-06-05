@@ -38,7 +38,7 @@
 											<p class="text-xs"><Time format="DD MMM, YYYY" timestamp={t.createdUTC} /></p>
 										</div>
 										<div class="grid grid-cols-1 gap-1 text-center">
-											<p class="text-weight-500 text-xs text-gray-500">Claimed</p>
+											<p class="text-weight-500 text-xs text-gray-500">Issues</p>
 											<p class="text-xs">
 												{#if t.issuedUTC}<Time timestamp={t.issuedUTC} />
 												{:else}-{/if}

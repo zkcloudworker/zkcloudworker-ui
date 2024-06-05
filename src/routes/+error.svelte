@@ -19,8 +19,8 @@
 	const component = pages[index];
 
 	const path: string = `/errors/${index}`;
-	const description: string = `${index} - Flowbite Svelte Admin Dashboard`;
-	const title: string = `Flowbite Svelte Admin Dashboard - ${index} page`;
+	const description: string = `${index} - socialcap`;
+	const title: string = `socialcap - ${index} page`;
 	const subtitle: string = `${index} page`;
 </script>
 
