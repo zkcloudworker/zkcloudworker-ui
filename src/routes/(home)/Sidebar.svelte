@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { getCurrentUser } from "$lib/store";
   import slugify from 'slugify';
   import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -9,12 +11,14 @@
   import { Avatar, Select, A } from 'flowbite-svelte';
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import Icon from "$lib/components/common/Icon.svelte";
-  import type { Community, Plan, NavigationPath } from "$lib/types";
+  import type { User } from "$lib/types";
   import { useGetMyAdminedCommunities } from "$lib/hooks/communities";
 	import { useGetAdminedPlans } from '$lib/hooks/plans';
 	import CreateCommunityModal from '$lib/components/communities/CreateCommunityModal.svelte';
 	import { useGetMyAssignedTasks } from '$lib/hooks/tasks';
-  
+  import GradientAvatar from "$lib/components/common/GradientAvatar.svelte";
+	import { getInitials, buildGradient } from "$lib/components/common/gradient-svg";
+
 	export let drawerHidden: boolean = false;
   export let network: string = 'main';
   
@@ -54,6 +58,13 @@
   function logoutNow() {
     removeActiveSession();
   }
+  let profile: User | null = getCurrentUser();
+  
+  $: initials = getInitials(profile?.fullName ?? ""); 
+  
+  onMount(() => {
+    profile = getCurrentUser();
+  })
 </script>
 
 <CreateCommunityModal bind:open={openCreateCommunityModal}/>
@@ -92,9 +103,7 @@
           <Icon name="Profile" size="5" />
         </svelte:fragment>
         <svelte:fragment slot="subtext">
-          <Avatar size="sm" 
-            src={'/images/profile-909.png'}
-            tabindex="0"/>
+          <GradientAvatar initials={initials} gradient={buildGradient(initials)} />
         </svelte:fragment>  
       </SidebarItem>
 
