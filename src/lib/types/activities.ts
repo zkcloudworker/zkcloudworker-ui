@@ -9,8 +9,7 @@ interface Activity {
     uid: string
     scope: ActivityScope // all, community, private
     type: ActivityType // transaction, message
-    title: string
-    description: string
+    text: string
     state: number
     createdUTC: Date
     metadata: string

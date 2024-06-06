@@ -53,8 +53,7 @@
     </p>
     <div class="w-full ms-7 me-1">
       <p class="text-sm text-dark">
-        {activity.title}: 
-        {activity.description}
+        {@html activity.text}
       </p>
       <p class="text-xs text-gray-600">
         <Time relative timestamp={activity.createdUTC} />

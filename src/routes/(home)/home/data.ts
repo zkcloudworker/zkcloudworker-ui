@@ -7,8 +7,8 @@ export let activities: APIResponse = {
     {
       scope: 'group',
       type: ActivityType.message,
-      title: 'Community X has a new member',
-      description: '👋 Say hi to Luis Pperino Pomodoro !',
+      text: 'Community X has a new member'+
+        '<br>👋 Say hi to Luis Pperino Pomodoro !',
       createdUTC: new Date('2024-06-05T12:30:00.000Z'),
       state: 0,
       metadata: '{}'
@@ -16,8 +16,8 @@ export let activities: APIResponse = {
     {
       scope: 'private',
       type: ActivityType.transaction,
-      title: `Payment sent for claim: '01234...6789'`,
-      description: 'Please wait for confirmation',
+      text: `Payment sent for claim: '01234...6789'`
+        +'<br>Please wait for confirmation',
       createdUTC: new Date('2024-06-05T12:30:00.000Z'),
       state: 9,
       metadata: `{ 
@@ -29,8 +29,8 @@ export let activities: APIResponse = {
     {
       scope: 'private',
       type: ActivityType.transaction,
-      title: `Payment failed for claim: '01234...6789'`,
-      description: 'Please try again !',
+      text: `Payment failed for claim: '01234...6789'`
+        +'<br>Please try again !',
       createdUTC: new Date('2024-06-05T12:30:00.000Z'),
       state: 12,
       metadata: `{ 
@@ -42,8 +42,8 @@ export let activities: APIResponse = {
     {
       scope: 'private',
       type: ActivityType.transaction,
-      title: `Payment received for claim: '01234...6789'`,
-      description: 'Your claim has been succesfully submitted !',
+      text: `Payment received for claim <b>01234...6789</b> 
+        <br>Your claim has been succesfully submitted !'`,
       createdUTC: new Date('2024-06-05T12:30:00.000Z'),
       state: 10,
       metadata: `{ 
@@ -55,8 +55,9 @@ export let activities: APIResponse = {
     {
       scope: 'private',
       type: ActivityType.message,
-      title: 'Community X has a new member',
-      description: '👋 Say hi to Luis Pperino Pomodoro !',
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
       createdUTC: new Date('2024-06-05T12:30:00.000Z'),
       state: 0,
       metadata: '{}'
@@ -64,8 +65,8 @@ export let activities: APIResponse = {
     {
       scope: 'private',
       type: ActivityType.message,
-      title: 'Community X has a new member',
-      description: '👋 Say hi to Luis Pperino Pomodoro !',
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
       createdUTC: new Date('2024-06-05T12:30:00.000Z'),
       state: 0,
       metadata: '{}'
