@@ -8,7 +8,7 @@ export {
 interface Activity {
     uid: string
     scope: ActivityScope // all, community, private
-    type: ActivityType // transaction, message
+    type: ActivityType // transaction, message, request
     text: string
     state: number
     createdUTC: Date
@@ -16,12 +16,13 @@ interface Activity {
 }
 
 enum ActivityType {
-  transaction = "Transaction", 
-  message = "Message"
+  transaction,// involves some MINA transaction
+  message,    // just informative
+  request     // needs some action from user or admin
 }
 
 enum ActivityScope {
-  "all",
-  "group",
-  "private"
+  all,
+  group,
+  private
 }

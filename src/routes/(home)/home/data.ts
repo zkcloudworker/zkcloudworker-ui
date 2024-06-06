@@ -71,5 +71,233 @@ export let activities: APIResponse = {
       state: 0,
       metadata: '{}'
     },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: `Community X has a new member
+        <br>👋 Say hi to Luis Pperino Pomodoro !
+      `,
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
+    {
+      scope: 'private',
+      type: ActivityType.message,
+      text: 'Community X has a new member: '
+        +'👋 Say hi to Luis Pperino Pomodoro !',
+      createdUTC: new Date('2024-06-05T12:30:00.000Z'),
+      state: 0,
+      metadata: '{}'
+    },
   ]
 };  

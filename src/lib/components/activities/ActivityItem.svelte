@@ -19,6 +19,10 @@
         return `https://minascan.io/${txn.net}/tx/${txn.hash}?type=${txn.type}`
       } break;
 
+      case ActivityType.request: {
+        return "#";
+      } break;
+
       case ActivityType.message: {
         return "#";
       } break;
@@ -38,6 +42,7 @@
     switch (type) {
       case ActivityType.transaction: return { name: "Transaction", color: "red" }; break;
       case ActivityType.message: return { name: "Message", color: "info" }; break;
+      case ActivityType.request: return { name: "Request", color: "red" }; break;
       default: return { name: "Info", color: "blue" }; break;
     }
   }
