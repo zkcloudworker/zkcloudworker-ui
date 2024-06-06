@@ -1,28 +1,23 @@
 <script lang="ts">
-  import { type APIResponse } from '$lib/api';
   import { Heading, P, Badge  } from 'flowbite-svelte';
-	import { ErrorOnFetch } from '$lib/components';
+	import { ErrorOnFetch, H1, H1Subtitle } from '$lib/components';
+  import ActivityItem from '$lib/components/activities/ActivityItem.svelte';
   import { activities } from './home/data';
+
 
   // let activities: APIResponse | null = null;
 </script>
 
-<div class="w-full rounded py-11 px-8">
-  <Heading tag="h4">
+<div class="w-full rounded py-11 ps-5 p-5">
+  <H1>
     Activity
-  </Heading>
-  <P class="text-gray-400 mb-4" size="base">
-    Follow activities from your communities  
+  </H1>
+  <P class="text-gray-400 mb-8" size="base">
+    Your current activity  
   </P>
   {#if !activities?.error}
-    {#each (activities?.data || []) as t}
-      <div class="mb-5 leading-relaxed">
-        <p>
-          <span class="text-bold text-sm">{t.title}: </span>
-          <span class="mt-2 text-sm text-gray-500">{t.description}</span>
-        </p>
-        <Badge color="dark">{t.when}</Badge>
-      </div>
+    {#each (activities?.data || []) as activity}
+      <ActivityItem {activity} />
     {/each}
   {:else}
     <ErrorOnFetch
