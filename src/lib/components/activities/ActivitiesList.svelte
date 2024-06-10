@@ -4,17 +4,18 @@
 	import { Icon } from '$lib/components';
   import { type Activity } from "$lib/types";
   import ActivityItem from '$lib/components/activities/ActivityItem.svelte';
- 
-  import { activities } from '../../../routes/(home)/home/data';
-
+  import { notificationsStore, refreshNotifications } from '$lib/store/notifications';
+	import { getCurrentUser } from '$lib/store';
+  import { NATSClient } from '$lib/nats';
+  
   export let 
     limit: number = 6,
     filter: string = "";
-    
+
   // show a max of N activities, if 0 show all 
-  $: visibles =  (limit > 0) 
-    ? filterText(activities.data || [], filter).slice(0, limit) 
-    : filterText(activities.data || [], filter);
+  $: filtered =  (limit > 0) 
+    ? filterText($notificationsStore.data || [], filter).slice(0, limit) 
+    : filterText($notificationsStore.data || [], filter);
 
   function filterText(data: Activity[], q: string) {
     if (!q) return data;
@@ -23,11 +24,37 @@
       return t.text.toUpperCase().includes(q);
     })
   }
+
+  onMount(async () => {
+    // the notifications list is empty, so we need to get the first 
+    // set of items from there
+    if ($notificationsStore.data.length === 0) {
+      await refreshNotifications(BigInt(0));
+    }
+
+    let user = getCurrentUser();
+
+    const handleMessage = async (data: any) => {
+      await refreshNotifications($notificationsStore.last);
+    }
+    
+    NATSClient.listen([
+      // process messages to everyone
+      { subject: 'socialcap:all', handler: handleMessage },
+
+      // process messages only from my communities
+      { subject: 'socialcap:groups.def...123', handler: handleMessage },
+      { subject: 'socialcap:groups.abc...023', handler: handleMessage },
+
+      // process messages destined just for me 
+      { subject: `socialcap:personal.${user?.uid}`, handler: handleMessage },
+    ]);
+  })
 </script>
 
 <div class="w-full">
-  {#if (visibles || []).length > 0}
-    {#each (visibles) as activity}
+  {#if (filtered || []).length > 0}
+    {#each (filtered) as activity}
       <ActivityItem {activity} />
     {/each}
     {#if limit > 0}

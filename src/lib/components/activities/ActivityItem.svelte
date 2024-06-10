@@ -24,7 +24,7 @@
       } break;
 
       case ActivityType.message: {
-        return "#";
+        return null;
       } break;
     }
   }
@@ -58,10 +58,10 @@
     </p>
     <div class="w-full ms-7 me-1">
       <p class="text-sm text-dark">
-        {@html activity.text}
+        {@html activity.memo}
       </p>
       <p class="text-xs text-gray-600">
-        <Time relative timestamp={activity.createdUTC} />
+        <Time relative timestamp={activity.createdUTC} /> #{activity.sequence}
       </p>
     </div>
     <div class="w-24 no-border text-end">
