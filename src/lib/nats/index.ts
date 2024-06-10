@@ -1,4 +1,7 @@
-export { NATS_SERVER } from "./connections";
-export { CypherText } from "./encryption";
-export { NATSClient, listen } from "./client";
-export { postReadyMessage, postDoneMessage, postOptionsMessage } from "./messages";
+import { notify } from "./messages";
+import { listenAll } from "./suscriptions";
+
+export const NATSClient = {
+  listen: listenAll,
+  notify: notify  
+};

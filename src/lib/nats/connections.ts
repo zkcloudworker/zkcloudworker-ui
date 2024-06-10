@@ -1,2 +1,2 @@
 
-export const NATS_SERVER = "nats.socialcap.dev:4222";
+export const NATS_SERVER_WSS = "wss://nats.socialcap.dev:4233";
