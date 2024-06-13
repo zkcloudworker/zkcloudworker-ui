@@ -21,7 +21,7 @@
 	<QueryClientProvider client={queryClient}>
   	<Sidebar bind:drawerHidden />
   	<div class="relative h-full w-full overflow-y-auto lg:ms-64">
-      <div class="max-w-screen-md border-0 px-0 mx-4 mt-8 md:mx-auto">
+      <div class="max-w-screen-lg border-0 px-0 mx-4 mt-8 lg:mx-auto">
         <slot />
       </div>
   		<Footer />

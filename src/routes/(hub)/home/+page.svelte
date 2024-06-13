@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MetaTag, H1 } from "$lib/components";
+	import H1Subtitle from "$lib/components/common/H1Subtitle.svelte";
   import Home from "./Home.svelte";
 </script>
 
@@ -11,6 +12,6 @@
 />
 
 <main>
-  <H1>Dashboard</H1>
+  <H1Subtitle>This month status</H1Subtitle>
   <Home />
 </main>
