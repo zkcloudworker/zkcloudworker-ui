@@ -4,7 +4,7 @@
 [![GitHub issues open](https://img.shields.io/badge/open_issues-red.svg)](https://github.com/zkcloudworker/zkcloudworker-ui/issues?q=is%3Aopen+is%3Aissue)
 [![GitHub issues closed](https://img.shields.io/badge/closed_issues-green.svg)](https://github.com/zkcloudworker/zkcloudworker-ui/issues?q=is%3Aissue+is%3Aclosed)
 
-## Install
+### Install
 
 Clone this repo and install
 ~~~
