@@ -40,8 +40,8 @@
   <div class="m-auto w-auto md:max-w-md mt-5 leading-relaxed text-gray-600">
     <p class="my-0 text-center text-sm">
       © 2023-2024 - 
-      <A href="https://socialcap.app/" class="font-bold hover:underline" target="_blank">
-        Socialcap
+      <A href="https://zkcloudworker.com/" class="font-bold hover:underline" target="_blank">
+        zkCloudWorker
       </A>. 
       All rights reserved.
     </p>

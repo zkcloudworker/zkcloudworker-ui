@@ -13,7 +13,7 @@
 	<NavContainer class="mb-px mt-px px-1 justify-center" {fluid}>
 		<NavBrand href="/" class={list ? 'w-60' : 'lg:w-60'}>
 			<img
-				src="/images/socialcap-logo.svg"
+        src="/images/zkCloudWorker-logo-horizontal.svg"
 				class="me-2.5 h-10 sm:h-10"
 				alt="Socialcap Logo"
 			/>

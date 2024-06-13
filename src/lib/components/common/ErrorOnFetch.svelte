@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { P, A } from 'flowbite-svelte';
-  import { APIError } from '$lib/api/api-errors';
+  //import { APIError } from '$lib/api/api-errors';
 
   const twClasses: string = ""; 
   export { twClasses as class }; 

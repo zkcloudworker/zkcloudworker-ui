@@ -14,23 +14,20 @@ const config = {
 		extend: {
 			colors: {
         black: '#102353',
-
-        // Socialcap branding: blue
-				primary: { 50: '#CEDCFF',  100: '#B9CDFF',  200: '#91B0FF',  300: '#6892FE',  400: '#4075FE',  500: '#1758FE',  600: '#013FDC',  700: '#012FA4',  800: '#001F6C',  900: '#000F34', 950: '#000718' },
         
-				// flowbite-svelte
-				// primary: {
-				// 	50: '#FFF5F2',
-				// 	100: '#FFF1EE',
-				// 	200: '#FFE4DE',
-				// 	300: '#FFD5CC',
-				// 	400: '#FFBCAD',
-				// 	500: '#FE795D',
-				// 	600: '#EF562F',
-				// 	700: '#EB4F27',
-				// 	800: '#CC4522',
-				// 	900: '#A5371B'
-				// }
+        // zlCloudWorker branding: orange
+				primary: {
+					50: '#FFF5F2',
+					100: '#FFF1EE',
+					200: '#FFE4DE',
+					300: '#FFD5CC',
+					400: '#FFBCAD',
+					500: '#FE795D',
+					600: '#EF562F',
+					700: '#EB4F27',
+					800: '#CC4522',
+					900: '#A5371B'
+				}
 
 				// rose
 				// primary: { "50": "#fff1f2", "100": "#ffe4e6", "200": "#fecdd3", "300": "#fda4af", "400": "#fb7185", "500": "#f43f5e", "600": "#e11d48", "700": "#be123c", "800": "#9f1239", "900": "#881337" }

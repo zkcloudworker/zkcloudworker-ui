@@ -5,7 +5,7 @@
 
   export let
     size: any = "lg",
-    color: any = "blue",
+    color: any = "primary",
     disabled = false,
     working = "";
 </script>

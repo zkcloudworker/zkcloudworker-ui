@@ -117,7 +117,7 @@
       href="/login" 
       size="lg"
       > 
-      <span class="text-blue-700">
+      <span class="text-primary-700">
         Sign in
       </span>
     </Button>

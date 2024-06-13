@@ -3,13 +3,14 @@
 	import { goto } from '$app/navigation';
   import { page } from "$app/stores";
 	import modeobserver from '$lib/modeobserver';
-  import { getCurrentSession, getDefaultSession } from "$lib/store/sessions";
+  import { getCurrentSession} from "$lib/store/sessions";
 
   let activeSession = getCurrentSession(); 
 
 	onMount(() => {
     activeSession = getCurrentSession();
-    if (! activeSession) goto("/login");
+    // if (! activeSession) goto("/login");
+    if (! activeSession) goto("/home");
     if (activeSession) goto(getRoute());
     console.log("pageUrl=", getRoute())
     modeobserver();
@@ -33,6 +34,6 @@
 <slot />
 
 <svelte:head>
-  <title>Socialcap App</title>
+  <title>zkCloudWorker</title>
 	<script async src={"https://www.googletagmanager.com/gtag/js?id="+import.meta.env.VITE_GA_TAG}></script>
 </svelte:head>

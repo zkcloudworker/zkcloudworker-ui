@@ -1,9 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher, onMount, tick } from "svelte";
   import { Button, Badge, Spinner } from "flowbite-svelte";
-  import Time from "svelte-time/Time.svelte";
-  import { type Claim } from "$lib/types/claim";
-	import { type Plan } from "$lib/types";
 
   const dispatch = createEventDispatcher();
 
@@ -85,13 +82,13 @@
     </Button>
     &nbsp;
     {#if !isConnected}
-      <Button color="blue" class="py-3" 
+      <Button color="primary" class="py-3" 
         on:click={() => connectWallet()}>
         Connect
       </Button>
     {/if}  
     {#if isConnected}
-      <Button color="blue" class="py-3" 
+      <Button color="primary" class="py-3" 
         on:click={() => dispatch("continue")}>
         Continue
       </Button>

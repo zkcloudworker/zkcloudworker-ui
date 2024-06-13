@@ -6,6 +6,4 @@ export { default as ErrorOnFetch} from "./common/ErrorOnFetch.svelte";
 export { default as SubmitButton } from "./common/SubmitButton.svelte";
 export { default as StateBadge } from "./common/StateBadge.svelte";
 export { default as MetaTag } from "./common/MetaTag.svelte";
-export { default as CommunityCard } from "./communities/CommunityCard.svelte";
-export { default as CommunityList } from "./communities/CommunitiesList.svelte";
 export { default as NoData } from "./common/NoData.svelte";

@@ -5,6 +5,7 @@
 import type { Session } from "../types";
 import { getDefaultAPISessionFromEnv } from "./api";
 import { removeActiveUser } from "./profiles";
+import { removeActiveChain } from "./chains";
 
 export { 
   getCurrentSession, 
@@ -39,5 +40,6 @@ function removeActiveSession(): Session {
   localStorage.removeItem(STORE_KEY);
   activeSession = null;
   removeActiveUser();
+  removeActiveChain();
   return getDefaultSession();
 };

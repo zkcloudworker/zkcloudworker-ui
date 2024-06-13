@@ -1,7 +1,6 @@
 import { getCurrentSession, getDefaultSession } from "$lib/store/sessions";
 import { setNavigationPath } from "$lib/store/navigation";
-import { API } from "$lib/api/api-client";
-import { PrivateKey, PublicKey, Poseidon } from "o1js";
+//import { API } from "$lib/api/api-client";
 
 let activeSession = getCurrentSession();
 let user;
@@ -18,6 +17,7 @@ setNavigationPath({
   type: ""
 })
 
+/*
 if (activeSession) {
   API.init(activeSession);  
   // user = await getCurrentUser();
@@ -29,3 +29,4 @@ if (activeSession) {
 else {
   API.init(getDefaultSession());  
 }
+*/

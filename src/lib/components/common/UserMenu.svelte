@@ -7,12 +7,8 @@
 	// export let id: number = 0; // 1,
 	export let name: string = ''; // "Neil Sims",
 	export let email: string = ''; // "neil.sims@flowbite.com",
-	// export let biography: string = ''; // "I love working with React and Flowbites to create efficient and user-friendly interfaces. In my spare time, I enjoys baking, hiking, and spending time with my family.",
-	// export let position: string = ''; // "Front-end developer",
-	// export let country: string = ''; // "United States",
-	// export let status: string = ''; // "Active"
 
-	$: initials = getInitials(name);
+	$: initials = getInitials(name || 'Account');
 </script>
 
 <GradientAvatar initials={initials} gradient={buildGradient(initials)} />
@@ -21,7 +17,7 @@
 		<span class="block text-sm">{name}</span>
 		<span class="block truncate text-sm font-medium">{email}</span>
 	</DropdownHeader>
-	<DropdownItem>Profile</DropdownItem>
+	<DropdownItem href="/account">Profile & prefs ...</DropdownItem>
 	<DropdownDivider />
 	<DropdownItem href="/login">Sign out</DropdownItem>
 </Dropdown>

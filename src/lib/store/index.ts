@@ -17,7 +17,8 @@ export {
   navigationPath
 } from "./navigation";
 export {
-  getBlockchainInfo,
-  getCurrentBlockchain,
-  setBlockchain
-} from "./networks";
+  getCurrentChain,
+  saveActiveChain,
+  removeActiveChain,
+  findChain
+} from "./chains";
