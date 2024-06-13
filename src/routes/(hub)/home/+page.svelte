@@ -12,6 +12,6 @@
 />
 
 <main>
-  <H1Subtitle>This month status</H1Subtitle>
+  <H1>This month status</H1>
   <Home />
 </main>

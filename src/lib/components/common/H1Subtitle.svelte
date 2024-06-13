@@ -6,6 +6,6 @@
 	export { twClasses as class };  
 </script>
 
-<P class={`text-gray-400 font-normal mt-1 ${twClasses} text-lg lg:text-lg`}>
+<P class={`text-gray-400 font-normal mt-1 ${twClasses} text-xl lg:text-xl`}>
   <slot/>
 </P>

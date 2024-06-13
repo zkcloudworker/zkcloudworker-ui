@@ -90,7 +90,7 @@
 
     <SidebarGroup border class="pt-6 mt-4">
 
-      <SidebarItem label="Profile" {spanClass} class="lg:hidden">
+      <SidebarItem label="Profile" {spanClass} {itemClass} class="lg:hidden" href="/account">
         <svelte:fragment slot="icon">
           <Icon name="Profile" size="5" />
         </svelte:fragment>
@@ -99,26 +99,26 @@
         </svelte:fragment>  
       </SidebarItem>
 
-      <SidebarItem label="Home" {spanClass} {itemClass} href="/home/">
+      <SidebarItem label="Home" {spanClass} {itemClass} href="/home">
         <svelte:fragment slot="icon">
           <Icon name="Home" size="5" />
           <!-- <HouseSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="My Workers" {spanClass} {itemClass} href="/my-workers/">
+      <SidebarItem label="My Workers" {spanClass} {itemClass} href="/my-workers">
         <svelte:fragment slot="icon">
           <Icon name="MyCredentials" size="5" />
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="My Jobs" {spanClass} {itemClass} href="/my-jobs/">
+      <SidebarItem label="My Jobs" {spanClass} {itemClass} href="/my-jobs">
         <svelte:fragment slot="icon">
           <Icon name="Activity" size="5" />
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="Explore" {spanClass} {itemClass} href="/explorer/">
+      <SidebarItem label="Explore" {spanClass} {itemClass} href="/explorer">
         <svelte:fragment slot="icon">
           <Icon name="MyCommunities" size="5" />
           <!-- <ShapesSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
@@ -127,20 +127,20 @@
     </SidebarGroup>
 
     <SidebarGroup border>
-      <SidebarItem label="Billing" {spanClass} {itemClass} href="/billing/">
+      <SidebarItem label="Billing" {spanClass} {itemClass} href="/billing">
         <svelte:fragment slot="icon">
           <Icon name="MyClaims" size="5" />
           <!-- <BookmarkSolid class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" /> -->
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="Support" {spanClass} href="/support/">
+      <SidebarItem label="Support" {spanClass} href="/support">
         <svelte:fragment slot="icon">
           <Icon name="Support" size="5" />
         </svelte:fragment>
       </SidebarItem>
 
-      <SidebarItem label="Sign out" {spanClass} href="/login/">
+      <SidebarItem label="Sign out" {spanClass} href="/login">
         <svelte:fragment slot="icon">
           <Icon name="Disconnect" size="5" />
         </svelte:fragment>
