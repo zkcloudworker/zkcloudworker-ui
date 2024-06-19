@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MetaTag, H1, H1Subtitle } from "$lib/components";
+  import JobsList from "./JobsList.svelte";
 </script>
 
 <MetaTag 
@@ -11,4 +12,5 @@
 
 <main>
    <H1>My Jobs</H1>
+   <JobsList />
 </main>
