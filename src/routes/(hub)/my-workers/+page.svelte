@@ -1,5 +1,7 @@
 <script lang="ts">
   import { MetaTag, H1, H1Subtitle } from "$lib/components";
+	import { usernamePasswordAuthenticator } from "nats.ws";
+  import WorkersList from "./WorkersList.svelte";
 </script>
 
 <MetaTag 
@@ -11,4 +13,5 @@
 
 <main>
    <H1>My Workers</H1>
+   <WorkersList />
 </main>
