@@ -47,7 +47,7 @@
           Input fields go here
         </slot>  
 
-        <div class="mt-6 flex flex-col md:flex-row md:items-center md:justify-between">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
           <slot name="buttons">
         </slot>
 

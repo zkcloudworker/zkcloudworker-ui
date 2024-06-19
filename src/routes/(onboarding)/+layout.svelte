@@ -7,8 +7,9 @@
     dark:border-gray-600 dark:bg-gray-800
   `;
   const bgStyle = `
-    background-image: url('/images/socialcap-bg-signin.svg');height: 100vh; width: 100vw; 
-    backgroundRepeat: no-repeat; backgroundSize: auto;
+    background-image: url('--/images/zkCloudWorker-logo-horizontal.svg');
+    height: 100vh; width: 100vw; 
+    background-repeat: repeat; background-size: cover;
   `
 </script>
 

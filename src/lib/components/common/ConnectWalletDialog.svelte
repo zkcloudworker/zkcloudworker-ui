@@ -1,10 +1,11 @@
 <script lang="ts">
   import { createEventDispatcher, onMount, tick } from "svelte";
   import { Button, Badge, Spinner } from "flowbite-svelte";
+  import { isWalletConnected } from "$lib/store/wallet";
 
   const dispatch = createEventDispatcher();
 
-   let isConnecting = false, isError = false, isConnected = false;
+  let isConnecting = false, isError = false, isConnected = '';
   let accountId = "";
   let errorMessage = "";
 
@@ -12,34 +13,20 @@
     isConnected = await isWalletConnected();
   })
 
-  function isWalletAvailable() {
-    return (typeof window.mina !== 'undefined');
-  }
-
-  async function isWalletConnected() {
-    if (isWalletAvailable()) {
-      const accounts: any[] = await window.mina?.getAccounts() || [];
-      if (accounts.length) {
-        accountId = accounts[0];
-        return true;
-      }
-    }
-    return false;
-  }
-
   async function connectWallet() {
     isConnecting = true;
     try {
       const accounts: any[] = await window.mina?.requestAccounts() || [];
       accountId = accounts[0];
       isConnecting = false;
-      isConnected = true;
+      isConnected = accountId;
       await tick();
+      dispatch("continue", { accountId: accountId })
     }
     catch (err) {
       isError = true;
       isConnecting = false;
-      isConnected = false;
+      isConnected = '';
       errorMessage = `${err}`;
     }
   }
@@ -48,7 +35,7 @@
 <div>
   <div class="text-base mt-20 text-center">
     {#if !isConnected && !isConnecting}
-      <img class="inline-block" src="/images/auro-wallet.svg" />
+      <img alt="auro-wallet-logo" class="inline-block" src="/images/auro-wallet.svg" />
       <div class="text-sm mt-7 text-gray-900">
         You need to install or open 
         <a href="https://www.aurowallet.com/" class="underline">Auro Wallet</a>
@@ -57,7 +44,7 @@
     {/if}
 
     {#if isConnected}
-      <img  class="inline-block h-10" src="/icons/Activity.svg"/>
+      <img  alt="icon"  class="inline-block h-10" src="/icons/Activity.svg"/>
       <div class="mt-5 text-gray-900">
         Connected with account <Badge large rounded color="green" class="py-1">
           {accountId.slice(0,6)}...{accountId.slice(-6)}
@@ -73,25 +60,26 @@
         Check your Auro Wallet for confirmation...
       </div>
     {/if}
+
+    <div class="mt-12 px-0 py-6 w-full flex items-center justify-center">
+      <!-- <Button color="light"  class="py-3" 
+        on:click={() => dispatch("cancel")}>
+        I'll do it later
+      </Button>
+      &nbsp; -->
+      {#if !isConnected}
+        <Button color="primary" class="py-3" 
+          on:click={() => connectWallet()}>
+          Connect
+        </Button>
+      {/if}  
+      {#if isConnected}
+        <Button color="primary" class="py-3" 
+          on:click={() => dispatch("continue")}>
+          Continue
+        </Button>
+      {/if}
+    </div>
   </div>
 
-  <div class="text-end --border-t-2 px-8 py-6 absolute bottom-0 left-0 right-0 text-right">
-    <Button color="light"  class="py-3" 
-      on:click={() => dispatch("cancel")}>
-      I'll do it later
-    </Button>
-    &nbsp;
-    {#if !isConnected}
-      <Button color="primary" class="py-3" 
-        on:click={() => connectWallet()}>
-        Connect
-      </Button>
-    {/if}  
-    {#if isConnected}
-      <Button color="primary" class="py-3" 
-        on:click={() => dispatch("continue")}>
-        Continue
-      </Button>
-    {/if}
-  </div>
 </div>

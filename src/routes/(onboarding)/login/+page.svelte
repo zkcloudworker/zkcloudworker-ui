@@ -2,20 +2,23 @@
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
   import { getCurrentSession, removeActiveSession, saveActiveSession, type Session } from "$lib/store/sessions";
-  import { requestOTP, signUp } from "$lib/api/mutations";
-  import { Button, Label, Input, A  } from "flowbite-svelte";
+  import { Button, Badge, A  } from "flowbite-svelte";
   import { SubmitButton } from "$lib/components";
   import { MetaTag } from "$lib/components";
   import Onboarding from "../Onboarding.svelte";
+  import ConnectWalletDialog from "$lib/components/common/ConnectWalletDialog.svelte";
+  import { isWalletConnected  } from "$lib/store/wallet";
+  import { getMyAccount } from "$lib/api/queries";
+	import { saveActiveUser } from "$lib/store";
 
   let session: Session | null = null ;
-  let email: string = '';
-  let alert: 'NO_EMAIL' | 'NO_OTP' | 'DONE' | null = null;
+  let alert: 'NO_WALLET' | 'NO_OTP' | 'DONE' | null = null;
   let working = "";
   let status = "WAIT";
+  let hasAccount = ''; // the connected account !
 
   const STATUS_COLORS: any = {
-    'NO_EMAIL': 'WARNING',
+    'NO_WALLET': 'WARNING',
     'NO_OTP': 'WARNING',
     'DONE': 'SUCCESS'
   }
@@ -24,99 +27,79 @@
 
   onMount(async () => {
     session = removeActiveSession();
-  })
+    hasAccount = await isWalletConnected();
+  });
 
-  async function getOTP() {
-    working = "Sending ...   ";
-    let rsp = await requestOTP({ 
-      email: email 
-    });
-    working = "";
-
-    if (rsp.error?.code === 404) {
-      // No valid email, go to signup
-      alert = 'NO_EMAIL';
-      return;
+  async function loginNow() {
+    working = "Connecting ...";
+    let rsp = await getMyAccount({
+      id: hasAccount
+    })    
+    if (rsp.success) {
+      setTimeout(() => { 
+        session = session as Session;
+        session.key = rsp.data.id;
+        saveActiveSession(session);
+        saveActiveUser({
+          uid: hasAccount,
+          accountId: hasAccount, 
+          alias: rsp.data.alias,
+          fullName: rsp.data.fullName,
+          email: rsp.data.email,
+          preferences: rsp.data.preferences,
+        })
+        goto(`/home`); 
+      }, 500)
+      working = "Done !";
     }
-
-    if (rsp.error) {
-      alert = 'NO_OTP'; 
-      return;
+    else {
+      working = "Done !";
+      goto("/signup")
     }
-
-    // success, ask for /otp
-    alert = 'DONE'; // "Done ! Going to Home ..."
-    setTimeout(() => { 
-      session = session as Session;
-      session.key = rsp.data?.session_key;
-      saveActiveSession(session);
-      goto(`/otp?sk=${rsp.data?.session_key}`); 
-    }, 500)
-  } 
-
-  function isValidEmail(email: string) {
-    return (email.length > 0 && email.includes('@'));
   }
+
 </script>
 
 <MetaTag 
   path="/login" 
-  title="Socialcap" 
+  title="zkCloudWorker" 
   subtitle="Sign in" 
   description="Input your email" 
 />
 
 <Onboarding
   title="Sign in" 
-  subtitle="Enter your email. We will send you a code."
+  subtitle=""
   alert={alert}
   status={status}
   >
-  <svelte:fragment slot="alert">
-    {#if alert === 'NO_OTP'}
-      Problem sending OTP request, please try again
-    {/if}
-    {#if alert === 'NO_EMAIL'}
-      Could not find your email. Correct it or  
-      <A class="" href="/signup">sign up !</A>
-    {/if}
-    {#if alert === 'DONE'}
-      Done ! Input the OTP we send you 
-    {/if}
-  </svelte:fragment>
-
   <svelte:fragment slot="inputs">
-    <Label class="space-y-2 mt-6">
-      <span class="text-sm font-semibold ps-1">Email</span>
-      <Input 
-        bind:value={email} 
-        type="email" size="lg" name="email" placeholder="" 
-        required 
+    {#if !hasAccount}
+      <ConnectWalletDialog 
+        on:continue={async (ev) => { 
+          hasAccount = await isWalletConnected();
+        }}
       />
-    </Label>
-  </svelte:fragment>
-
-  <svelte:fragment slot="buttons">  
-    <Button 
-      class="w-full order-2 md:order-1 md:w-auto md:mb-0"
-      color="light" 
-      href="/signup" 
-      size="lg"
-      > 
-      No account ? &nbsp; 
-      <span class="text-blue-700">
-        Sign up !
-      </span>
-    </Button>
-
-    <SubmitButton
-      on:click={() => getOTP()} 
-      {working}
-      disabled={!isValidEmail(email)}
-      class="w-full mb-2 order-1 md:order-2 md:w-auto md:mb-0 md:ms-2"
-      size="lg"
-      > 
-      Send me the code
-    </SubmitButton>
+    {:else}
+      <div class="text-center mt-8">
+        <img  alt="icon"  class="inline-block h-10" src="/icons/Activity.svg"/>
+        <div class="mt-5 text-gray-900">
+          Connected with account <Badge large rounded color="green" class="py-1">
+            {hasAccount.slice(0,6)}...{hasAccount.slice(-6)}
+          </Badge>
+        </div>
+      </div>
+      <div class="mt-8 px-0 py-6 w-full flex items-center justify-center">
+        <SubmitButton
+          {working}
+          class="w-full mb-2 order-1 md:order-2 md:w-auto md:mb-0 md:ms-2"
+          size="lg"
+          color="primary" 
+            on:click={() => { loginNow() }}
+          >
+          Login
+        </SubmitButton>
+      </div>
+    {/if}
   </svelte:fragment>
 </Onboarding>

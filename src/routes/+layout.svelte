@@ -9,8 +9,7 @@
 
 	onMount(() => {
     activeSession = getCurrentSession();
-    // if (! activeSession) goto("/login");
-    if (! activeSession) goto("/home");
+    if (! activeSession) goto("/login");
     if (activeSession) goto(getRoute());
     console.log("pageUrl=", getRoute())
     modeobserver();

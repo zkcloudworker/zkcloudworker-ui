@@ -3,15 +3,16 @@ export type { User };
 interface User {
   uid: string;
   accountId: string; 
-  state: string;
   fullName: string;
-  description: string;
-  image: string;
+  alias: string; 
   email: string;
-  phone: string;
-  telegram: string;
   preferences: object,
-  createdUTC: Date;
-  updatedUTC: Date;
-  approvedUTC: Date | null;
+  state?: string;
+  description?: string;
+  image?: string;
+  phone?: string;
+  telegram?: string;
+  createdUTC?: Date;
+  updatedUTC?: Date;
+  approvedUTC?: Date | null;
 };
