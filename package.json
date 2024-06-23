@@ -1,11 +1,11 @@
 {
-	"name": "flowbite-svelte-admin-dashboard",
+	"name": "zkcloudworker-app",
 	"version": "0.1.2",
-	"description": "Flowbite Admin Dashboard components for Svelte",
+	"description": "The zkCloudWorker App",
 	"main": "dist/index.js",
-	"homepage": "https://flowbite-svelte-admin-dashboard.vercel.app/",
+	"homepage": "https://zkcloudworker.com/",
 	"private": false,
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
