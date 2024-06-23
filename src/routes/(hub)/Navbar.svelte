@@ -46,7 +46,7 @@
     <div class="hidden lg:block">
       <div class="ms-auto flex items-center text-gray-500 dark:text-gray-400 sm:order-2">
         <form class="hidden lg:block">
-          <Search size="md" class="mt-1 w-64 border focus:outline-none" />
+          <!-- <Search size="md" class="mt-1 w-64 border focus:outline-none" /> -->
         </form>
         &nbsp;
         &nbsp;

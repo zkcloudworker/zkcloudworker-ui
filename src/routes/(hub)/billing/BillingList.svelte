@@ -5,7 +5,7 @@
   import { Pagination, PaginationItem } from 'flowbite-svelte';  
   import { ChevronLeftOutline, ChevronRightOutline } from 'flowbite-svelte-icons';
   import Time from "svelte-time";
-  import { searchJobs } from "$lib/api/searchs";
+  import { searchCharges } from "$lib/api/searchs";
   import { type User } from "$lib/types";
 	import { getCurrentUser } from "$lib/store";
 
@@ -24,9 +24,8 @@
   async function onChange(page: number) {
     console.log("search", q);
     page = (page < 0 ? 0 : page)
-    let jobs = await searchJobs({
-      // we ALWAYS filter by the 'developer' alias
-      query: `${developer} ${q}`,
+    let jobs = await searchCharges({
+      query: `${q}`,
       hitsPerPage: 10,
       currentPage: page     
     });  
@@ -75,9 +74,9 @@
     <TableHead>
       <TableHeadCell>Time</TableHeadCell>
       <TableHeadCell>Job ID</TableHeadCell>
-      <TableHeadCell>Repo</TableHeadCell>
-      <TableHeadCell>Status</TableHeadCell>
-      <TableHeadCell>Metadata</TableHeadCell>
+      <!-- <TableHeadCell>Id ?</TableHeadCell> -->
+      <TableHeadCell class="text-center">Billed Time (ms)</TableHeadCell>
+      <TableHeadCell>Amount</TableHeadCell>
     </TableHead>
 
     <TableBody tableBodyClass="divide-y">
@@ -88,19 +87,14 @@
         </TableBodyCell>
         <TableBodyCell>
           <code>{t.jobId.slice(0,6)}...{t.jobId.slice(-8)}</code>
+        </TableBodyCell>
+        <TableBodyCell class="text-center">
+          {t.billedDuration}
           <br>
-          <span class="text-xs text-gray-400">{t.chain}</span>
-        </TableBodyCell>
-        <TableBodyCell>
-          {t.repo}
-        </TableBodyCell>
-        <TableBodyCell>
-          <Badge color="green" rounded class="text-xs text-black py-1">
-            {t.jobStatus}
-          </Badge>
+          <span class="text-xs">({t.time})</span>
         </TableBodyCell>
         <TableBodyCell class="text-xs">
-          {t.metadata}
+          {''}
         </TableBodyCell>
       </TableBodyRow>  
       {/each}
