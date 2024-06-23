@@ -11,7 +11,7 @@
 		NavLi,
 		NavUl,
 		Navbar,
-		Search
+		Search, Badge
 	} from 'flowbite-svelte';
 	import '../../app.pcss';
 	import Notifications from '$lib/components/common/NotificationList.svelte';
@@ -30,7 +30,7 @@
 </script>
 
 <Navbar {fluid} class="text-black" color="default" let:NavContainer>
-	<NavContainer class="mb-px mt-px px-1" {fluid}>
+	<NavContainer class="mb-px mt-px px-1 py-2" {fluid}>
 		<NavBrand href="/" class={list ? 'w-60' : 'lg:w-60'}>
 			<img
 				src="/images/zkCloudWorker-logo-horizontal.svg"
@@ -46,6 +46,9 @@
     <div class="hidden lg:block">
       <div class="ms-auto flex items-center text-gray-500 dark:text-gray-400 sm:order-2">
         <form class="hidden lg:block">
+          <Badge large rounded color="green" class="py-1 me-4">
+            {profile?.accountId.slice(0,6)}...{profile?.accountId.slice(-6)}
+          </Badge>
           <!-- <Search size="md" class="mt-1 w-64 border focus:outline-none" /> -->
         </form>
         &nbsp;
