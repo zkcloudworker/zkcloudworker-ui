@@ -12,7 +12,7 @@
 </script>
 
 <MetaTag {path} {description} {title} {subtitle} />
-<main class="p-4">
+<main class="p-">
 	<!-- <Dashboard {data} /> -->
   <Home />
 </main>

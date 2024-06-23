@@ -26,7 +26,7 @@
     page = (page < 0 ? 0 : page)
     let jobs = await searchCharges({
       query: `${q}`,
-      hitsPerPage: 10,
+      hitsPerPage: 20,
       currentPage: page     
     });  
     nbHits = jobs.data.nbHits;

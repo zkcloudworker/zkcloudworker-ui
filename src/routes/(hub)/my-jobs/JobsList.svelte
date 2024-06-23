@@ -27,7 +27,7 @@
     let jobs = await searchJobs({
       // we ALWAYS filter by the 'developer' alias
       query: `${developer} ${q}`,
-      hitsPerPage: 10,
+      hitsPerPage: 20,
       currentPage: page     
     });  
     nbHits = jobs.data.nbHits;
@@ -93,6 +93,8 @@
         </TableBodyCell>
         <TableBodyCell>
           {t.repo}
+          <br>
+          <span class="text-xs text-gray-400">{t.developer}</span>
         </TableBodyCell>
         <TableBodyCell>
           <Badge color="green" rounded class="text-xs text-black py-1">
