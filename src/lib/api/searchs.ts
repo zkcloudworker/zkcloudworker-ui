@@ -26,6 +26,7 @@ export async function searchJobs(params: {
       "jobStatus",
       "chain",
       "task",
+      "developer",
       "metadata",
     ],
   });
