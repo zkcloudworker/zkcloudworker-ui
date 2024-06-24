@@ -1,6 +1,7 @@
 
 export interface WalletStatus {
-  accountId: string;
+  accountId?: string;
+  signedData?: string;
   isConnecting: boolean;
   isConnected: boolean;
   isError: any | null;
@@ -38,6 +39,30 @@ export async function connectWallet(): Promise<WalletStatus> {
       isError: true,
       errorMessage: `${err}`,
       accountId: '',
+      isConnecting: false,
+      isConnected: false
+    }
+  }
+}
+
+export async function signWithWallet(data: any): Promise<WalletStatus> {
+  try {
+		const signedData = await window.mina?.signMessage({
+			message: JSON.stringify(data || 'NO_DATA')
+		});
+    return {
+      signedData: JSON.stringify(signedData),
+      isConnecting: false,
+      isConnected: true,
+      isError: null,
+      errorMessage: ''
+    }
+  }
+  catch (err) {
+    return {
+      isError: true,
+      errorMessage: `${err}`,
+      signedData: '',
       isConnecting: false,
       isConnected: false
     }

@@ -19,14 +19,18 @@
   $: alertColor = ALERT_COLORS[status] || 'light';
 </script>
 
-<main class="h-screen mx-2 flex flex-col justify-center items-center">
+<main class="h-screen mx-2 flex flex-col justify-start items-center">
+  <div class="mt-8">
+    &nbsp;
+  </div>
+
   <div class="pb-4 flex justify-center w-full">
     {#if alert}
       <Alert border color={alertColor} class="p-6 w-full md:w-[36rem]">
         <InfoCircleSolid slot="icon" class="w-6 h-6" />
         <span class="text-md font-semibold text-gray-900">
           <slot name='alert'>
-            Alert messages here ...
+            {alert}
           </slot>
         </span>
       </Alert>  
@@ -34,8 +38,8 @@
   </div>
 
   <div class="px-0 md:px-0 flex justify-center w-full md:w-[36rem]">
-    <Card size="md">
-      <form class="py-4 px-2">
+    <Card size="md" class="p-0">
+      <form class="pt-4 px-2">
         <h3 class="m-0 p-0 text-2xl font-bold text-gray-900 dark:text-white">
           {title}
         </h3>

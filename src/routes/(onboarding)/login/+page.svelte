@@ -35,8 +35,19 @@
     let rsp = await getMyAccount({
       id: hasAccount
     })    
+
     if (rsp.success) {
+      // check response is ok and if account exists
+      let isValid = rsp.data && (!Array.isArray(rsp.data) && rsp.data.id); 
+
       setTimeout(() => { 
+        // does not exist, needs Signup
+        if (!isValid) {
+          goto("/signup")
+          return;
+        }
+
+        // account exists ! save session
         session = session as Session;
         session.key = rsp.data.id;
         saveActiveSession(session);
@@ -50,6 +61,7 @@
         })
         goto(`/home`); 
       }, 500)
+
       working = "Done !";
     }
     else {
@@ -57,14 +69,13 @@
       goto("/signup")
     }
   }
-
 </script>
 
 <MetaTag 
   path="/login" 
   title="zkCloudWorker" 
   subtitle="Sign in" 
-  description="Input your email" 
+  description="Login with Auro wallet" 
 />
 
 <Onboarding
@@ -90,6 +101,10 @@
         </div>
       </div>
       <div class="mt-8 px-0 py-6 w-full flex items-center justify-center">
+        <Button color="light" class="me-2" href="/signup">
+          Sign up
+        </Button>
+
         <SubmitButton
           {working}
           class="w-full mb-2 order-1 md:order-2 md:w-auto md:mb-0 md:ms-2"
