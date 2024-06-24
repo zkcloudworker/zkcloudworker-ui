@@ -1,13 +1,50 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { Input, Label, Helper, A } from "flowbite-svelte";
   import SubmitButton from "$lib/components/common/SubmitButton.svelte";
 	import { getCurrentUser } from "$lib/store";
   import { type User } from "$lib/types";
+  import { updateProfile } from "$lib/api/mutations";
 
-  let user: User = getCurrentUser();
+  let user: User = getCurrentUser() as User;
+
+  let working = "";
+  let warns: 'DONE' | 'ERROR' | null = null;
+  const warnsMessages: any = {
+    'ERROR': 'ERROR' // to be filled latter
+  }
 
   function generateJWT() {
     alert("7")
+  }
+
+  async function updateNow() {
+    working = "Connecting ...";
+
+    // now we try to create the update account 
+    let rsp = await updateProfile({
+      id: user.accountId,
+      alias: user.alias,
+      email: user.email,
+      fullName: user.fullName,
+      preferences: '{}'
+    })    
+
+    if (rsp.success) {
+      setTimeout(() => { 
+        working = "";
+        goto("/home")
+      }, 500)
+      working = "Done !";
+    }
+
+    if (!rsp.success) {
+      working = "";
+      // show error and stay in /signup
+      warns = 'ERROR';
+      warnsMessages[warns] = `Could not save the profile (${rsp.error})`;
+      alert(warnsMessages['ERROR']);
+    }
   }
 </script>
 
@@ -69,7 +106,12 @@
   </Label>
 
   <div class="mt-8">
-    <SubmitButton>
+    <SubmitButton 
+      on:click={() => { updateNow() }}
+      {working}
+      class="w-full mb-2 order-1 md:order-2 md:w-auto md:mb-0 md:ms-2"
+      size="lg"
+      color="primary">
       Save changes
     </SubmitButton>
   </div>
