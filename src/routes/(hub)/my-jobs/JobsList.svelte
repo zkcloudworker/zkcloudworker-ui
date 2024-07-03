@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { onMount, tick } from "svelte";
-  import { Badge, Search } from "flowbite-svelte";
+  import { Badge, Search, A, Modal } from "flowbite-svelte";
   import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
   import { Pagination, PaginationItem } from 'flowbite-svelte';  
-  import { ChevronLeftOutline, ChevronRightOutline, FilterSolid } from 'flowbite-svelte-icons';
+  import { ArrowUpRightFromSquareOutline, ChevronLeftOutline, ChevronRightOutline, FilterSolid } from 'flowbite-svelte-icons';
   import Time from "svelte-time";
-  import { searchJobs } from "$lib/api/searchs";
+  import { searchJobs, searchTransaction } from "$lib/api/searchs";
   import { type User } from "$lib/types";
 	import { getCurrentUser } from "$lib/store";
+	import Icon from "$lib/components/common/Icon.svelte";
 
   export let 
     search: string = '',
@@ -16,6 +17,7 @@
   let hits: any = [];
   let nbPages = 0, nbHits = 0, currentPage = 0, pages = [];
   $: q = search;
+  let modalOn = false, transaction: any = {};
 
   onMount(async () => {
     await onChange(currentPage);
@@ -42,11 +44,24 @@
   const previous = () => {
     onChange(currentPage-1);
   };
+
   const next = () => {
     if (currentPage === nbPages-1) return;
     onChange(currentPage+1);
   };  
+
+  async function openModal(jobId: string) {
+    //alert(jobId);
+    modalOn = true;
+    transaction = await searchTransaction(jobId);
+  }
 </script>
+
+<Modal bind:open={modalOn} autoclose>
+  <pre>
+    {JSON.stringify(transaction, null, 2)}
+  </pre>
+</Modal>
 
 <div class="mt-8 w-full">
   <div class="flex items-center justify-between mb-3">
@@ -87,7 +102,12 @@
           <Time timestamp={t.timeCreated} format="DD/MM/YY h:mm:ss"/>
         </TableBodyCell>
         <TableBodyCell>
-          <code>{t.jobId.slice(0,6)}...{t.jobId.slice(-8)}</code>
+          <A 
+            class="font-semibold"
+            href={`#`} 
+            on:click={() => openModal(t.jobId)}>
+            <code>{t.jobId.slice(0,6)}...{t.jobId.slice(-8)}</code>
+          </A>  
           <br>
           <span class="text-xs text-gray-400">{t.chain}</span>
         </TableBodyCell>

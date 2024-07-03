@@ -74,6 +74,23 @@ export async function searchDistinctRepos(params: {
 }
 
 
+export async function searchTransaction(jobId: string): Promise<APIResult> {
+  const index = client.initIndex("transactions");
+  const rs = await index.search('', {
+    filters: `jobId:${jobId}`,
+    hitsPerPage: 10,
+    page: 0,
+    attributesToRetrieve: ['*'],
+  });
+  const { hits } = rs;
+  return {
+    success: true,
+    data: { hit: hits[0] },
+    error: null
+  }
+}
+
+
 export async function searchCharges(params: {
   query: string;
   filters?: string;

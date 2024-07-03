@@ -4,7 +4,6 @@
   import { type User } from "$lib/types";
   import { getCurrentUser } from "$lib/store";
   import JobsList from "./JobsList.svelte";
-	import { use } from "chai";
 
   export let data: any = null;
 
