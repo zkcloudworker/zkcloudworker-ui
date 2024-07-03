@@ -5,10 +5,8 @@
   import { Pagination, PaginationItem } from 'flowbite-svelte';  
   import { ArrowUpRightFromSquareOutline, ChevronLeftOutline, ChevronRightOutline, FilterSolid } from 'flowbite-svelte-icons';
   import Time from "svelte-time";
-  import { searchJobs, searchTransaction } from "$lib/api/searchs";
-  import { type User } from "$lib/types";
-	import { getCurrentUser } from "$lib/store";
-	import Icon from "$lib/components/common/Icon.svelte";
+  import { searchJobs } from "$lib/api/searchs";
+  import TransactionModal from "./TransactionModal.svelte";
 
   export let 
     search: string = '',
@@ -18,6 +16,7 @@
   let nbPages = 0, nbHits = 0, currentPage = 0, pages = [];
   $: q = search;
   let modalOn = false, transaction: any = {};
+
 
   onMount(async () => {
     await onChange(currentPage);
@@ -53,15 +52,14 @@
   async function openModal(jobId: string) {
     //alert(jobId);
     modalOn = true;
-    transaction = await searchTransaction(jobId);
+    transaction.jobId = jobId;
   }
 </script>
 
-<Modal bind:open={modalOn} autoclose>
-  <pre>
-    {JSON.stringify(transaction, null, 2)}
-  </pre>
-</Modal>
+<TransactionModal 
+  bind:open={modalOn} 
+  jobId={transaction.jobId}
+/>  
 
 <div class="mt-8 w-full">
   <div class="flex items-center justify-between mb-3">

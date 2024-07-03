@@ -20,24 +20,13 @@ export async function searchJobs(params: {
     filters,
     hitsPerPage,
     page: currentPage,
-    attributesToRetrieve: [
-      "id",
-      "jobId",
-      "timeCreated",
-      "repo",
-      "jobStatus",
-      "chain",
-      "task",
-      "developer",
-      "metadata",
-    ],
+    attributesToRetrieve: ['*']
   });
   const { hits, nbHits, nbPages, page } = rs;
-  
+
   return {
-    success: true,
+    success: true, error: null,
     data: { hits, nbHits, nbPages, page },
-    error: null
   }
 }
 
@@ -51,6 +40,7 @@ export async function searchDistinctRepos(params: {
   const index = client.initIndex("jobs");
   let nbPages = 1, j=0;
   let repos: string[] = []; 
+
   while (j < nbPages) {
     const rs = await index.search(query, {
       filters: filters,
@@ -58,11 +48,13 @@ export async function searchDistinctRepos(params: {
       page: j,
       attributesToRetrieve: ["id", "repo", "developer"],
     });
+
     const { hits } = rs;
-    nbPages = rs.nbPages;
     (hits || []).forEach((t: any) => {
       if (!repos.includes(t.repo)) repos.push(t.repo);
     })
+
+    nbPages = rs.nbPages;
     j++;
   }
   
@@ -74,19 +66,28 @@ export async function searchDistinctRepos(params: {
 }
 
 
-export async function searchTransaction(jobId: string): Promise<APIResult> {
-  const index = client.initIndex("transactions");
-  const rs = await index.search('', {
-    filters: `jobId:${jobId}`,
-    hitsPerPage: 10,
-    page: 0,
-    attributesToRetrieve: ['*'],
-  });
-  const { hits } = rs;
-  return {
-    success: true,
-    data: { hit: hits[0] },
-    error: null
+export async function searchTransaction(
+  jobId: string
+): Promise<APIResult> {
+  try {
+    const index = client.initIndex("transactions");
+    const rs = await index.search(`${jobId}`, {
+      hitsPerPage: 10,
+      page: 0,
+      attributesToRetrieve: ['*'],
+    });
+    const { hits } = rs;
+    return {
+      success: true,
+      data: { hits },
+      error: null
+    }
+  }
+  catch(error: any) {
+    return {
+      success: false, data: null,
+      error: error.message || error
+    }
   }
 }
 
@@ -101,17 +102,10 @@ export async function searchCharges(params: {
 
   const index = client.initIndex("charges");
   const rs = await index.search(query, {
-    //filters: filters,
+    filters: filters || '',
     hitsPerPage,
     page: currentPage,
-    attributesToRetrieve: [
-      "objectId",
-      "id",
-      "jobId",
-      "billedDuration",
-      "time",
-      "amount"
-    ],
+    attributesToRetrieve: ['*'],
   });
   const { hits, nbHits, nbPages, page } = rs;
   
