@@ -110,6 +110,7 @@ export async function searchCharges(params: {
       "jobId",
       "billedDuration",
       "time",
+      "amount"
     ],
   });
   const { hits, nbHits, nbPages, page } = rs;

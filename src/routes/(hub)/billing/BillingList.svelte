@@ -76,7 +76,7 @@
       <TableHeadCell>Job ID</TableHeadCell>
       <!-- <TableHeadCell>Id ?</TableHeadCell> -->
       <TableHeadCell class="text-center">Billed Time (ms)</TableHeadCell>
-      <TableHeadCell>Amount</TableHeadCell>
+      <TableHeadCell class="text-center">Amount (MINA)</TableHeadCell>
     </TableHead>
 
     <TableBody tableBodyClass="divide-y">
@@ -93,8 +93,8 @@
           <br>
           <span class="text-xs">({t.time})</span>
         </TableBodyCell>
-        <TableBodyCell class="text-xs">
-          {''}
+        <TableBodyCell class="text-xs text-center">
+          {t.amount}
         </TableBodyCell>
       </TableBodyRow>  
       {/each}
