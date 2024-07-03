@@ -13,7 +13,7 @@ export async function searchJobs(params: {
   currentPage: number;
   filters?: string;
 }): Promise<APIResult> {
-  const { query, filters, distinct, hitsPerPage, currentPage } = params;
+  const { query, filters, hitsPerPage, currentPage } = params;
 
   const index = client.initIndex("jobs");
   const rs = await index.search(query, {

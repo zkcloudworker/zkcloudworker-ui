@@ -3,19 +3,19 @@
   import { Badge, Search } from "flowbite-svelte";
   import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
   import { Pagination, PaginationItem } from 'flowbite-svelte';  
-  import { ChevronLeftOutline, ChevronRightOutline } from 'flowbite-svelte-icons';
+  import { ChevronLeftOutline, ChevronRightOutline, FilterSolid } from 'flowbite-svelte-icons';
   import Time from "svelte-time";
   import { searchJobs } from "$lib/api/searchs";
   import { type User } from "$lib/types";
 	import { getCurrentUser } from "$lib/store";
 
   export let 
-    filterBy: string = '', // example: 'status:active AND repo=pepe',
-    developer: string = '';
+    search: string = '',
+    filterBy: string = ''; // example: 'status:active AND repo=pepe',
 
   let hits: any = [];
   let nbPages = 0, nbHits = 0, currentPage = 0, pages = [];
-  $: q = filterBy;
+  $: q = search;
 
   onMount(async () => {
     await onChange(currentPage);
@@ -25,9 +25,9 @@
     console.log("search", q);
     page = (page < 0 ? 0 : page)
     let jobs = await searchJobs({
-      // we ALWAYS filter by the 'developer' alias
-      query: `${developer} ${q}`,
-      hitsPerPage: 20,
+      query: `${q}`,
+      filters: filterBy,
+      hitsPerPage: 100,
       currentPage: page     
     });  
     nbHits = jobs.data.nbHits;
