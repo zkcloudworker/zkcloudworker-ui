@@ -86,7 +86,9 @@
         <TableBodyCell><pre class="text-xs">{JSON.stringify(txn.metadata, null, 2)}</pre></TableBodyCell>
       </TableBodyRow>
     </Table>
-  {:else}  
-    No data available
   {/if}
+
+  {#if !working && !txn}
+    No data available
+  {/if}  
 </Modal>

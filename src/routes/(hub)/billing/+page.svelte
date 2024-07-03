@@ -2,6 +2,12 @@
   import { MetaTag, H1, H1Subtitle } from "$lib/components";
 	import { Button } from "flowbite-svelte";
   import BillingList from "./BillingList.svelte";
+  import { type User } from "$lib/types";
+  import { getCurrentUser } from "$lib/store";
+
+  const user: User = getCurrentUser() as User;
+  const query = ``;
+  const filters = `id:${user.accountId}`;
 </script>
 
 <MetaTag 
@@ -22,5 +28,5 @@
     </div>  
   </div>
 
-  <BillingList />
+  <BillingList {query} {filters}/>
 </main>

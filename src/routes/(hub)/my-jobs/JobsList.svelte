@@ -56,10 +56,12 @@
   }
 </script>
 
-<TransactionModal 
-  bind:open={modalOn} 
-  jobId={transaction.jobId}
-/>  
+{#if modalOn}
+  <TransactionModal 
+    bind:open={modalOn} 
+    jobId={transaction.jobId}
+  />  
+{/if}
 
 <div class="mt-8 w-full">
   <div class="flex items-center justify-between mb-3">

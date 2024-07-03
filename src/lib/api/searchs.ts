@@ -98,7 +98,7 @@ export async function searchCharges(params: {
   hitsPerPage: number;
   currentPage: number;
 }): Promise<APIResult> {
-  const { query, filters, hitsPerPage, currentPage } = params;
+  let { query, filters, hitsPerPage, currentPage } = params;
 
   const index = client.initIndex("charges");
   const rs = await index.search(query, {

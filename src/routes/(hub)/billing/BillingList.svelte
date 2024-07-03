@@ -1,21 +1,21 @@
 <script lang="ts">
 	import { onMount, tick } from "svelte";
-  import { Badge, Search } from "flowbite-svelte";
+  import { Badge, Search, A } from "flowbite-svelte";
   import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
   import { Pagination, PaginationItem } from 'flowbite-svelte';  
   import { ChevronLeftOutline, ChevronRightOutline } from 'flowbite-svelte-icons';
   import Time from "svelte-time";
   import { searchCharges } from "$lib/api/searchs";
-  import { type User } from "$lib/types";
-	import { getCurrentUser } from "$lib/store";
+  import TransactionModal from "../my-jobs/TransactionModal.svelte";
 
   export let 
-    filterBy: string = '', // example: 'status:active AND repo=pepe',
-    developer: string = '';
+    query: string = '',
+    filters: string = ''; // example: 'status:active AND repo=pepe',
 
   let hits: any = [];
   let nbPages = 0, nbHits = 0, currentPage = 0, pages = [];
-  $: q = filterBy;
+  let q = '';
+  let modalOn = false, transaction: any = {};
 
   onMount(async () => {
     await onChange(currentPage);
@@ -25,7 +25,8 @@
     console.log("search", q);
     page = (page < 0 ? 0 : page)
     let jobs = await searchCharges({
-      query: `${q}`,
+      query: `${query} ${q}`,
+      filters,
       hitsPerPage: 20,
       currentPage: page     
     });  
@@ -45,7 +46,19 @@
     if (currentPage === nbPages-1) return;
     onChange(currentPage+1);
   };  
+  async function openModal(jobId: string) {
+    //alert(jobId);
+    modalOn = true;
+    transaction.jobId = jobId;
+  }
 </script>
+
+{#if modalOn}
+  <TransactionModal 
+    bind:open={modalOn} 
+    jobId={transaction.jobId}
+  />
+{/if}    
 
 <div class="mt-8 w-full">
   <div class="flex items-center justify-between mb-3">
@@ -86,12 +99,17 @@
           <Time timestamp={t.timeCreated} format="DD/MM/YY h:mm:ss"/>
         </TableBodyCell>
         <TableBodyCell>
-          <code>{t.jobId.slice(0,6)}...{t.jobId.slice(-8)}</code>
+          <A 
+            class="font-semibold"
+            href={`#`} 
+            on:click={() => openModal(t.jobId)}>
+            <code>{t.jobId.slice(0,6)}...{t.jobId.slice(-8)}</code>
+          </A>  
         </TableBodyCell>
         <TableBodyCell class="text-center">
           {t.billedDuration}
-          <br>
-          <span class="text-xs">({t.time})</span>
+          <!-- <br>
+          <span class="text-xs">({t.time})</span> -->
         </TableBodyCell>
         <TableBodyCell class="text-xs text-center">
           {t.amount}
