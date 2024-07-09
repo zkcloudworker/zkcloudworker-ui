@@ -9,13 +9,23 @@
 
 	onMount(() => {
     activeSession = getCurrentSession();
+    console.log("pageUrl: ", getRoute(), ", activeSession: ", activeSession);
+    
+    // job detail does not need login
+    if (isJobRoute()) { goto(getRoute()); return; }; 
+
     if (! activeSession) goto("/login");
     if (activeSession) goto(getRoute());
-    console.log("pageUrl=", getRoute())
     modeobserver();
   });
 	onMount(modeobserver);
-	
+
+  function isJobRoute() {
+    const pathname = $page.url.pathname;
+    console.log("Start jobs route: ", pathname);
+    return pathname.includes('/job/');
+  }
+  
   function getRoute() {
     const pathname = $page.url.pathname;
     const search = new URLSearchParams($page.url.search).toString();
