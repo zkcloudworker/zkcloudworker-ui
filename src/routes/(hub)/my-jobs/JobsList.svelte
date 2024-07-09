@@ -7,6 +7,7 @@
   import Time from "svelte-time";
   import { searchJobs } from "$lib/api/searchs";
   import TransactionModal from "./TransactionModal.svelte";
+	import { goto } from "$app/navigation";
 
   export let 
     search: string = '',
@@ -50,9 +51,10 @@
   };  
 
   async function openModal(jobId: string) {
+    goto(`/job/${jobId}`);
     //alert(jobId);
-    modalOn = true;
-    transaction.jobId = jobId;
+    //modalOn = true;
+    //transaction.jobId = jobId;
   }
 </script>
 

@@ -15,7 +15,7 @@ export async function searchJobs(params: {
 }): Promise<APIResult> {
   const { query, filters, hitsPerPage, currentPage } = params;
 
-  const index = client.initIndex("jobs");
+  const index = client.initIndex("zk-jobs");
   const rs = await index.search(query, {
     filters,
     hitsPerPage,
@@ -37,7 +37,7 @@ export async function searchDistinctRepos(params: {
 }): Promise<APIResult> {
   const { query, filters } = params;
 
-  const index = client.initIndex("jobs");
+  const index = client.initIndex("zk-jobs");
   let nbPages = 1, j=0;
   let repos: string[] = []; 
 
@@ -62,6 +62,32 @@ export async function searchDistinctRepos(params: {
     success: true,
     data: { repos },
     error: null
+  }
+}
+
+
+export async function getJob(
+  jobId: string
+): Promise<APIResult> {
+  try {
+    const index = client.initIndex("zk-jobs");
+    const rs = await index.search(`${jobId}`, {
+      hitsPerPage: 10,
+      page: 0,
+      attributesToRetrieve: ['*'],
+    });
+    const { hits } = rs;
+    return {
+      success: true,
+      data: { hits },
+      error: null
+    }
+  }
+  catch(error: any) {
+    return {
+      success: false, data: null,
+      error: error.message || error
+    }
   }
 }
 
