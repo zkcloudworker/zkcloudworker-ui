@@ -45,8 +45,11 @@ export async function getUsedWorkers(params: {
 }
 
 export async function getMyAccount(params: {
-  id: string
+  id: string,
+  chain?: object,
+  signed?: string
 }): Promise<APIResult> {
+  console.log(JSON.stringify(params));
   const rsp = await query('get_accounts', params);
   return {
     success: rsp.success,

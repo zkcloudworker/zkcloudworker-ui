@@ -54,6 +54,7 @@
     // now we try to create the new account 
     let rsp = await signUp({
       id: hasAccount,
+      chain: walletResponse.chain || {},
       signed: walletResponse.signedData || ''
     })    
 

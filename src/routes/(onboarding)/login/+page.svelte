@@ -7,7 +7,7 @@
   import { MetaTag } from "$lib/components";
   import Onboarding from "../Onboarding.svelte";
   import ConnectWalletDialog from "$lib/components/common/ConnectWalletDialog.svelte";
-  import { isWalletConnected  } from "$lib/store/wallet";
+  import { isWalletConnected, signWithWallet  } from "$lib/store/wallet";
   import { getMyAccount } from "$lib/api/queries";
 	import { saveActiveUser } from "$lib/store";
 
@@ -31,9 +31,18 @@
   });
 
   async function loginNow() {
+    // must sign with wallet here !
+    let walletResponse = await signWithWallet({ id: hasAccount })
+    if (walletResponse.isError) {
+      working = "";
+      return;
+    }
+
     working = "Connecting ...";
     let rsp = await getMyAccount({
-      id: hasAccount
+      id: hasAccount,
+      chain: walletResponse.chain || {},
+      signed: walletResponse.signedData || ''
     })    
 
     if (rsp.success) {

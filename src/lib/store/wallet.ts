@@ -2,6 +2,7 @@
 export interface WalletStatus {
   accountId?: string;
   signedData?: string;
+  chain?: any,
   isConnecting: boolean;
   isConnected: boolean;
   isError: any | null;
@@ -47,11 +48,15 @@ export async function connectWallet(): Promise<WalletStatus> {
 
 export async function signWithWallet(data: any): Promise<WalletStatus> {
   try {
+    const chain = await window.mina?.requestNetwork();
+
 		const signedData = await window.mina?.signMessage({
 			message: JSON.stringify(data || 'NO_DATA')
 		});
+
     return {
       signedData: JSON.stringify(signedData),
+      chain: chain,
       isConnecting: false,
       isConnected: true,
       isError: null,
