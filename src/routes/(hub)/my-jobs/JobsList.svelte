@@ -123,7 +123,7 @@
           <StateBadge state={t.jobStatus} />
         </TableBodyCell>
         <TableBodyCell class="text-xs">
-          {t.metadata}
+          {t.metadata || ''}
         </TableBodyCell>
       </TableBodyRow>  
       {/each}

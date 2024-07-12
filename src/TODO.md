@@ -4,6 +4,10 @@
 
 ## Issues
 
+### July 12 
+
+- PRIORITY - `TODO` Fix BALANCE according to current status ...
+
 ### June 24 (meeting recap)
 
 **Tables and Indexes**
@@ -69,7 +73,7 @@ A given user can have workers deployed by himself and workers deployed by others
 
 **Dashboard**
 
-- `TODO`Fix cards according to current status ...
+- `TODO` Fix BALANCE and cards according to current status ...
 
 ### Support
 
