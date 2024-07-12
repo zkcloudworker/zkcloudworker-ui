@@ -53,13 +53,13 @@ A given user can have workers deployed by himself and workers deployed by others
 
 **Topup:**
 
-- `TODO`Topup will transfer funds from the userId account to our MINA account: `B62qqYBxenUcYTRmf4gE3nEjMVHnpqFNHfiHWFDLGm6EKuR6XhYUWXd`
-- `TODO`Changes in balance may take some minutes (~ 10 Mins?). Give warning about this !
+- `DONE`Topup will transfer funds from the userId account to our MINA account: `B62qqYBxenUcYTRmf4gE3nEjMVHnpqFNHfiHWFDLGm6EKuR6XhYUWXd`
+- `DONE`Changes in balance may take some minutes (~ 10 Mins?). Give warning about this !
 
 **Billings**
 
 - `DONE` `charges`index now includes `amount`, calculated by `MS_PER_MINA = 1000000`, meaning that 1 MINA will pay for 1_000_000 ms of billedTime.
-- `TODO` Add Topup here.
+- `DONE` Add Topup here.
 
 **Profile**
 

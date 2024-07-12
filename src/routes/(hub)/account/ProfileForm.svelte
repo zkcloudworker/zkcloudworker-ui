@@ -59,59 +59,59 @@
 <div class="border-0 max-w-lg mt-8">
 
   <Label class="mt-8 block space-y-2">
-    <span class="text-base text-black">Wallet account</span>
-    <div class="text-sm border rounded-md p-2  break-words">
+    <span class="text-sm text-black">Wallet account</span>
+    <div class="text-sm border rounded-md p-2  py-3 break-words">
       {user.accountId}
     </div>  
   </Label>
 
   <Label class="mt-6 block space-y-2">
-    <span class="text-base text-black">Full name</span>
+    <span class="text-sm text-black">Full name</span>
     <Input class="text-lg" label="fullName" id="fullName" name="fullName" 
       required placeholder="" 
       bind:value={user.fullName}/>
-    <Helper class="text-sm text-gray-500">
+    <Helper class="text-xs text-gray-500">
       Your full name.
     </Helper>
   </Label>
 
   <Label class="mt-6 block space-y-2">
-    <span class="text-base text-black">Alias</span>
+    <span class="text-sm text-black">Alias</span>
     <Input class="text-lg" label="alias" id="alias" name="alias" 
       required placeholder="" 
       bind:value={user.alias}/>
-    <Helper class="text-sm text-gray-500">
+    <Helper class="text-xs text-gray-500">
       Your developer alias. Will use it when deploying your workers.
     </Helper>
   </Label>
 
   <Label class="mt-6 block space-y-2">
-    <span class="text-base text-black">Your email</span>
+    <span class="text-sm text-black">Your email</span>
     <Input class="text-lg" label="Email" id="email" name="email" 
       required placeholder="" 
       bind:value={user.email}/>
-    <Helper class="text-sm text-gray-500">
+    <Helper class="text-xs text-gray-500">
       A mail where we can send notifications. It will not be used for login.
     </Helper>
   </Label>
 
   <Label class="mt-6 block space-y-2">
-    <span class="text-base text-black">Discord ID</span>
+    <span class="text-sm text-black">Discord ID</span>
     <Input class="text-lg" label="Discord" id="discord" name="discord" 
       required placeholder="" 
       bind:value={user.discord}/>
-    <Helper class="text-sm text-gray-500">
+    <Helper class="text-xs text-gray-500">
       Your Discord username where we can send notifications.
     </Helper>
   </Label>
 
   <Label class="mt-6 block space-y-2">
-    <span class="text-base text-black">API Key</span>
+    <span class="text-sm text-black">API Key</span>
     &nbsp; | &nbsp;
     <A on:click={recreateJWT} class="">
       Generate new API Key
     </A>
-    <div class="text-sm border rounded-md p-2 break-words">
+    <div class="text-sm border rounded-md p-2 py-3 break-words">
       {user.JWT || ''}
     </div>  
     <Helper class="text-sm" 

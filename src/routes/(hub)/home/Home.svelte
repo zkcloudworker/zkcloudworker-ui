@@ -1,7 +1,22 @@
 <script lang="ts">
   import { Card, Button } from "flowbite-svelte";
   import StatusCard from "./StatusCard.svelte";
+  import TopupPanel from "../billing/TopupPanel.svelte";
+
+  let openTopup = false;
+  let tnew = 1;
+
+  function topUp() {
+    tnew = tnew +1;
+    openTopup = true;
+  }
 </script>
+
+{#key tnew}
+  {#if openTopup}
+    <TopupPanel tnew={tnew} />
+  {/if}  
+{/key}
 
 <div class="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
 
@@ -28,7 +43,10 @@
       { label: "Used", value: "30", unit: "$MINA / month", color: "green"},
     ]}>
     <div slot="buttons" class="mt-8">
-      <Button class="no-w-full">Top up</Button>
+      <Button class="no-w-full"  
+        on:click={() => topUp()}>
+        Top up
+      </Button>
     </div>
   </StatusCard>    
 
