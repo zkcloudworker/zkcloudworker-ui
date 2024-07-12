@@ -7,6 +7,7 @@
   import { getJob } from "$lib/api/searchs";
   import { type APIResult } from "$lib/api/base";
   import { sliced } from "$lib/utils";
+  import StateBadge from "$lib/components/common/StateBadge.svelte";
 
   export let 
     jobId: string = '';
@@ -41,9 +42,14 @@
           <div>{jobId} 
             <p class="text-sm text-gray-500 mt-2">
               <Time timestamp={job.timeCreated} format="DD/MM/YY h:mm:ss"/>
-              <Badge class="ms-3 p-1 px-2" color="green">{job.jobStatus}</Badge>
             </p>
           </div>
+        </TableBodyCell>
+      </TableBodyRow>
+      <TableBodyRow>
+        <TableBodyCell class="text-sm w-40">Status</TableBodyCell>
+        <TableBodyCell class="flex items-center justify-start">
+            <StateBadge state={job.jobStatus} />
         </TableBodyCell>
       </TableBodyRow>
       <TableBodyRow>
@@ -52,10 +58,9 @@
       </TableBodyRow>
       <TableBodyRow>
         <TableBodyCell class="text-sm w-40">Task</TableBodyCell>
-        <TableBodyCell>{job.task}
-          <p class="text-sm text-gray-500 mt-1">
-            <Badge class="p-1 px-2" color="blue">{job.chain}</Badge>
-          </p>  
+        <TableBodyCell>
+          {job.task}
+          <Badge class="ms-3 p-1 px-2" color="blue">{job.chain}</Badge>
         </TableBodyCell>
       </TableBodyRow>
       <TableBodyRow>
@@ -69,7 +74,7 @@
       </TableBodyRow>
       <TableBodyRow>
         <TableBodyCell class="text-sm w-40">Billed</TableBodyCell>
-        <TableBodyCell>{job.billedDuration} ms</TableBodyCell>
+        <TableBodyCell>{job.billedDuration || 'unknown'} ms</TableBodyCell>
       </TableBodyRow>
       <TableBodyRow>
         <TableBodyCell class="text-sm w-40">Metadata</TableBodyCell>

@@ -8,6 +8,7 @@
   import { searchJobs } from "$lib/api/searchs";
   import TransactionModal from "./TransactionModal.svelte";
 	import { goto } from "$app/navigation";
+	import StateBadge from "$lib/components/common/StateBadge.svelte";
 
   export let 
     search: string = '',
@@ -93,7 +94,7 @@
       <TableHeadCell>Time</TableHeadCell>
       <TableHeadCell>Job ID</TableHeadCell>
       <TableHeadCell>Repo</TableHeadCell>
-      <TableHeadCell>Status</TableHeadCell>
+      <TableHeadCell class="no-text-center">Status</TableHeadCell>
       <TableHeadCell>Metadata</TableHeadCell>
     </TableHead>
 
@@ -118,10 +119,8 @@
           <br>
           <span class="text-xs text-gray-400">{t.developer}</span>
         </TableBodyCell>
-        <TableBodyCell>
-          <Badge color="green" rounded class="text-xs text-black py-1">
-            {t.jobStatus}
-          </Badge>
+        <TableBodyCell class="no-text-center">
+          <StateBadge state={t.jobStatus} />
         </TableBodyCell>
         <TableBodyCell class="text-xs">
           {t.metadata}

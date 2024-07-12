@@ -1,35 +1,24 @@
 <script>
     import { Badge } from "flowbite-svelte";
-    import {States, toState} from "$lib/types/states";
+    import { StateStyles } from "$lib/types/states";
     let clazz = "";
     export { clazz as class };
-    export let data; // State number
 
-    console.log("clazz", clazz)
-    const state = toState(data)     
+    export let state = ''; 
+    $: styled = StateStyles[state || 'unknown'];
 </script>
 
-
-{#if state.badgeType === "info"}
-<Badge rounded color="yellow" class={`py-1 px-3 lg:py-2 lg:px-4 text-yellow-800 ${clazz || ''}`}>
-   <p class="text-xs"> {state.name}</p>
-</Badge>
-{/if}
-
-{#if state.badgeType === "danger"}
-<Badge rounded color="red" class={`py-1 px-3 lg:py-2 lg:px-4 text-red-800 ${clazz || ''}`}>
-    <p class="text-xs"> {state.name}</p>
-</Badge>
-{/if}
-
-{#if state.badgeType === "success"}
-<Badge rounded color="green" class={`py-1 px-3 lg:py-2 lg:px-4 text-green-800 ${clazz || ''}`}>
-    <p class="text-xs"> {state.name}</p>
-</Badge>
-{/if}
-
-{#if state.badgeType === "warning"}
-<Badge rounded color="yellow" class={`py-1 px-3 lg:py-2 lg:px-4 text-gray-800 ${clazz || ''}`}>
-    <p class="text-xs"> {state.name}</p>
-</Badge>
+{#if state}
+  <span class="inline-block flex items-center justify-start">
+    <Badge 
+      rounded 
+      class={`
+        py-1 px-1
+        ${styled.color} 
+        ${clazz || ''} 
+      `}>
+      <svelte:component this={styled.icon} class="w-4 h-4"/>
+    </Badge>
+    <span class="text-xs inline-block ms-2">{styled.label}</span>
+  </span>
 {/if}
