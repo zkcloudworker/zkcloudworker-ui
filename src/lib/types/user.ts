@@ -7,6 +7,8 @@ interface User {
   alias: string; 
   email: string;
   preferences: object,
+  discord: string,
+  JWT: string,
   state?: string;
   description?: string;
   image?: string;

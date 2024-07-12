@@ -67,6 +67,8 @@
           fullName: rsp.data.fullName,
           email: rsp.data.email,
           preferences: rsp.data.preferences,
+          discord: rsp.data.discord || '',
+          JWT: rsp.data.JWT || ''
         })
         goto(`/home`); 
       }, 500)

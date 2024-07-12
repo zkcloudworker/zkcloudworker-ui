@@ -83,3 +83,39 @@ export async function mutate(
     }
   }
 }
+
+export async function post(
+  path: string, 
+  params: object,
+): Promise<APIResult> {
+  try {
+    const url = `${path}`
+
+    // the data to send comes as params to the call
+    const payload = params || {};
+
+    const response = await axios.post(url, payload, {
+      headers: {
+        'Content-Type': 'application/json', // ensure request sent as JSON
+        // 'x-api-key': apiKey, // AWS API key
+      }
+    });
+
+    console.log('API post data:', JSON.stringify(response.data, null, 2));
+    return {
+      success: true,
+      error: null,
+      data: response.data
+    }
+  }
+  catch(error: any) {
+    const errorRsp = error.response ? error.response.data : error.message;
+    console.error('API post ERROR:', errorRsp);
+    return {
+      success: false,
+      error: errorRsp,
+      data: null
+    }
+  }
+}
+

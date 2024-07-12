@@ -4,18 +4,21 @@
   import SubmitButton from "$lib/components/common/SubmitButton.svelte";
 	import { getCurrentUser } from "$lib/store";
   import { type User } from "$lib/types";
-  import { updateProfile } from "$lib/api/mutations";
+  import { updateProfile, generateJWT } from "$lib/api/mutations";
 
   let user: User = getCurrentUser() as User;
 
   let working = "";
-  let warns: 'DONE' | 'ERROR' | null = null;
-  const warnsMessages: any = {
-    'ERROR': 'ERROR' // to be filled latter
-  }
+  let warns: 'DONE' | 'ERROR' | 'JWT_ERROR' | null = null;
+  let errorMessages = "";
 
-  function generateJWT() {
-    alert("7")
+  async function recreateJWT() {
+    warns = null;
+    user.JWT = "Creating your API key ...";
+    let rsp = await generateJWT(user.accountId);
+    user.JWT = rsp.success ? rsp.data : '';
+    warns = rsp.success ? null : 'JWT_ERROR';
+    errorMessages = rsp.success ? '' : `Could not generate the JWT: ${rsp.error}`;
   }
 
   async function updateNow() {
@@ -27,7 +30,9 @@
       alias: user.alias,
       email: user.email,
       fullName: user.fullName,
-      preferences: '{}'
+      preferences: '{}',
+      discord: user.discord,
+      JWT: user.JWT
     })    
 
     if (rsp.success) {
@@ -42,14 +47,13 @@
       working = "";
       // show error and stay in /signup
       warns = 'ERROR';
-      warnsMessages[warns] = `Could not save the profile (${rsp.error})`;
-      alert(warnsMessages['ERROR']);
+      errorMessages = `Could not save the profile (${rsp.error})`;
     }
   }
 </script>
 
 <Helper class="text-xs text-gray-500 mt-2">
-  We’ll never share your details. Read our <a href="/" class="font-medium text-primary-600 hover:underline dark:text-primary-500"> Privacy Policy</a>.
+  We’ll never share your details. Read our <a href="/support" class="font-medium text-primary-600 hover:underline dark:text-primary-500"> Privacy Policy</a>.
 </Helper>
 
 <div class="border-0 max-w-lg mt-8">
@@ -72,16 +76,6 @@
   </Label>
 
   <Label class="mt-6 block space-y-2">
-    <span class="text-base text-black">Your email</span>
-    <Input class="text-lg" label="Email" id="email" name="email" 
-      required placeholder="" 
-      bind:value={user.email}/>
-    <Helper class="text-sm text-gray-500">
-      A mail where we can send notifications. It will not be used for login.
-    </Helper>
-  </Label>
-
-  <Label class="mt-6 block space-y-2">
     <span class="text-base text-black">Alias</span>
     <Input class="text-lg" label="alias" id="alias" name="alias" 
       required placeholder="" 
@@ -92,16 +86,40 @@
   </Label>
 
   <Label class="mt-6 block space-y-2">
+    <span class="text-base text-black">Your email</span>
+    <Input class="text-lg" label="Email" id="email" name="email" 
+      required placeholder="" 
+      bind:value={user.email}/>
+    <Helper class="text-sm text-gray-500">
+      A mail where we can send notifications. It will not be used for login.
+    </Helper>
+  </Label>
+
+  <Label class="mt-6 block space-y-2">
+    <span class="text-base text-black">Discord ID</span>
+    <Input class="text-lg" label="Discord" id="discord" name="discord" 
+      required placeholder="" 
+      bind:value={user.discord}/>
+    <Helper class="text-sm text-gray-500">
+      Your Discord username where we can send notifications.
+    </Helper>
+  </Label>
+
+  <Label class="mt-6 block space-y-2">
     <span class="text-base text-black">API Key</span>
     &nbsp; | &nbsp;
-    <A on:click={generateJWT} class="">
+    <A on:click={recreateJWT} class="">
       Generate new API Key
     </A>
     <div class="text-sm border rounded-md p-2 break-words">
-      {'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkI2MnFwYnFMQjFwYWJaVXU0b2FES0ZtdjcyRHRIV25GeEdLOGF1Y05aSHhTMWNEbW1zcnJwVnAiLCJpYXQiOjE3MTg3NzYxMzUsImV4cCI6MTc1MDMxMjEzNX0.mAXEUY_iLYOsD6GBzk7ufnsbvHZKqsHVwDv95-M0kE8'}
+      {user.JWT || ''}
     </div>  
-    <Helper class="text-sm text-gray-500">
-      Your JWToken for deploying and calling your workers. 
+    <Helper class="text-sm" 
+      color={warns === 'JWT_ERROR' ? 'red' : 'gray'}>
+      {warns === 'JWT_ERROR' 
+        ? errorMessages
+        : 'Your JWToken for deploying and calling your workers.'
+      }   
     </Helper>
   </Label>
 
