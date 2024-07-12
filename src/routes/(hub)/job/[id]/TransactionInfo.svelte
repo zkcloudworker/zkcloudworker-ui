@@ -34,8 +34,8 @@
 
 <div>
   {#if working}
-    <p class="text-sm py-4">
-      <Spinner /> 
+    <p class="text-sm py-6">
+      <Spinner size={5}/> 
       Loading transaction for job {sliced(jobId)}
     </p>
   {/if}

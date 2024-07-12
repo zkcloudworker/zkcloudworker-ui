@@ -27,23 +27,23 @@
 
 <div>
   {#if working}
-    <p class="text-sm py-4">
-      <Spinner /> 
+    <p class="text-sm py-6">
+      <Spinner size={5}/> 
       Loading job data for {sliced(jobId)}
     </p>  
-  {/if}
-
-  {#if !working && job}
+    {/if}
+    
+    {#if !working && job}
     <Table class="text-base">
       <TableBodyRow>
         <TableBodyCell class="text-sm w-40">Job</TableBodyCell>
         <TableBodyCell class="flex items-center justify-start">
-          <div>{sliced(jobId)} 
-            <p class="text-sm text-gray-500 mt-1">
+          <div>{jobId} 
+            <p class="text-sm text-gray-500 mt-2">
               <Time timestamp={job.timeCreated} format="DD/MM/YY h:mm:ss"/>
+              <Badge class="ms-3 p-1 px-2" color="green">{job.jobStatus}</Badge>
             </p>
           </div>
-          <Badge class="ms-6 p-1 px-2" color="green">{job.jobStatus}</Badge>
         </TableBodyCell>
       </TableBodyRow>
       <TableBodyRow>
@@ -90,8 +90,8 @@
   {/if}
 
   {#if !working && !job}
-    <p class="text-sm py-4">
-      No transaction data available
+    <p class="px-6 py-4">
+      No job data available
     </p>  
   {/if}  
 </div>
