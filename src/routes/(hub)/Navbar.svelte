@@ -61,9 +61,6 @@
     </div>
     <div class="block lg:hidden">
       <div class="ms-auto flex items-center text-gray-500 dark:text-gray-400 sm:order-2">
-        <SearchList />
-        &nbsp;
-        &nbsp;
         <NavHamburger
     			onClick={() => (drawerHidden = !drawerHidden)}
     			class="m-0 my-3 me-3 md:block lg:hidden"
