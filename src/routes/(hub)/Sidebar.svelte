@@ -65,8 +65,7 @@
   asideClass="fixed inset-0 z-30 flex-none h-full w-full overflow-auto lg:w-64 lg:h-auto border-e border-gray-200 dark:border-gray-600 lg:overflow-y-visible pt-8 lg:pt-24 lg:block"
   >
   <SidebarWrapper class="pt-14 pb-12 lg:pt-0 bg-white dark:bg-dark">
-    <SidebarGroup class="pt-2">
-
+    <!-- <SidebarGroup class="pt-2">
       <SidebarItem label="Network" {spanClass}>
         <svelte:fragment slot="icon">
             <Icon name="Network" size="5" />
@@ -85,10 +84,9 @@
           </Select>
         </svelte:fragment>  
       </SidebarItem>
+    </SidebarGroup> -->
 
-    </SidebarGroup>
-
-    <SidebarGroup border class="pt-6 mt-4">
+    <SidebarGroup border-0 class="pt-0 mt-4">
 
       <SidebarItem label="Profile" {spanClass} {itemClass} class="lg:hidden" href="/account">
         <svelte:fragment slot="icon">
