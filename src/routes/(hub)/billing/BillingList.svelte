@@ -7,6 +7,7 @@
   import Time from "svelte-time";
   import { searchCharges } from "$lib/api/searchs";
   import TransactionModal from "../my-jobs/TransactionModal.svelte";
+	import { goto } from "$app/navigation";
 
   export let 
     query: string = '',
@@ -42,14 +43,14 @@
   const previous = () => {
     onChange(currentPage-1);
   };
+  
   const next = () => {
     if (currentPage === nbPages-1) return;
     onChange(currentPage+1);
   };  
+
   async function openModal(jobId: string) {
-    //alert(jobId);
-    modalOn = true;
-    transaction.jobId = jobId;
+    goto(`/job/${jobId}`);
   }
 </script>
 
