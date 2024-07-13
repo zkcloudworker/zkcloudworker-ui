@@ -16,13 +16,16 @@ export async function searchJobs(params: {
   const { query, filters, hitsPerPage, currentPage } = params;
 
   const index = client.initIndex("zk-jobs");
+  console.log(`searchJobs query: ${query} filters: ${filters}`)
   const rs = await index.search(query, {
     filters,
     hitsPerPage,
     page: currentPage,
     attributesToRetrieve: ['*']
   });
+
   const { hits, nbHits, nbPages, page } = rs;
+  console.log(`searchJobs query: ${query} filters: ${filters} #hits: ${(hits || []).length}`)
 
   return {
     success: true, error: null,
@@ -103,6 +106,8 @@ export async function searchTransaction(
       attributesToRetrieve: ['*'],
     });
     const { hits } = rs;
+
+    console.log(`searchTransactions query: ${jobId} #hits: ${(hits || []).length}`);
     return {
       success: true,
       data: { hits },
@@ -133,8 +138,10 @@ export async function searchCharges(params: {
     page: currentPage,
     attributesToRetrieve: ['*'],
   });
+
   const { hits, nbHits, nbPages, page } = rs;
-  
+  console.log(`searchCharges query: ${query} filters: ${filters} #hits: ${(hits || []).length}`)
+
   return {
     success: true,
     data: { hits, nbHits, nbPages, page },

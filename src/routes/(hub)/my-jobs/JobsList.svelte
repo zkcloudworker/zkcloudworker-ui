@@ -25,7 +25,7 @@
   })
   
   async function onChange(page: number) {
-    console.log("search", q);
+    console.log("JobsList search q:", q);
     page = (page < 0 ? 0 : page)
     let jobs = await searchJobs({
       query: `${q}`,
@@ -38,7 +38,7 @@
     currentPage = jobs.data.page;
     pages = [{ name: `${(currentPage+1)} / ${nbPages}` }];     
     hits = [].concat(jobs.data.hits); 
-    console.log(hits);
+    //console.log(hits);
     await tick();
   }
 
