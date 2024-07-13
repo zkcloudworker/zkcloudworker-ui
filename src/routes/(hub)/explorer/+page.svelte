@@ -8,10 +8,14 @@
   const user: User = getCurrentUser() as User;
   let deployedBy = 'all'; // all | me | others
 
+  // $: filters = 
+  //   (deployedBy === 'all' ? `NOT id:${user.accountId}` : '')
+  //   + (deployedBy === 'me' ? `NOT id:${user.accountId} AND developer:${user.alias}` : '')
+  //   + (deployedBy === 'others' ? `NOT id:${user.accountId} AND NOT developer:${user.alias}` : '');
   $: filters = 
-    (deployedBy === 'all' ? `NOT id:${user.accountId}` : '')
-    + (deployedBy === 'me' ? `NOT id:${user.accountId} AND developer:${user.alias}` : '')
-    + (deployedBy === 'others' ? `NOT id:${user.accountId} AND NOT developer:${user.alias}` : '');
+    (deployedBy === 'all' ? `` : '')
+    + (deployedBy === 'me' ? `developer:${user.alias}` : '')
+    + (deployedBy === 'others' ? `NOT developer:${user.alias}` : '');
 </script>
 
 <MetaTag 
