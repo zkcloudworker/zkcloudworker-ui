@@ -19,9 +19,9 @@ function getCurrentUser(): User | null {
   activeUser = data && JSON.parse(data) || null; 
 
   /// TO FIXXX AFTER DEMO ///
-  activeUser!.accountId = "B62qo69VLUPMXEC6AFWRgjdTEGsA3xKvqeU5CgYm3jAbBJL7dTvaQkv";
-  activeUser!.alias = 'DFST';
-  
+  //activeUser!.accountId = "B62qo69VLUPMXEC6AFWRgjdTEGsA3xKvqeU5CgYm3jAbBJL7dTvaQkv";
+  //activeUser!.alias = 'DFST';
+
   return activeUser;
 };
 
