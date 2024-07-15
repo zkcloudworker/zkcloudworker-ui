@@ -17,6 +17,11 @@ function getCurrentUser(): User | null {
   if (activeUser) return activeUser;
   const data = localStorage.getItem(STORE_KEY);
   activeUser = data && JSON.parse(data) || null; 
+
+  /// TO FIXXX AFTER DEMO ///
+  activeUser!.accountId = "B62qo69VLUPMXEC6AFWRgjdTEGsA3xKvqeU5CgYm3jAbBJL7dTvaQkv";
+  activeUser!.alias = 'DFST';
+  
   return activeUser;
 };
 

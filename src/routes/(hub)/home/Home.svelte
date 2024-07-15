@@ -1,15 +1,27 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { Card, Button } from "flowbite-svelte";
   import StatusCard from "./StatusCard.svelte";
   import TopupPanel from "../billing/TopupPanel.svelte";
+  import { getMyBalance } from "$lib/api/queries";
+	import { getCurrentUser } from "$lib/store";
 
+  let balance = 0;
   let openTopup = false;
   let tnew = 1;
+  let user = getCurrentUser();
 
   function topUp() {
     tnew = tnew +1;
     openTopup = true;
   }
+
+  onMount(async () => {
+    const response = await getMyBalance({
+      id: user?.accountId as string
+    })
+    balance = response.success ? response.data.balance.toFixed(2) : null;
+  })
 </script>
 
 {#key tnew}
@@ -39,8 +51,8 @@
   <StatusCard 
     title="Your current balance"
     items={[
-      { label: "Total", value: "49", unit: "$MINA", color: "red"},
-      { label: "Used", value: "30", unit: "$MINA / month", color: "green"},
+      { label: "Total", value: (balance || '...'), unit: "$MINA", color: "red"},
+      { label: "Used", value: "...", unit: "$MINA / month", color: "green"},
     ]}>
     <div slot="buttons" class="mt-8">
       <Button class="no-w-full"  

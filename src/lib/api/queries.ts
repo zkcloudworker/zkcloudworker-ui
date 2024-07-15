@@ -57,3 +57,17 @@ export async function getMyAccount(params: {
     error: !rsp.success ? rsp.error : null,
   }
 }
+
+export async function getMyBalance(params: {
+  id: string,
+  chain?: object,
+  signed?: string
+}): Promise<APIResult> {
+  console.log(JSON.stringify(params));
+  const rsp = await query('get_balances', params);
+  return {
+    success: rsp.success,
+    data: rsp.success ? rsp.data[0] : null,
+    error: !rsp.success ? rsp.error : null,
+  }
+}
