@@ -73,10 +73,10 @@ A given user can have workers deployed by himself and workers deployed by others
 
 **Dashboard**
 
-- `TODO` Fix BALANCE and cards according to current status ...
+- `DONE` Fix BALANCE and cards according to current status ...
 
 ### Support
 
-- `TODO`Add discord channels
-- `TODO`Add email support@zkcloudworker.com
-- `TODO`Refer to documents site for FAQ.
+- `DONE`Add discord channels
+- `DONE`Add email support@zkcloudworker.com
+- `DONE`Refer to documents site for FAQ.
